@@ -1,4 +1,4 @@
-package com.example.frames;
+package com.grup8.OpenEvents;
 
 public class Event {
     private String name;

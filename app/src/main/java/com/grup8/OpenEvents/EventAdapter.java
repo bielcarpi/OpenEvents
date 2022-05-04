@@ -1,4 +1,4 @@
-package com.example.frames;
+package com.grup8.OpenEvents;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

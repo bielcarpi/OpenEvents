@@ -1,4 +1,4 @@
-package com.example.frames;
+package com.grup8.OpenEvents;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
