@@ -1,10 +1,12 @@
-package com.grup8.OpenEvents;
+package com.grup8.OpenEvents.controller.fragments;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.grup8.OpenEvents.model.entities.Event;
 
 import java.util.List;
 

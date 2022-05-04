@@ -1,4 +1,4 @@
-package com.grup8.OpenEvents;
+package com.grup8.OpenEvents.model.entities;
 
 public class Event {
     private String name;

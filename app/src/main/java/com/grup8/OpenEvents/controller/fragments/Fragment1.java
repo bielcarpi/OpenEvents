@@ -1,4 +1,4 @@
-package com.grup8.OpenEvents;
+package com.grup8.OpenEvents.controller.fragments;
 
 import android.os.Bundle;
 
@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import com.grup8.OpenEvents.R;
+import com.grup8.OpenEvents.model.EventManager;
 
 import java.util.List;
 
