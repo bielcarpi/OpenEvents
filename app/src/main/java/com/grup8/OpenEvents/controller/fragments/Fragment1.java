@@ -14,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.grup8.OpenEvents.R;
-import com.grup8.OpenEvents.model.EventManager;
+import com.grup8.OpenEvents.model.entities.Event;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class Fragment1 extends Fragment {
     private RecyclerView eventRecyclerView;
     private EventAdapter adapter;
 
-    private EventManager eventManager =EventManager.getInstance(getActivity());
+    //private EventManager eventManager =EventManager.getInstance(getActivity());
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class Fragment1 extends Fragment {
 
     private void updateUI() {
         //Pokedex pokedex = Pokedex.getInstance (getActivity());
-        List<Event> lEvents = eventManager.getlEvents();
+        List<Event> lEvents = null;
 
         if (adapter == null) {
             adapter = new EventAdapter(lEvents, getActivity());
