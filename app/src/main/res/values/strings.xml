@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">OpenEvents</string>
     <string name="token_preference_file">LoginToken</string>
+
+    <string name="no_error"/>
+    <string name="bad_response">Error. Bad Server Response</string>
+    <string name="unreachable_server">Error. Unreachable server</string>
+    <string name="internal_app_error">Error. Internal App Error</string>
+
+    <string name="incorrect_name_format">Error. The name or surname are not correct</string>
+    <string name="incorrect_email_format">Error. The email is not correct</string>
+    <string name="incorrect_password_format">Error. The password must contain 8 characters, numbers, uppercase and lowercase letters</string>
+    <string name="incorrect_user_image_format">Error with the user image. Please, introduce a valid image</string>
+
+
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="array">
@@ -19,5 +32,8 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+
+
 
 </resources>
