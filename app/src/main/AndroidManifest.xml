@@ -2,26 +2,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.grup8.OpenEvents">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".model.OpenEventsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/app_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Frames">
+        android:theme="@style/Theme.OpenEvents">
+        <activity
+            android:name=".controller.activities.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.activities.LoginActivity"
+            android:exported="false"
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".controller.activities.SplashScreenActivity"
-            android:theme="@style/SplashTheme"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".controller.activities.MainActivity" />
-
     </application>
 
 </manifest>
