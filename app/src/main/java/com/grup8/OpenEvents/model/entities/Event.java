@@ -40,6 +40,7 @@ public class Event {
     public String getName() {
         return name;
     }
+
     public int getOwnerId() {
         return ownerId;
     }
@@ -73,4 +74,5 @@ public class Event {
     public float getAvgScore() {
         return avgScore;
     }
+
 }

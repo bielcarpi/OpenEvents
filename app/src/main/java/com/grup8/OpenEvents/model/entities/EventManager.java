@@ -19,8 +19,8 @@ public class EventManager {
     private EventManager(Context context) {
         lEvents = new ArrayList<>();
         for( int i = 0; i < 100; i++) {
-            Event e = new Event();
-            e.setName("Event " + i);
+            Event e = new Event(i, "Event " + i, 0, null, null, null, null, null, null, 0, null, null, 0);
+
 
             lEvents.add(e);
         }
