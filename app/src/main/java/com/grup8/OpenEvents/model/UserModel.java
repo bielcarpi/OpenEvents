@@ -8,6 +8,7 @@ import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
 import com.grup8.OpenEvents.model.api.ResponseCallback;
+import com.grup8.OpenEvents.model.entities.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,10 +30,10 @@ public class UserModel {
 
 
     public interface LoginCallback{
-        void OnResponse(boolean success, int errorMessage);
+        void onResponse(boolean success, int errorMessage);
     }
-    public interface RegisterCallback{
-        void OnResponse(boolean success, int errorMessage);
+    public interface GetUsersCallback{
+        void onResponse(boolean success, User[] users);
     }
 
 
@@ -51,11 +52,11 @@ public class UserModel {
 
     public void logIn(String email, String password, LoginCallback callback){
         if(!validateEmail(email)){
-            callback.OnResponse(false, R.string.incorrect_email_format);
+            callback.onResponse(false, R.string.incorrect_email_format);
             return;
         }
         else if(!validatePassword(password)){
-            callback.OnResponse(false, R.string.incorrect_password_format);
+            callback.onResponse(false, R.string.incorrect_password_format);
             return;
         }
 
@@ -67,19 +68,19 @@ public class UserModel {
                 public void OnResponse(JSONObject response) {
                     try {
                         addToken(response.getString("accessToken")); //Save access token
-                        callback.OnResponse(true, R.string.no_error);
+                        callback.onResponse(true, R.string.no_error);
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        callback.OnResponse(false, R.string.bad_response);
+                        callback.onResponse(false, R.string.bad_response);
                     }
                 }
                 @Override
                 public void OnErrorResponse(String error) {
-                    callback.OnResponse(false, R.string.unreachable_server);
+                    callback.onResponse(false, R.string.unreachable_server);
                 }
             });
         }catch(JSONException e){
-            callback.OnResponse(false, R.string.internal_app_error);
+            callback.onResponse(false, R.string.internal_app_error);
         }
     }
 
@@ -88,44 +89,45 @@ public class UserModel {
     }
 
 
-    public void register(String name, String lastName, String email, String password, String imageURL, RegisterCallback callback){
-        if(!validateName(name) || !validateName(lastName)){
-            callback.OnResponse(false, R.string.incorrect_name_format);
+    public void register(User user, LoginCallback callback){
+        if(!validateName(user.getName()) || !validateName(user.getLastName())){
+            callback.onResponse(false, R.string.incorrect_name_format);
             return;
         }
-        else if(!validateEmail(email)){
-            callback.OnResponse(false, R.string.incorrect_email_format);
+        else if(!validateEmail(user.getEmail())){
+            callback.onResponse(false, R.string.incorrect_email_format);
             return;
         }
-        else if(!validatePassword(password)){
-            callback.OnResponse(false, R.string.incorrect_password_format);
+        else if(!validatePassword(user.getPassword())){
+            callback.onResponse(false, R.string.incorrect_password_format);
             return;
         }
-        else if(!validateUserImage(imageURL)){
-            callback.OnResponse(false, R.string.incorrect_user_image_format);
+        else if(!validateUserImage(user.getImage())){
+            callback.onResponse(false, R.string.incorrect_user_image_format);
             return;
         }
 
-        final String bodyString = "{\"name\":\"" + name + "\",\"last_name\":\"" + lastName + "\",\"email\":\"" + email + "\",\"password\":\"" + password + "\",\"image\":\"" + imageURL + "\"}";
+        final String bodyString = "{\"name\":\"" + user.getName() + "\",\"last_name\":\"" + user.getLastName() + "\",\"email\":\"" + user.getEmail() + "\",\"password\":\"" + user.getPassword() + "\",\"image\":\"" + user.getImage() + "\"}";
         try{
             JSONObject body = new JSONObject(bodyString);
             ApiCommunicator.makeRequest(REGISTER_REQUEST_URL, RequestMethod.POST, body, new ResponseCallback() {
                 @Override
                 public void OnResponse(JSONObject response) {
                     if(response.has("name") && response.has("last_name") && response.has("email") && response.has("image"))
-                        callback.OnResponse(true, R.string.no_error);
+                        callback.onResponse(true, R.string.no_error);
                     else
-                        callback.OnResponse(false, R.string.bad_response);
+                        callback.onResponse(false, R.string.bad_response);
                 }
                 @Override
                 public void OnErrorResponse(String error) {
-                    callback.OnResponse(false, R.string.unreachable_server);
+                    callback.onResponse(false, R.string.unreachable_server);
                 }
             });
         }catch(JSONException e){
-            callback.OnResponse(false, R.string.internal_app_error);
+            callback.onResponse(false, R.string.internal_app_error);
         }
     }
+
 
 
 
@@ -135,6 +137,7 @@ public class UserModel {
         spTokenEditor.apply();
 
         this.token = null;
+        ApiCommunicator.deleteToken();
     }
     private void addToken(String token){
         SharedPreferences.Editor spTokenEditor = spToken.edit();
@@ -142,6 +145,7 @@ public class UserModel {
         spTokenEditor.apply();
 
         this.token = token;
+        ApiCommunicator.setToken(token);
     }
 
 
