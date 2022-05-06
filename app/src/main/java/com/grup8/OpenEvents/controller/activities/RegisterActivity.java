@@ -37,19 +37,28 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         btnRegister.setOnClickListener(view -> {
+            btnRegister.setEnabled(false);
+
             String password = etPassword.getText().toString();
             String confirmPassword = etConfirmPassword.getText().toString();
             if (password.equals(confirmPassword)){
-                User newUser = new User(etName.getText().toString(), etSurname.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString(), "http://google.com");
+                User newUser = new User(etName.getText().toString(), etSurname.getText().toString(), etEmail.getText().toString(), password, "http://google.com");
                 UserModel.getInstance().register(newUser, (success, errorMessage) -> {
                     if(success){
                         Toast.makeText(RegisterActivity.this, R.string.successful_register, Toast.LENGTH_LONG).show();
                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     }
-                    else txtError.setText(errorMessage);
+                    else{
+                        txtError.setText(errorMessage);
+                        btnRegister.setEnabled(true);
+                    }
                 });
             }
-            else txtError.setText(R.string.passwords_dont_match);
+            else{
+                txtError.setText(R.string.passwords_dont_match);
+                btnRegister.setEnabled(true);
+            }
+
         });
 
         btnLogin.setOnClickListener(view -> startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));

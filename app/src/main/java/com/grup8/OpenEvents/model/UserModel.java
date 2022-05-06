@@ -14,6 +14,8 @@ import com.grup8.OpenEvents.model.entities.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.UnknownHostException;
+
 public class UserModel {
 
     private static final UserModel singleton = new UserModel();
@@ -89,7 +91,7 @@ public class UserModel {
                     System.out.println("This is the error -->");
                     System.out.println(error);
                     System.out.println("End Response");
-                    callback.onResponse(false, R.string.unreachable_server);
+                    callback.onResponse(false, R.string.incorrect_login);
                 }
             });
         }catch(JSONException e){

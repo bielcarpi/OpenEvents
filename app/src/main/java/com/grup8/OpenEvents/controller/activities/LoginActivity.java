@@ -26,8 +26,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        System.out.println("Hola!!!!!!!!!!!!!!!!");
-        System.out.println(UserModel.getInstance().userLoggedIn());
         btnLogin = findViewById(R.id.login_btn);
         btnRegister = findViewById(R.id.go_to_register_btn);
         etEmail = findViewById(R.id.email_login);
@@ -37,10 +35,13 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(view -> {
             btnLogin.setEnabled(false);
             UserModel.getInstance().logIn(etEmail.getText().toString(), etPassword.getText().toString(), (success, errorMessage) -> {
-                if(success) startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                else txtError.setText(errorMessage);
-
-                btnLogin.setEnabled(true);
+                if(success){
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }
+                else{
+                    txtError.setText(errorMessage);
+                    btnLogin.setEnabled(true);
+                }
             });
         });
 

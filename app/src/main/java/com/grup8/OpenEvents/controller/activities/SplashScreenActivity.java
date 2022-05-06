@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.grup8.OpenEvents.model.UserModel;
-import com.grup8.OpenEvents.model.entities.User;
 
 @SuppressLint("CustomSplashScreen") //We're targeting Android 7. The Custom SplashScreen is only available from Android 12 onwards
 public class SplashScreenActivity extends AppCompatActivity {

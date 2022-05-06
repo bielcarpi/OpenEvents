@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:hint="@string/name"
+        android:hint="@string/surname"
         android:layout_margin="20dp"
         android:gravity="center"
         android:inputType="textCapWords"
