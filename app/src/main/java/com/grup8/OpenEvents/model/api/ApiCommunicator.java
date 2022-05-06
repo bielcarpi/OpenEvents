@@ -17,8 +17,8 @@ import java.util.Map;
 
 public class ApiCommunicator {
 
-    private static final String BASE_URI = "http://puigmal.salle.url.edu/api";
-    private static RequestQueue queue = Volley.newRequestQueue(OpenEventsApplication.getAppContext());
+    private static final String BASE_URI = "http://puigmal.salle.url.edu/api/v2";
+    private static final RequestQueue queue = Volley.newRequestQueue(OpenEventsApplication.getAppContext());
 
     private static String token;
 
@@ -30,10 +30,10 @@ public class ApiCommunicator {
     public static void makeRequest(String relativeURL, RequestMethod requestMethod, JSONObject requestBody, boolean useToken, ResponseCallback callback){
         int method;
         switch (requestMethod){
-            case POST: method = Request.Method.POST;
-            case PUT: method = Request.Method.PUT;
-            case DELETE: method = Request.Method.DELETE;
-            default: method = Request.Method.GET;
+            case POST: method = Request.Method.POST; break;
+            case PUT: method = Request.Method.PUT; break;
+            case DELETE: method = Request.Method.DELETE; break;
+            default: method = Request.Method.GET; break;
         }
 
         JsonObjectRequest request = new JsonObjectRequest(method, BASE_URI + relativeURL, requestBody,
@@ -42,7 +42,7 @@ public class ApiCommunicator {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = super.getHeaders();
                 //Add OAuth 2.0 Bearer Token Header
                 if(token != null) params.put("Authorization", "Bearer" + token);
                 return params;
