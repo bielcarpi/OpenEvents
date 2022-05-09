@@ -11,11 +11,15 @@
     <string name="incorrect_email_format">Error. The email is not correct</string>
     <string name="incorrect_password_format">Error. The password must contain 8 characters, numbers, uppercase and lowercase letters</string>
     <string name="incorrect_user_image_format">Error with the user image. Please, introduce a valid image</string>
+    <string name="passwords_dont_match">Error. The passwords don\'t match!</string>
+    <string name="incorrect_login">Error. Either the email or the password are incorrect</string>
+    <string name="successful_register">Register was successful!</string>
 
     <string name="login">LOGIN</string>
     <string name="register">REGISTER</string>
     <string name="email">Email</string>
     <string name="name">Name</string>
+    <string name="surname">Surname</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="home">home</string>

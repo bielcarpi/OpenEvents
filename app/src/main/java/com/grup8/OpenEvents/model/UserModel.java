@@ -2,6 +2,7 @@ package com.grup8.OpenEvents.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.util.Patterns;
 
 import com.grup8.OpenEvents.R;
@@ -12,6 +13,8 @@ import com.grup8.OpenEvents.model.entities.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.UnknownHostException;
 
 public class UserModel {
 
@@ -66,6 +69,12 @@ public class UserModel {
             ApiCommunicator.makeRequest(LOGIN_REQUEST_URL, RequestMethod.POST, body, new ResponseCallback() {
                 @Override
                 public void OnResponse(JSONObject response) {
+                    System.out.println("Response!!");
+                    System.out.println(LOGIN_REQUEST_URL);
+                    System.out.println(body);
+                    System.out.println("This is the response -->");
+                    System.out.println(response);
+                    System.out.println("End Response");
                     try {
                         addToken(response.getString("accessToken")); //Save access token
                         callback.onResponse(true, R.string.no_error);
@@ -76,7 +85,13 @@ public class UserModel {
                 }
                 @Override
                 public void OnErrorResponse(String error) {
-                    callback.onResponse(false, R.string.unreachable_server);
+                    System.out.println("Error Response!!");
+                    System.out.println(LOGIN_REQUEST_URL);
+                    System.out.println(body);
+                    System.out.println("This is the error -->");
+                    System.out.println(error);
+                    System.out.println("End Response");
+                    callback.onResponse(false, R.string.incorrect_login);
                 }
             });
         }catch(JSONException e){

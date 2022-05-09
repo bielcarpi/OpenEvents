@@ -17,8 +17,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         //Check if the user is logged in. If it is, go to the MainActivity
         if(UserModel.getInstance().userLoggedIn())
             startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
-
-        //If user is not logged in, go to the Log In activity
-        startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
+        else //If user is not logged in, go to the Log In activity
+            startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
     }
 }
