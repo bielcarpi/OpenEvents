@@ -2,7 +2,7 @@
     <string name="app_name">OpenEvents</string>
     <string name="token_preference_file">LoginToken</string>
 
-    <string name="no_error"/>
+    <string name="no_error" />
     <string name="bad_response">Error. Bad Server Response</string>
     <string name="unreachable_server">Error. Unreachable server</string>
     <string name="internal_app_error">Error. Internal App Error</string>
@@ -39,8 +39,6 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-
-
 
 
 </resources>
