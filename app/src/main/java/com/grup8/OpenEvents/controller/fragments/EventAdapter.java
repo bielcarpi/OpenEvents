@@ -6,15 +6,16 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.model.entities.Event;
 
 import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
     private List<Event> lEvent;
-    private Activity activity;
+    private MainActivity activity;
 
-    public EventAdapter(List<Event> lEvents, Activity activity) {
+    public EventAdapter(List<Event> lEvents, MainActivity activity) {
         this.lEvent = lEvents;
         this.activity = activity;
     }

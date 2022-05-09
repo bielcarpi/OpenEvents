@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.grup8.OpenEvents.R;
+import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.EventManager;
 
@@ -49,6 +50,7 @@ public class Fragment1 extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selected = adapterView.getItemAtPosition(i).toString();
+                
 
             }
 
@@ -68,11 +70,10 @@ public class Fragment1 extends Fragment {
     }
 
     private void updateUI() {
-        //Pokedex pokedex = Pokedex.getInstance (getActivity());
         List<Event> lEvents = eventManager.getlEvents();
 
         if (adapter == null) {
-            adapter = new EventAdapter(lEvents, getActivity());
+            adapter = new EventAdapter(lEvents, (MainActivity) getActivity());
             eventRecyclerView.setAdapter (adapter);
         } else {
             adapter.notifyDataSetChanged();
