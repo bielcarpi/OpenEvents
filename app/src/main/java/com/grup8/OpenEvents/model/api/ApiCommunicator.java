@@ -1,15 +1,24 @@
 package com.grup8.OpenEvents.model.api;
 
+import android.app.Application;
+
 import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.grup8.OpenEvents.model.OpenEventsApplication;
 import com.grup8.OpenEvents.model.UserModel;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -18,7 +27,14 @@ import java.util.Map;
 public class ApiCommunicator {
 
     private static final String BASE_URI = "http://puigmal.salle.url.edu/api/v2";
-    private static final RequestQueue queue = Volley.newRequestQueue(OpenEventsApplication.getAppContext());
+    private static final RequestQueue queue;
+
+    static {
+        queue = new RequestQueue(new DiskBasedCache(OpenEventsApplication.getAppContext().getCacheDir(), 1024 * 1024),
+                new BasicNetwork(new HurlStack()));
+
+        queue.start();
+    }
 
     private static String token;
 
@@ -36,16 +52,28 @@ public class ApiCommunicator {
             default: method = Request.Method.GET; break;
         }
 
-        JsonObjectRequest request = new JsonObjectRequest(method, BASE_URI + relativeURL, requestBody,
-            response -> callback.OnResponse(response),
-            error -> callback.OnErrorResponse(error.getMessage())){
+        StringRequest request = new StringRequest(method, BASE_URI + relativeURL,
+                callback::OnResponse,
+                error -> callback.OnErrorResponse(error.getMessage())){
 
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = super.getHeaders();
+            public byte[] getBody() {
+                return requestBody.toString().getBytes();
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
                 //Add OAuth 2.0 Bearer Token Header
-                if(token != null) params.put("Authorization", "Bearer" + token);
-                return params;
+                if(useToken && token != null)
+                    headers.put("Authorization", "Bearer " + token);
+
+                return headers;
             }
         };
 
@@ -59,6 +87,4 @@ public class ApiCommunicator {
     public static void deleteToken(){
         token = null;
     }
-
-
 }

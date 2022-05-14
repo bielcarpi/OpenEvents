@@ -1,8 +1,6 @@
 package com.grup8.OpenEvents.model;
 
-import android.annotation.SuppressLint;
 
-import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
 import com.grup8.OpenEvents.model.api.ResponseCallback;
@@ -19,6 +17,7 @@ public class EventModel {
     private static final EventModel singleton = new EventModel();
 
     private static final String BEST_EVENTS_REQUEST_URL = "/events/best";
+    private static final String ALLl_EVENTS_REQUEST_URL = "/events";
     private EventModel(){}
 
     public static EventModel getInstance(){
@@ -31,10 +30,19 @@ public class EventModel {
 
 
 
+    public void getAllEvents(EventCallback callback){
+        getEvents(ALLl_EVENTS_REQUEST_URL, callback);
+    }
+
     public void getBestEvents(EventCallback callback){
-        ApiCommunicator.makeRequest(BEST_EVENTS_REQUEST_URL, RequestMethod.GET, null, true, new ResponseCallback() {
+        getEvents(BEST_EVENTS_REQUEST_URL, callback);
+    }
+
+
+    private void getEvents(String url, EventCallback callback){
+        ApiCommunicator.makeRequest(url, RequestMethod.GET, null, true, new ResponseCallback() {
             @Override
-            public void OnResponse(JSONObject response) {
+            public void OnResponse(String response) {
                 try {
                     JSONArray array = new JSONArray(response);
                     Event[] events = new Event[array.length()];
@@ -47,7 +55,7 @@ public class EventModel {
                                 CalendarHelper.getCalendar(o.getString("eventStart_date")),
                                 CalendarHelper.getCalendar(o.getString("eventEnd_date")),
                                 o.getInt("n_participators"), o.getString("slug"),
-                                o.getString("type"), (float)o.getDouble("avg_score"));
+                                o.getString("type"), o.getString("avg_score").equals("null")? -1.0f : (float)o.getDouble("avg_score"));
                     }
 
                     callback.onResponse(true, events);
@@ -58,6 +66,7 @@ public class EventModel {
             }
             @Override
             public void OnErrorResponse(String error) {
+                System.out.println(error);
                 callback.onResponse(false, null);
             }
         });
