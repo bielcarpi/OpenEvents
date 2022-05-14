@@ -85,7 +85,7 @@ public class UserModel {
 
                         //Now that we know that the login is correct, we must make requests
                         // to retrieve all the information of the User (name, photo, etc.)
-                        ApiCommunicator.makeRequest(SEARCH_USER_URL + email, RequestMethod.GET, null, new ResponseCallback() {
+                        ApiCommunicator.makeRequest(SEARCH_USER_URL + email, RequestMethod.GET, null, true, new ResponseCallback() {
                             @Override
                             public void OnResponse(String response) {
                                 try {
@@ -175,7 +175,7 @@ public class UserModel {
 
     public void updateUserStats(GetUserCallback callback){
         //Needs to make three requests concatenated (first, the statistics, then the number of events, and finally the number of friends)
-        ApiCommunicator.makeRequest("/users/" + loggedInUser.getId() + "/statistics", RequestMethod.GET, null, new ResponseCallback() {
+        ApiCommunicator.makeRequest("/users/" + loggedInUser.getId() + "/statistics", RequestMethod.GET, null, true, new ResponseCallback() {
             @Override
             public void OnResponse(String response) {
                 try {
@@ -183,14 +183,14 @@ public class UserModel {
                     float avgScore = (float)jsonResponse.getDouble("avg_score");
                     int numComments = jsonResponse.getInt("num_comments");
                     float percentageCommentersBelow = (float)jsonResponse.getDouble("percentage_commenters_below");
-                    ApiCommunicator.makeRequest("/users/" + loggedInUser.getId() + "events", RequestMethod.GET, null, new ResponseCallback() {
+                    ApiCommunicator.makeRequest("/users/" + loggedInUser.getId() + "events", RequestMethod.GET, null, true, new ResponseCallback() {
                         @Override
                         public void OnResponse(String response) {
                             try {
                                 JSONArray jsonResponse = new JSONArray(response);
                                 int numEvents = jsonResponse.length();
 
-                                ApiCommunicator.makeRequest(GET_FRIENDS_URL, RequestMethod.GET, null, new ResponseCallback() {
+                                ApiCommunicator.makeRequest(GET_FRIENDS_URL, RequestMethod.GET, null, true, new ResponseCallback() {
                                     @Override
                                     public void OnResponse(String response) {
                                         try {
@@ -229,7 +229,34 @@ public class UserModel {
 
 
     public void getUserFriends(GetUsersCallback callback){
-        ApiCommunicator.makeRequest(GET_FRIENDS_URL, RequestMethod.GET, null, new ResponseCallback() {
+        ApiCommunicator.makeRequest(GET_FRIENDS_URL, RequestMethod.GET, null, true, new ResponseCallback() {
+            @Override
+            public void OnResponse(String response) {
+                try {
+                    JSONArray array = new JSONArray(response);
+                    User[] friends = new User[array.length()];
+                    for(int i = 0; i < array.length(); i++){
+                        JSONObject o = array.getJSONObject(i);
+
+                        friends[i] = new User(o.getInt("id"), o.getString("name"), o.getString("last_name"),
+                                o.getString("email"), o.getString("image"));
+                    }
+                    callback.onResponse(true, friends);
+
+                } catch (JSONException e) {
+                    callback.onResponse(false, null);
+                }
+            }
+            @Override
+            public void OnErrorResponse(String error) {
+                callback.onResponse(false, null);
+            }
+        });
+    }
+
+
+    public void searchUser(String search, GetUsersCallback callback){
+        ApiCommunicator.makeRequest(SEARCH_USER_URL + search, RequestMethod.GET, null, true, new ResponseCallback() {
             @Override
             public void OnResponse(String response) {
                 try {
