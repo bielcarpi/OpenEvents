@@ -3,6 +3,7 @@ package com.grup8.OpenEvents.controller.fragments;
 import android.app.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ public class EventHolder  extends RecyclerView.ViewHolder implements View.OnClic
     private TextView tvData;
 
 
+
+
     private MainActivity activity;
 
     public EventHolder(LayoutInflater inflater, ViewGroup parent, MainActivity activity) {
@@ -46,10 +49,23 @@ public class EventHolder  extends RecyclerView.ViewHolder implements View.OnClic
 
     @Override
     public void onClick(View view) {
-
+        // Get the position of the event we clicked
 
         activity = (MainActivity) view.getContext();
+        DescriptionEventFragment descriptionEventFragment = new DescriptionEventFragment();
+
+        // Pass the user clicked
+        Bundle args = new Bundle();
+        args.putString("NAME", event.getName());
+        args.putString("IMAGE", event.getImage());
+        // ...
+
+
+        descriptionEventFragment.setArguments(args);
+
         FragmentManager fm = activity.getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.frame, new DescriptionEventFragment()).commit();
+        fm.beginTransaction().replace(R.id.frame, descriptionEventFragment).commit();
+
+
     }
 }

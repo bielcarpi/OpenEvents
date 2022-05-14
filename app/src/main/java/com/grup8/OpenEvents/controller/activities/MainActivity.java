@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.fragments.Fragment1;
 import com.grup8.OpenEvents.controller.fragments.Fragment2;
+import com.grup8.OpenEvents.controller.fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         homeBtn = (Button) findViewById(R.id.fragment1);
         profileBtn = (Button) findViewById(R.id.fragemnt2);
+        replaceFragment(new Fragment1());
 
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragment(new Fragment2());
+                replaceFragment(new ProfileFragment());
             }
         });
 
