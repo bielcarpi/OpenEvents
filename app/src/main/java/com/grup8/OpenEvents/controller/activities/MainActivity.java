@@ -13,6 +13,8 @@ import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.fragments.Fragment1;
 import com.grup8.OpenEvents.controller.fragments.Fragment2;
 import com.grup8.OpenEvents.controller.fragments.ProfileFragment;
+import com.grup8.OpenEvents.model.EventModel;
+import com.grup8.OpenEvents.model.entities.Event;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,24 +24,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        homeBtn = (Button) findViewById(R.id.fragment1);
-        profileBtn = (Button) findViewById(R.id.fragemnt2);
         replaceFragment(new Fragment1());
 
-        homeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                replaceFragment(new Fragment1());
-            }
+        /* EventModel.getInstance().getBestEvents((success, events) -> {
+            System.out.println("Hola! Events -> " + success);
+            if(success)
+                for(Event e: events) System.out.println(e);
         });
+        */
 
-        profileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                replaceFragment(new ProfileFragment());
-            }
-        });
 
+        homeBtn = findViewById(R.id.fragment1);
+        profileBtn = findViewById(R.id.fragemnt2);
+
+        homeBtn.setOnClickListener(view -> replaceFragment(new Fragment1()));
+        profileBtn.setOnClickListener(view -> replaceFragment(new ProfileFragment()));
     }
 
     private void replaceFragment(Fragment f) {

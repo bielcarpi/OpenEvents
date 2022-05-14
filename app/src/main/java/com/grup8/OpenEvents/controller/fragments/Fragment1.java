@@ -15,9 +15,11 @@ import android.widget.Spinner;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
+import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.EventManager;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Fragment1 extends Fragment {
@@ -45,6 +47,8 @@ public class Fragment1 extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
 
+
+
         // Recogemos el valor que ha pulsado del spinner
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -61,6 +65,14 @@ public class Fragment1 extends Fragment {
         });
 
         // Recycle View
+
+
+        EventModel.getInstance().getBestEvents((success, events) -> {
+            System.out.println("Hola! Events -> " + success);
+            if(success)
+                eventManager.setlEvents(Arrays.asList(events));
+
+        });
 
         eventRecyclerView = (RecyclerView) v.findViewById(R.id.event_recycleview);
         eventRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));

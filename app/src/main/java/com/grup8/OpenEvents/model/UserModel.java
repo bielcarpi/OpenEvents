@@ -45,6 +45,7 @@ public class UserModel {
         spToken = c.getSharedPreferences(c.getString(R.string.token_preference_file), Context.MODE_PRIVATE);
 
         token = spToken.getString(TOKEN_KEY, null);
+        ApiCommunicator.setToken(token);
     }
 
 
@@ -68,15 +69,10 @@ public class UserModel {
             JSONObject body = new JSONObject(bodyString);
             ApiCommunicator.makeRequest(LOGIN_REQUEST_URL, RequestMethod.POST, body, new ResponseCallback() {
                 @Override
-                public void OnResponse(JSONObject response) {
-                    System.out.println("Response!!");
-                    System.out.println(LOGIN_REQUEST_URL);
-                    System.out.println(body);
-                    System.out.println("This is the response -->");
-                    System.out.println(response);
-                    System.out.println("End Response");
+                public void OnResponse(String response) {
                     try {
-                        addToken(response.getString("accessToken")); //Save access token
+                        JSONObject jsonResponse = new JSONObject(response);
+                        addToken(jsonResponse.getString("accessToken")); //Save access token
                         callback.onResponse(true, R.string.no_error);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -85,12 +81,6 @@ public class UserModel {
                 }
                 @Override
                 public void OnErrorResponse(String error) {
-                    System.out.println("Error Response!!");
-                    System.out.println(LOGIN_REQUEST_URL);
-                    System.out.println(body);
-                    System.out.println("This is the error -->");
-                    System.out.println(error);
-                    System.out.println("End Response");
                     callback.onResponse(false, R.string.incorrect_login);
                 }
             });
@@ -127,11 +117,18 @@ public class UserModel {
             JSONObject body = new JSONObject(bodyString);
             ApiCommunicator.makeRequest(REGISTER_REQUEST_URL, RequestMethod.POST, body, new ResponseCallback() {
                 @Override
-                public void OnResponse(JSONObject response) {
-                    if(response.has("name") && response.has("last_name") && response.has("email") && response.has("image"))
-                        callback.onResponse(true, R.string.no_error);
-                    else
+                public void OnResponse(String strResponse) {
+                    JSONObject response = null;
+                    try {
+                        response = new JSONObject(strResponse);
+                        if(response.has("name") && response.has("last_name") && response.has("email") && response.has("image"))
+                            callback.onResponse(true, R.string.no_error);
+                        else
+                            callback.onResponse(false, R.string.bad_response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                         callback.onResponse(false, R.string.bad_response);
+                    }
                 }
                 @Override
                 public void OnErrorResponse(String error) {

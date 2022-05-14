@@ -37,6 +37,8 @@ public class DescriptionEventFragment extends Fragment {
         String image = data.getString("IMAGE");
         System.out.println(name);
 
+        tvName.setText(name);
+
         return v;
     }
 }

@@ -75,4 +75,22 @@ public class Event {
         return avgScore;
     }
 
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", ownerId=" + ownerId +
+                ", creationDate=" + creationDate +
+                ", image='" + image + '\'' +
+                ", location='" + location + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", participators=" + participators +
+                ", slug='" + slug + '\'' +
+                ", type='" + type + '\'' +
+                ", avgScore=" + avgScore +
+                '}';
+    }
 }

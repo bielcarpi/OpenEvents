@@ -58,6 +58,7 @@ public class EventHolder  extends RecyclerView.ViewHolder implements View.OnClic
         Bundle args = new Bundle();
         args.putString("NAME", event.getName());
         args.putString("IMAGE", event.getImage());
+
         // ...
 
 
