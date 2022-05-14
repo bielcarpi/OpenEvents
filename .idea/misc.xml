@@ -9,8 +9,10 @@
         <entry key="..\:/Users/david/AndroidStudioProjects/frames/app/src/main/res/layout/list_adapter.xml" value="0.1984375" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2546875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_modify_event.xml" value="0.24010416666666667" />
         <entry key="app/src/main/res/layout/activity_perfil.xml" value="0.24010416666666667" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.2546875" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.24010416666666667" />
         <entry key="app/src/main/res/layout/fragment_1.xml" value="0.1859375" />
         <entry key="app/src/main/res/layout/fragment_2.xml" value="0.2546875" />
         <entry key="app/src/main/res/layout/fragment_description_event.xml" value="0.2546875" />
