@@ -27,14 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
         replaceFragment(new Fragment1());
 
-        /* EventModel.getInstance().getBestEvents((success, events) -> {
-            System.out.println("Hola! Events -> " + success);
-            if(success)
-                for(Event e: events) System.out.println(e);
-        });
-        */
-
-
         homeBtn = findViewById(R.id.fragment1);
         profileBtn = findViewById(R.id.fragemnt2);
 

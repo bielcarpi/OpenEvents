@@ -2,22 +2,17 @@ package com.grup8.OpenEvents.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.util.Patterns;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
 import com.grup8.OpenEvents.model.api.ResponseCallback;
-import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.User;
-import com.grup8.OpenEvents.model.utils.CalendarHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.UnknownHostException;
 
 public class UserModel {
 
@@ -27,6 +22,7 @@ public class UserModel {
     private static final String REGISTER_REQUEST_URL = "/users";
     private static final String SEARCH_USER_URL = "/users/search?s=";
     private static final String GET_FRIENDS_URL = "/friends";
+    private static final String UPDATE_USER_URL = "/users";
 
     private final SharedPreferences spToken;
     private String token;
@@ -38,7 +34,7 @@ public class UserModel {
     }
 
 
-    public interface LoginCallback{
+    public interface SuccessCallback {
         void onResponse(boolean success, int errorMessage);
     }
     public interface GetUsersCallback{
@@ -63,7 +59,7 @@ public class UserModel {
     }
 
 
-    public void logIn(String email, String password, LoginCallback callback){
+    public void logIn(String email, String password, SuccessCallback callback){
         if(!validateEmail(email)){
             callback.onResponse(false, R.string.incorrect_email_format);
             return;
@@ -126,7 +122,7 @@ public class UserModel {
     }
 
 
-    public void register(User user, LoginCallback callback){
+    public void register(User user, SuccessCallback callback){
         if(!validateName(user.getName()) || !validateName(user.getLastName())){
             callback.onResponse(false, R.string.incorrect_name_format);
             return;
@@ -280,6 +276,33 @@ public class UserModel {
             }
         });
     }
+
+
+    public void updateUser(User newUser, SuccessCallback callback){
+        final String bodyString = "{\"name\":\"" + newUser.getName() + "\",\"last_name\":\"" + newUser.getLastName() + "\",\"email\":\"" + newUser.getEmail() + "\",\"password\":\"" + newUser.getPassword() + "\",\"image\":\"" + newUser.getImage() + "\"}";
+        ApiCommunicator.makeRequest(UPDATE_USER_URL, RequestMethod.PUT, null, true, new ResponseCallback() {
+            @Override
+            public void OnResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    if(jsonResponse.has("email")){ //Success
+                        loggedInUser.updateInfo(newUser.getName(), newUser.getLastName(), newUser.getEmail(), newUser.getPassword(), newUser.getImage());
+                        callback.onResponse(true, -1);
+                    }
+                    else{
+                        callback.onResponse(true, R.string.bad_response);
+                    }
+                } catch (JSONException e) {
+                    callback.onResponse(false, R.string.bad_response);
+                }
+            }
+            @Override
+            public void OnErrorResponse(String error) {
+                callback.onResponse(false, R.string.internal_app_error);
+            }
+        });
+    }
+
 
 
     public User getLoggedInUser(){
