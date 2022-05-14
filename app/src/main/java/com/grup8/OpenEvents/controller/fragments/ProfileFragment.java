@@ -15,9 +15,11 @@ import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
+import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.EventManager;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
@@ -42,13 +44,20 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        EventModel.getInstance().getBestEvents((success, events) -> {
+            System.out.println("Hola! Events -> " + success);
+            if(success)
+                eventManager.setlEvents(Arrays.asList(events));
+
+        });
+
+
+
         eventRecyclerView = (RecyclerView) v.findViewById(R.id.event_recycleview);
         eventRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));
 
-        ivImage = v.findViewById(R.id.image);
-        tvName = v.findViewById(R.id.name);
 
-       eventManager.getlEvents().clear();
+
 
         return v;
     }

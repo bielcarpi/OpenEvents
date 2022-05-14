@@ -29,10 +29,7 @@ public class Fragment1 extends Fragment {
 
     private EventManager eventManager = EventManager.getInstance(getActivity());
 
-    @Override
-    public void onCreate (Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
