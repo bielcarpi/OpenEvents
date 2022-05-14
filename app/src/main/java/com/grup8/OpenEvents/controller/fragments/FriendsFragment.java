@@ -11,14 +11,19 @@ import android.view.ViewGroup;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
+import com.grup8.OpenEvents.model.EventModel;
+import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.User;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class FriendsFragment extends Fragment {
     private List<User> lUser;
     private FriendsAdapter adapter;
+
+
 
     private RecyclerView eventRecyclerView;
 
@@ -28,16 +33,25 @@ public class FriendsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_friends, container, false);
 
+        UserModel.getInstance().getUserFriends((success, users) -> {
+            System.out.println("Hola! Events -> " + success);
+            if(success)
+                lUser.addAll(Arrays.asList(users));
+
+        });
+
         return v;
     }
 
     private void updateUI() {
 
         // demanar info de qui
-        List<User> lUser;
+
+
+        List<User> lUser = this.lUser;
 
         if (adapter == null) {
-            adapter = new EventAdapter(lUser, (MainActivity) getActivity());
+            adapter = new FriendsAdapter(lUser, (MainActivity) getActivity());
             eventRecyclerView.setAdapter (adapter);
         } else {
             adapter.notifyDataSetChanged();

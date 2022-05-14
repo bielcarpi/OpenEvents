@@ -10,6 +10,8 @@ public class User {
     private float avgScore;
     private int numComments;
     private float percentageCommentersBelow;
+    private int numEvents;
+    private int numFriends;
 
     public User(int id, String name, String lastName, String email, String image){
         this.id = id;
@@ -27,10 +29,12 @@ public class User {
         this.image = image;
     }
 
-    public User(float avgScore, int numComments, float percentageCommentersBelow){
+    public void updateStats(float avgScore, int numComments, float percentageCommentersBelow, int numEvents, int numFriends){
         this.avgScore = avgScore;
         this.numComments = numComments;
         this.percentageCommentersBelow = percentageCommentersBelow;
+        this.numEvents = numEvents;
+        this.numFriends = numFriends;
     }
 
 
@@ -60,5 +64,11 @@ public class User {
     }
     public float getPercentageCommentersBelow() {
         return percentageCommentersBelow;
+    }
+    public int getNumEvents() {
+        return numEvents;
+    }
+    public int getNumFriends() {
+        return numFriends;
     }
 }

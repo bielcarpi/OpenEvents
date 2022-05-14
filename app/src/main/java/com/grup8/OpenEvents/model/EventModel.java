@@ -5,6 +5,7 @@ import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
 import com.grup8.OpenEvents.model.api.ResponseCallback;
 import com.grup8.OpenEvents.model.entities.Event;
+import com.grup8.OpenEvents.model.entities.User;
 import com.grup8.OpenEvents.model.utils.CalendarHelper;
 
 import org.json.JSONArray;
@@ -17,7 +18,7 @@ public class EventModel {
     private static final EventModel singleton = new EventModel();
 
     private static final String BEST_EVENTS_REQUEST_URL = "/events/best";
-    private static final String ALLl_EVENTS_REQUEST_URL = "/events";
+    private static final String ALL_EVENTS_REQUEST_URL = "/events";
     private EventModel(){}
 
     public static EventModel getInstance(){
@@ -31,11 +32,23 @@ public class EventModel {
 
 
     public void getAllEvents(EventCallback callback){
-        getEvents(ALLl_EVENTS_REQUEST_URL, callback);
+        getEvents(ALL_EVENTS_REQUEST_URL, callback);
     }
 
     public void getBestEvents(EventCallback callback){
         getEvents(BEST_EVENTS_REQUEST_URL, callback);
+    }
+
+    public void getCurrentUserEvents(EventCallback callback){
+        getEvents("/users/" + UserModel.getInstance().getLoggedInUser().getId() + "/events/current", callback);
+    }
+
+    public void getFutureUserEvents(EventCallback callback){
+        getEvents("/users/" + UserModel.getInstance().getLoggedInUser().getId() + "/events/future", callback);
+    }
+
+    public void getFinishedUserEvents(EventCallback callback){
+        getEvents("/users/" + UserModel.getInstance().getLoggedInUser().getId() + "/events/finished", callback);
     }
 
 

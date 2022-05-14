@@ -52,6 +52,10 @@ public class Fragment1 extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selected = adapterView.getItemAtPosition(i).toString();
                 switch(selected) {
+                    case "Rated":
+                        showTopRated();
+                    case "Show all":
+                        showAll();
 
                 }
 
@@ -65,13 +69,8 @@ public class Fragment1 extends Fragment {
 
         // Recycle View
 
+        showAll();
 
-        EventModel.getInstance().getBestEvents((success, events) -> {
-            System.out.println("Hola! Events -> " + success);
-            if(success)
-                eventManager.setlEvents(Arrays.asList(events));
-
-        });
 
         eventRecyclerView = (RecyclerView) v.findViewById(R.id.event_recycleview);
         eventRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));
@@ -95,5 +94,24 @@ public class Fragment1 extends Fragment {
     public void onResume() {
         super.onResume();
         updateUI();
+    }
+
+    public void showTopRated() {
+        EventModel.getInstance().getBestEvents((success, events) -> {
+            System.out.println("Hola! Events -> " + success);
+            if(success)
+                eventManager.setlEvents(Arrays.asList(events));
+
+        });
+    }
+
+
+    public void showAll() {
+        EventModel.getInstance().getAllEvents((success, events) -> {
+            System.out.println("Hola! Events -> " + success);
+            if(success)
+                eventManager.setlEvents(Arrays.asList(events));
+
+        });
     }
 }
