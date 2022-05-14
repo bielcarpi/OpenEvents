@@ -29,12 +29,21 @@ public class User {
         this.image = image;
     }
 
+
     public void updateStats(float avgScore, int numComments, float percentageCommentersBelow, int numEvents, int numFriends){
         this.avgScore = avgScore;
         this.numComments = numComments;
         this.percentageCommentersBelow = percentageCommentersBelow;
         this.numEvents = numEvents;
         this.numFriends = numFriends;
+    }
+
+    public void updateInfo(String name, String lastName, String email, String password, String image){
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.image = image;
     }
 
 
