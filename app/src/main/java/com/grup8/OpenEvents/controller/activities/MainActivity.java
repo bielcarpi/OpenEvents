@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.fragments.Fragment1;
@@ -18,7 +19,7 @@ import com.grup8.OpenEvents.model.entities.Event;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button homeBtn, profileBtn;
+    private ImageButton homeBtn, profileBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
