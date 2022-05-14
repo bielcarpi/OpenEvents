@@ -36,6 +36,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/profile_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#8F7B7D8E"
@@ -52,41 +53,57 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="20dp"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/num_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="#00000000"
+                        android:text="0" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="#00000000"
-                        android:text="0" />
+                        android:text="@string/score"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="90dp"
+                    android:layout_marginStart="20dp"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/num_comments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="#00000000"
+                        android:text="0" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="#00000000"
-                        android:text="0" />
+                        android:text="@string/comments"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="90dp"
+                    android:layout_marginStart="20dp"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -94,10 +111,19 @@
                         android:layout_gravity="center"
                         android:background="#00000000"
                         android:text="0" />
+
+                    <TextView
+                        android:id="@+id/num_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="#00000000"
+                        android:text="@string/top_percentage"/>
 
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/settings"
                     android:layout_width="39dp"
                     android:layout_height="38dp"
                     android:layout_marginStart="30dp"
@@ -119,6 +145,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/img_person"
                     android:layout_width="83dp"
                     android:layout_height="78dp"
                     android:layout_marginStart="10dp"
@@ -129,21 +156,21 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="left"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="85dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_marginStart="40dp"
+                        android:gravity="left"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -151,15 +178,23 @@
                             android:layout_gravity="center"
                             android:background="#00000000"
                             android:text="0" />
+
+                        <TextView
+                            android:id="@+id/num_friends"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="#00000000"
+                            android:text="@string/friends"/>
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="90dp"
+                        android:layout_marginStart="40dp"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -168,15 +203,37 @@
                             android:background="#00000000"
                             android:text="0" />
 
+                        <TextView
+                            android:id="@+id/num_events"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="#00000000"
+                            android:text="@string/num_events"/>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <Button
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="10dp"
-                    android:text="follow" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/add_friend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="@string/add_friend" />
+
+                    <Button
+                        android:id="@+id/message"
+                        android:layout_width="115dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/message" />
+                </LinearLayout>
 
             </LinearLayout>
 
