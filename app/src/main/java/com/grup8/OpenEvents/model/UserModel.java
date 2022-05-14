@@ -9,8 +9,11 @@ import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
 import com.grup8.OpenEvents.model.api.ResponseCallback;
+import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.User;
+import com.grup8.OpenEvents.model.utils.CalendarHelper;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,9 +25,12 @@ public class UserModel {
     private static final String TOKEN_KEY = "token";
     private static final String LOGIN_REQUEST_URL = "/users/login";
     private static final String REGISTER_REQUEST_URL = "/users";
+    private static final String SEARCH_USER_URL = "/users/search?s=";
+    private static final String GET_FRIENDS_URL = "/friends";
 
     private final SharedPreferences spToken;
     private String token;
+    private User loggedInUser;
 
 
     public static UserModel getInstance(){
@@ -38,6 +44,9 @@ public class UserModel {
     public interface GetUsersCallback{
         void onResponse(boolean success, User[] users);
     }
+    public interface GetUserCallback{
+        void onResponse(boolean success, User user);
+    }
 
 
     private UserModel(){
@@ -50,7 +59,7 @@ public class UserModel {
 
 
     public boolean userLoggedIn(){
-        return token != null; //If there is no token, user is not logged in
+        return token != null && loggedInUser != null; //If there is no token, user is not logged in
     }
 
 
@@ -73,9 +82,31 @@ public class UserModel {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
                         addToken(jsonResponse.getString("accessToken")); //Save access token
-                        callback.onResponse(true, R.string.no_error);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+
+                        //Now that we know that the login is correct, we must make requests
+                        // to retrieve all the information of the User (name, photo, etc.)
+                        ApiCommunicator.makeRequest(SEARCH_USER_URL + email, RequestMethod.GET, null, new ResponseCallback() {
+                            @Override
+                            public void OnResponse(String response) {
+                                try {
+                                    JSONObject jsonResponse = new JSONArray(response).getJSONObject(0);
+                                    int id = jsonResponse.getInt("id");
+                                    String name = jsonResponse.getString("name");
+                                    String lastName = jsonResponse.getString("last_name");
+                                    String image = jsonResponse.getString("image");
+
+                                    loggedInUser = new User(id, name, lastName, email, image);
+                                    callback.onResponse(true, -1);
+                                } catch (Exception e) {
+                                    callback.onResponse(false, R.string.bad_response);
+                                }
+                            }
+                            @Override
+                            public void OnErrorResponse(String error) {
+                                callback.onResponse(false, R.string.bad_response);
+                            }
+                        });
+                    }catch (JSONException e) {
                         callback.onResponse(false, R.string.bad_response);
                     }
                 }
@@ -90,6 +121,7 @@ public class UserModel {
     }
 
     public void logOut(){
+        loggedInUser = null;
         deleteToken();
     }
 
@@ -140,6 +172,92 @@ public class UserModel {
         }
     }
 
+
+    public void updateUserStats(GetUserCallback callback){
+        //Needs to make three requests concatenated (first, the statistics, then the number of events, and finally the number of friends)
+        ApiCommunicator.makeRequest("/users/" + loggedInUser.getId() + "/statistics", RequestMethod.GET, null, new ResponseCallback() {
+            @Override
+            public void OnResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    float avgScore = (float)jsonResponse.getDouble("avg_score");
+                    int numComments = jsonResponse.getInt("num_comments");
+                    float percentageCommentersBelow = (float)jsonResponse.getDouble("percentage_commenters_below");
+                    ApiCommunicator.makeRequest("/users/" + loggedInUser.getId() + "events", RequestMethod.GET, null, new ResponseCallback() {
+                        @Override
+                        public void OnResponse(String response) {
+                            try {
+                                JSONArray jsonResponse = new JSONArray(response);
+                                int numEvents = jsonResponse.length();
+
+                                ApiCommunicator.makeRequest(GET_FRIENDS_URL, RequestMethod.GET, null, new ResponseCallback() {
+                                    @Override
+                                    public void OnResponse(String response) {
+                                        try {
+                                            JSONArray jsonResponse = new JSONArray(response);
+                                            int numFriends = jsonResponse.length();
+                                            loggedInUser.updateStats(avgScore, numComments, percentageCommentersBelow, numEvents, numFriends);
+                                            callback.onResponse(true, loggedInUser);
+                                        } catch (JSONException e) {
+                                            callback.onResponse(false, null);
+                                        }
+                                    }
+                                    @Override
+                                    public void OnErrorResponse(String error) {
+                                        callback.onResponse(false, null);
+                                    }
+                                });
+                            } catch (JSONException e) {
+                                callback.onResponse(false, null);
+                            }
+                        }
+                        @Override
+                        public void OnErrorResponse(String error) {
+                            callback.onResponse(false, null);
+                        }
+                    });
+                } catch (JSONException e) {
+                    callback.onResponse(false, null);
+                }
+            }
+            @Override
+            public void OnErrorResponse(String error) {
+                callback.onResponse(false, null);
+            }
+        });
+    }
+
+
+    public void getUserFriends(GetUsersCallback callback){
+        ApiCommunicator.makeRequest(GET_FRIENDS_URL, RequestMethod.GET, null, new ResponseCallback() {
+            @Override
+            public void OnResponse(String response) {
+                try {
+                    JSONArray array = new JSONArray(response);
+                    User[] friends = new User[array.length()];
+                    for(int i = 0; i < array.length(); i++){
+                        JSONObject o = array.getJSONObject(i);
+
+                        friends[i] = new User(o.getInt("id"), o.getString("name"), o.getString("last_name"),
+                                o.getString("email"), o.getString("image"));
+                    }
+                    callback.onResponse(true, friends);
+
+                } catch (JSONException e) {
+                    callback.onResponse(false, null);
+                }
+            }
+            @Override
+            public void OnErrorResponse(String error) {
+                callback.onResponse(false, null);
+            }
+        });
+    }
+
+
+    public User getLoggedInUser(){
+        return loggedInUser;
+    }
 
 
 
