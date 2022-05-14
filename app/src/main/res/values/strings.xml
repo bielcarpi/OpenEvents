@@ -33,6 +33,13 @@
         <item>Data</item>
     </string-array>
 
+    <string-array name="date">
+        <item>Show all</item>
+        <item>Already ended</item>
+        <item>Today</item>
+        <item>Upcoming</item>
+    </string-array>
+
     <string name="event_name">event</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>

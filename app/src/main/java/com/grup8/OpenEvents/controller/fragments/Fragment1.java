@@ -51,7 +51,9 @@ public class Fragment1 extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selected = adapterView.getItemAtPosition(i).toString();
-                
+                switch(selected) {
+
+                }
 
             }
 
