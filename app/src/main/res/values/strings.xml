@@ -44,5 +44,14 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
+    <string name="score">SCORE</string>
+    <string name="comments">COMMENTS</string>
+    <string name="top_percentage">TOP_%</string>
+    <string name="friends">FRIENDS</string>
+    <string name="num_events">EVENTS</string>
+    <string name="add_friend">ADD FRIEND</string>
+    <string name="remove_friend">REMOVE FRIEND</string>
+    <string name="message">MESSAGE</string>
+
 
 </resources>
