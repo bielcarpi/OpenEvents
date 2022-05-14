@@ -13,6 +13,8 @@ public class CalendarHelper {
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
     public static Calendar getCalendar(String datetime) throws ParseException {
+        if(datetime.equals("null")) return null;
+
         Calendar date = Calendar.getInstance();
         date.setTime(Objects.requireNonNull(sdf.parse(datetime)));
         return date;

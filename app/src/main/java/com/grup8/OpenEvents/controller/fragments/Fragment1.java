@@ -15,6 +15,7 @@ import android.widget.Spinner;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
+import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.EventManager;
 
