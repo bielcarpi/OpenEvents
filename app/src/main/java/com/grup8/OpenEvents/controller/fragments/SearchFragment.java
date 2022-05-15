@@ -4,7 +4,11 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +20,24 @@ import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.UserModel;
+import com.grup8.OpenEvents.model.entities.User;
+import com.grup8.OpenEvents.model.entities.UserManager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class SearchFragment extends Fragment {
 
     private EditText etSearch;
-    private ImageButton bSearch;
 
-    private MainActivity activity;
+
+    private UserManager userManager = UserManager.getInstance(getActivity());
+    private FriendsAdapter adapter;
+
+
+    private RecyclerView userRecyclerView;
 
 
     @Override
@@ -35,34 +47,62 @@ public class SearchFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_search, container, false);
 
         etSearch = v.findViewById(R.id.search_bar);
-        bSearch = v.findViewById(R.id.search_button);
 
-        bSearch.setOnClickListener(new View.OnClickListener() {
+
+        userRecyclerView = (RecyclerView) v.findViewById(R.id.user_recycleview);
+        userRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));
+
+
+
+
+
+        etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                String search = etSearch.getText().toString();
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                UserModel.getInstance().searchUser(search, (success, user) -> {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                UserModel.getInstance().searchUser(charSequence.toString(), (success, users) -> {
                     System.out.println("Hola! User -> " + success);
-                    if(success);
-                    System.out.println(user[0].getName());;
+                    if(success) {
+                        userManager.setlUser(Arrays.asList(users));
+                        updateUI();
+                    };
 
-                    replaceFragment(v);
+
                 });
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
 
             }
         });
 
         return v;
     }
+    private void updateUI() {
 
-    public void replaceFragment(View view) {
-        activity = (MainActivity) view.getContext();
-        // ...
+        List<User> lUser = this.userManager.getlUsers();
 
-        FragmentManager fm = activity.getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.search_frame, new UserSearchFragment()).commit();
+        if (adapter == null) {
+            adapter = new FriendsAdapter(lUser, (MainActivity) getActivity());
+            userRecyclerView.setAdapter (adapter);
+        } else {
+            adapter.notifyDataSetChanged();
+        }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+
 
 
 }

@@ -65,13 +65,9 @@ public class FriendsHolder  extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        // Get the position of the event we clicked
 
         activity = (MainActivity) view.getContext();
                // ...
-
-
-
 
         FragmentManager fm = activity.getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.frame, new ProfileFragment()).commit();
