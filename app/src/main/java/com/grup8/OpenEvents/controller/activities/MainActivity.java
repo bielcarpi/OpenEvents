@@ -13,6 +13,7 @@ import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.fragments.Fragment1;
 import com.grup8.OpenEvents.controller.fragments.Fragment2;
 import com.grup8.OpenEvents.controller.fragments.ProfileFragment;
+import com.grup8.OpenEvents.controller.fragments.SearchFragment;
 import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.entities.Event;
 
@@ -37,8 +38,9 @@ public class MainActivity extends AppCompatActivity {
         homeBtn = findViewById(R.id.fragment1);
         profileBtn = findViewById(R.id.fragemnt2);
 
-        homeBtn.setOnClickListener(view -> replaceFragment(new Fragment1()));
-        profileBtn.setOnClickListener(view -> replaceFragment(new ProfileFragment()));
+
+        homeBtn.setOnClickListener(view -> replaceFragment(new SearchFragment()));
+        profileBtn.setOnClickListener(view -> replaceFragment(new Fragment1()));
     }
 
     private void replaceFragment(Fragment f) {

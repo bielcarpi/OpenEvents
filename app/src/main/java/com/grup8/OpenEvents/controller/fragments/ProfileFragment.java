@@ -22,8 +22,10 @@ import android.widget.TextView;
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.model.EventModel;
+import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.EventManager;
+import com.grup8.OpenEvents.model.entities.User;
 
 import java.util.Arrays;
 import java.util.List;
@@ -52,6 +54,13 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        UserModel.getInstance().updateUserStats((success, user) -> {
+            if(success){
+                //TODO: Update the stats fields in the view with the user's information
+                //user.getNumEvents() ... etc.
+            }
+        });
 
 
 
@@ -93,10 +102,10 @@ public class ProfileFragment extends Fragment {
         });
 
         EventModel.getInstance().getBestEvents((success, events) -> {
-            System.out.println("Hola! Events -> " + success);
-            if(success)
+            if(success){
+                //TODO: Depending on the selected option, load a type of user event
                 eventManager.setlEvents(Arrays.asList(events));
-
+            }
         });
 
 
@@ -129,14 +138,7 @@ public class ProfileFragment extends Fragment {
 
     public void replaceFragment(View view) {
         activity = (MainActivity) view.getContext();
-
-
-
-
         // ...
-
-
-
 
         FragmentManager fm = activity.getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.frame, new Fragment2()).commit();

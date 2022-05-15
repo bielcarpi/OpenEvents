@@ -33,12 +33,7 @@ public class FriendsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_friends, container, false);
 
-        UserModel.getInstance().getUserFriends((success, users) -> {
-            System.out.println("Hola! Events -> " + success);
-            if(success)
-                lUser.addAll(Arrays.asList(users));
 
-        });
 
         return v;
     }

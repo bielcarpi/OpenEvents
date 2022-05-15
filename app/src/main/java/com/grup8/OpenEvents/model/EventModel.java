@@ -13,12 +13,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
+import java.util.Calendar;
 
 public class EventModel {
     private static final EventModel singleton = new EventModel();
 
     private static final String BEST_EVENTS_REQUEST_URL = "/events/best";
     private static final String ALL_EVENTS_REQUEST_URL = "/events";
+    private static final String LOCATION_EVENT_SEARCH_URL = "/events/search?location=";
+    private static final String KEYWORD_EVENT_SEARCH_URL = "/events/search?keyword=";
+    private static final String DATE_EVENT_SEARCH_URL = "/events/search?date=";
+
     private EventModel(){}
 
     public static EventModel getInstance(){
@@ -49,6 +54,19 @@ public class EventModel {
 
     public void getFinishedUserEvents(EventCallback callback){
         getEvents("/users/" + UserModel.getInstance().getLoggedInUser().getId() + "/events/finished", callback);
+    }
+
+    public void searchEventsByLocation(String location, EventCallback callback){
+        getEvents(LOCATION_EVENT_SEARCH_URL + location, callback);
+    }
+
+    public void searchEventsByKeyword(String keyword, EventCallback callback){
+        getEvents(KEYWORD_EVENT_SEARCH_URL + keyword, callback);
+    }
+
+    public void searchEventsByDate(Calendar date, EventCallback callback){
+        //TODO: Must control date format (it must be eg. 2022-12-01)
+        getEvents(DATE_EVENT_SEARCH_URL + date.toString(), callback);
     }
 
 

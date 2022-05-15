@@ -7,7 +7,11 @@
 
 
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="20"
+        android:orientation="vertical">
     <LinearLayout
         android:layout_margin="20dp"
         android:layout_width="match_parent"
@@ -28,6 +32,14 @@
             android:layout_marginLeft="20dp"
             android:background="#8F7B7D8E"
             android:hint="Buscar..." />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/search_frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="17"/>
 
     </LinearLayout>
 
