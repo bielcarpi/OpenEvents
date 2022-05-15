@@ -19,10 +19,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_search_light" />
+
 
         <EditText
             android:id="@+id/search_bar"
@@ -32,6 +29,11 @@
             android:layout_marginLeft="20dp"
             android:background="#8F7B7D8E"
             android:hint="Buscar..." />
+        <ImageButton
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search_light" />
 
     </LinearLayout>
 

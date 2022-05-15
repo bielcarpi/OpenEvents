@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.fragments.Fragment1;
@@ -19,21 +20,13 @@ import com.grup8.OpenEvents.model.entities.Event;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button homeBtn, profileBtn;
+    private ImageButton homeBtn, profileBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         replaceFragment(new Fragment1());
-
-        /* EventModel.getInstance().getBestEvents((success, events) -> {
-            System.out.println("Hola! Events -> " + success);
-            if(success)
-                for(Event e: events) System.out.println(e);
-        });
-        */
-
 
         homeBtn = findViewById(R.id.fragment1);
         profileBtn = findViewById(R.id.fragemnt2);
