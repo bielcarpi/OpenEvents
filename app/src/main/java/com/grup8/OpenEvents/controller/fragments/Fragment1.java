@@ -69,7 +69,13 @@ public class Fragment1 extends Fragment {
 
         // Recycle View
 
-        showAll();
+        EventModel.getInstance().getBestEvents((success, events) -> {
+            if(success){
+                //TODO: Depending on the selected option, load a type of user event
+                eventManager.setlEvents(Arrays.asList(events));
+            }
+        });
+
 
 
         eventRecyclerView = (RecyclerView) v.findViewById(R.id.event_recycleview);

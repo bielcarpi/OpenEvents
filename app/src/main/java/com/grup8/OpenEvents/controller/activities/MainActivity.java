@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.fragments.Fragment1;
 import com.grup8.OpenEvents.controller.fragments.Fragment2;
+import com.grup8.OpenEvents.controller.fragments.FriendsFragment;
 import com.grup8.OpenEvents.controller.fragments.ProfileFragment;
 import com.grup8.OpenEvents.controller.fragments.SearchFragment;
 import com.grup8.OpenEvents.model.EventModel;
@@ -20,7 +21,7 @@ import com.grup8.OpenEvents.model.entities.Event;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageButton homeBtn, profileBtn;
+    private ImageButton homeBtn, profileBtn, searchBtn, friendsBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +31,19 @@ public class MainActivity extends AppCompatActivity {
 
         homeBtn = findViewById(R.id.fragment1);
         profileBtn = findViewById(R.id.fragemnt2);
+        searchBtn = findViewById(R.id.search);
+        friendsBtn = findViewById(R.id.friends);
 
 
-        homeBtn.setOnClickListener(view -> replaceFragment(new SearchFragment()));
-        profileBtn.setOnClickListener(view -> replaceFragment(new Fragment1()));
+
+        homeBtn.setOnClickListener(view -> replaceFragment(new Fragment1()));
+        profileBtn.setOnClickListener(view -> replaceFragment(new ProfileFragment()));
+        searchBtn.setOnClickListener(view -> replaceFragment(new SearchFragment()));
+        friendsBtn.setOnClickListener(view -> replaceFragment(new FriendsFragment())
+        );
+
+
+
     }
 
     private void replaceFragment(Fragment f) {

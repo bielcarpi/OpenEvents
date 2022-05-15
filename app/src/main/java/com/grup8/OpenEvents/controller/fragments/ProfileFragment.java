@@ -64,7 +64,7 @@ public class ProfileFragment extends Fragment {
 
 
 
-        // bButton = v.findViewById(R.id.button);
+         bButton = v.findViewById(R.id.message);
 
         // Tindrem que mirar a quin perfil estem
 

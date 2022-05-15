@@ -30,12 +30,27 @@
             android:text="1" />
 
         <ImageButton
+            android:id="@+id/search"
+            android:layout_width="78dp"
+            android:layout_height="67dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_home"
+            android:text="1" />
+        <ImageButton
+            android:id="@+id/friends"
+            android:layout_width="78dp"
+            android:layout_height="67dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_home"
+            android:text="1" />
+
+        <ImageButton
             android:id="@+id/fragemnt2"
             android:layout_width="67dp"
             android:layout_height="67dp"
             android:layout_margin="20dp"
             android:src="@drawable/ic_person"
-            android:text="2" />
+            android:text    ="2" />
 
     </LinearLayout>
 

@@ -3,14 +3,17 @@ package com.grup8.OpenEvents.controller.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.grup8.OpenEvents.R;
+import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.UserModel;
 
@@ -20,7 +23,9 @@ import java.util.Arrays;
 public class SearchFragment extends Fragment {
 
     private EditText etSearch;
-    private Button bSearch;
+    private ImageButton bSearch;
+
+    private MainActivity activity;
 
 
     @Override
@@ -41,6 +46,8 @@ public class SearchFragment extends Fragment {
                     System.out.println("Hola! User -> " + success);
                     if(success);
                     System.out.println(user[0].getName());;
+
+                    replaceFragment(v);
                 });
 
             }
@@ -48,4 +55,14 @@ public class SearchFragment extends Fragment {
 
         return v;
     }
+
+    public void replaceFragment(View view) {
+        activity = (MainActivity) view.getContext();
+        // ...
+
+        FragmentManager fm = activity.getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.search_frame, new UserSearchFragment()).commit();
+    }
+
+
 }

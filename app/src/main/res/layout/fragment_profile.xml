@@ -244,8 +244,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="19"
             android:gravity="center"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:background="#65000000">
+
+            <Spinner
+                android:layout_margin="20dp"
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" />
+
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/event_recycleview"
