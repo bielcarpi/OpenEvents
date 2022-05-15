@@ -41,7 +41,7 @@ public class ProfileFragment extends Fragment {
 
     private ImageView ivImage;
     private TextView tvName;
-    private Button bButton;
+    private ImageButton bButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,11 +64,11 @@ public class ProfileFragment extends Fragment {
 
 
 
-         bButton = v.findViewById(R.id.message);
+         bButton = v.findViewById(R.id.settings);
 
         // Tindrem que mirar a quin perfil estem
 
-        bButton.setText("Edit profile");
+        //bButton.setText("Edit profile");
 
         bButton.setOnClickListener(new View.OnClickListener() {
             @Override

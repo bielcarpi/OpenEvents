@@ -61,5 +61,9 @@
     <string name="remove_friend">REMOVE FRIEND</string>
     <string name="message">MESSAGE</string>
 
+    <string name="edit">EDIT</string>
+    <string name="delete">DELETE</string>
+    <string name="event_num">EVENT#1</string>
+
 
 </resources>

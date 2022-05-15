@@ -39,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
         homeBtn.setOnClickListener(view -> replaceFragment(new Fragment1()));
         profileBtn.setOnClickListener(view -> replaceFragment(new ProfileFragment()));
         searchBtn.setOnClickListener(view -> replaceFragment(new SearchFragment()));
-        friendsBtn.setOnClickListener(view -> replaceFragment(new FriendsFragment())
-        );
+        friendsBtn.setOnClickListener(view -> replaceFragment(new FriendsFragment()));
 
 
 
