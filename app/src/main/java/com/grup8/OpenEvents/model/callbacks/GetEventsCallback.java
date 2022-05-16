@@ -1,4 +1,4 @@
-package com.grup8.OpenEvents.model.calllbacks;
+package com.grup8.OpenEvents.model.callbacks;
 
 import com.grup8.OpenEvents.model.entities.Event;
 

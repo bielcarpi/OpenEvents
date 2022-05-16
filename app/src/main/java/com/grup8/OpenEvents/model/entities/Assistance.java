@@ -1,16 +1,21 @@
 package com.grup8.OpenEvents.model.entities;
 
+import com.grup8.OpenEvents.model.UserModel;
+
 public class Assistance {
     private final int eventId;
-    private final User assistant;
+    private User assistant;
     private final float punctuation;
     private final String commentary;
 
-    public Assistance(int eventId, User assistant, float puntuation, String commentary) {
+    public Assistance(int eventId, String userEmail, float puntuation, String commentary) {
         this.eventId = eventId;
-        this.assistant = assistant;
         this.punctuation = puntuation;
         this.commentary = commentary;
+
+        UserModel.getInstance().searchUser(userEmail, (success, users) -> {
+            if(success) setAssistant(users[0]);
+        });
     }
 
 
@@ -25,5 +30,9 @@ public class Assistance {
     }
     public String getCommentary() {
         return commentary;
+    }
+
+    protected void setAssistant(User assistant){
+        this.assistant = assistant;
     }
 }

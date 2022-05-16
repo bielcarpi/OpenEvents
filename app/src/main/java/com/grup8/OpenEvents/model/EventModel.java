@@ -4,7 +4,7 @@ package com.grup8.OpenEvents.model;
 import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
 import com.grup8.OpenEvents.model.api.ResponseCallback;
-import com.grup8.OpenEvents.model.calllbacks.GetEventsCallback;
+import com.grup8.OpenEvents.model.callbacks.GetEventsCallback;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.User;
 import com.grup8.OpenEvents.model.utils.CalendarHelper;
@@ -66,7 +66,7 @@ public class EventModel {
     }
 
 
-    private void getEvents(String url, GetEventsCallback callback){
+    protected void getEvents(String url, GetEventsCallback callback){
         ApiCommunicator.makeRequest(url, RequestMethod.GET, null, true, new ResponseCallback() {
             @Override
             public void OnResponse(String response) {
