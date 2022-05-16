@@ -44,16 +44,16 @@ public class EventModel {
         getEvents(BEST_EVENTS_REQUEST_URL, callback);
     }
 
-    public void getCurrentUserEvents(EventCallback callback){
-        getEvents("/users/" + UserModel.getInstance().getLoggedInUser().getId() + "/events/current", callback);
+    public void getCurrentUserEvents(User u, EventCallback callback){
+        getEvents("/users/" + u.getId() + "/events/current", callback);
     }
 
-    public void getFutureUserEvents(EventCallback callback){
-        getEvents("/users/" + UserModel.getInstance().getLoggedInUser().getId() + "/events/future", callback);
+    public void getFutureUserEvents(User u, EventCallback callback){
+        getEvents("/users/" + u.getId() + "/events/future", callback);
     }
 
-    public void getFinishedUserEvents(EventCallback callback){
-        getEvents("/users/" + UserModel.getInstance().getLoggedInUser().getId() + "/events/finished", callback);
+    public void getFinishedUserEvents(User u, EventCallback callback){
+        getEvents("/users/" + u.getId() + "/events/finished", callback);
     }
 
     public void searchEventsByLocation(String location, EventCallback callback){
@@ -86,7 +86,7 @@ public class EventModel {
                                 CalendarHelper.getCalendar(o.getString("eventStart_date")),
                                 CalendarHelper.getCalendar(o.getString("eventEnd_date")),
                                 o.getInt("n_participators"), o.getString("slug"),
-                                o.getString("type"), o.getString("avg_score").equals("null")? -1.0f : (float)o.getDouble("avg_score"));
+                                o.getString("type"));
                     }
 
                     callback.onResponse(true, events);

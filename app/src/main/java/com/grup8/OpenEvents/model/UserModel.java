@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Patterns;
 
+import com.google.gson.Gson;
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
@@ -18,6 +19,8 @@ public class UserModel {
 
     private static final UserModel singleton = new UserModel();
     private static final String TOKEN_KEY = "token";
+    private static final String SAVED_USER_KEY = "usr";
+
     private static final String LOGIN_REQUEST_URL = "/users/login";
     private static final String REGISTER_REQUEST_URL = "/users";
     private static final String SEARCH_USER_URL = "/users/search?s=";
@@ -50,6 +53,9 @@ public class UserModel {
         spToken = c.getSharedPreferences(c.getString(R.string.token_preference_file), Context.MODE_PRIVATE);
 
         token = spToken.getString(TOKEN_KEY, null);
+        String loggedInUserString = spToken.getString(SAVED_USER_KEY, null);
+        if(loggedInUserString != null) loggedInUser = new Gson().fromJson(loggedInUserString, User.class);
+
         ApiCommunicator.setToken(token);
     }
 
@@ -91,7 +97,7 @@ public class UserModel {
                                     String lastName = jsonResponse.getString("last_name");
                                     String image = jsonResponse.getString("image");
 
-                                    loggedInUser = new User(id, name, lastName, email, image);
+                                    addLoggedInUser(new User(id, name, lastName, email, image));
                                     callback.onResponse(true, -1);
                                 } catch (Exception e) {
                                     callback.onResponse(false, R.string.bad_response);
@@ -117,8 +123,7 @@ public class UserModel {
     }
 
     public void logOut(){
-        loggedInUser = null;
-        deleteToken();
+        deleteSharedPreferences();
     }
 
 
@@ -169,9 +174,9 @@ public class UserModel {
     }
 
 
-    public void updateUserStats(GetUserCallback callback){
+    public void getUserStats(User u, GetUserCallback callback){
         //Needs to make three requests concatenated (first, the statistics, then the number of events, and finally the number of friends)
-        ApiCommunicator.makeRequest("/users/" + loggedInUser.getId() + "/statistics", RequestMethod.GET, null, true, new ResponseCallback() {
+        ApiCommunicator.makeRequest("/users/" + u.getId() + "/statistics", RequestMethod.GET, null, true, new ResponseCallback() {
             @Override
             public void OnResponse(String response) {
                 try {
@@ -179,30 +184,38 @@ public class UserModel {
                     float avgScore = (float)jsonResponse.getDouble("avg_score");
                     int numComments = jsonResponse.getInt("num_comments");
                     float percentageCommentersBelow = (float)jsonResponse.getDouble("percentage_commenters_below");
-                    ApiCommunicator.makeRequest("/users/" + loggedInUser.getId() + "events", RequestMethod.GET, null, true, new ResponseCallback() {
+                    ApiCommunicator.makeRequest("/users/" + u.getId() + "events", RequestMethod.GET, null, true, new ResponseCallback() {
                         @Override
                         public void OnResponse(String response) {
                             try {
                                 JSONArray jsonResponse = new JSONArray(response);
                                 int numEvents = jsonResponse.length();
 
-                                ApiCommunicator.makeRequest(GET_FRIENDS_URL, RequestMethod.GET, null, true, new ResponseCallback() {
-                                    @Override
-                                    public void OnResponse(String response) {
-                                        try {
-                                            JSONArray jsonResponse = new JSONArray(response);
-                                            int numFriends = jsonResponse.length();
-                                            loggedInUser.updateStats(avgScore, numComments, percentageCommentersBelow, numEvents, numFriends);
-                                            callback.onResponse(true, loggedInUser);
-                                        } catch (JSONException e) {
+                                //If the user logged in info is being request, we also want to get the number of friends.
+                                //Otherwise, return with the information received and set the number of friends to -1
+                                if(u.getId() == loggedInUser.getId()){
+                                    ApiCommunicator.makeRequest(GET_FRIENDS_URL, RequestMethod.GET, null, true, new ResponseCallback() {
+                                        @Override
+                                        public void OnResponse(String response) {
+                                            try {
+                                                JSONArray jsonResponse = new JSONArray(response);
+                                                int numFriends = jsonResponse.length();
+                                                loggedInUser.updateStats(avgScore, numComments, percentageCommentersBelow, numEvents, numFriends);
+                                                callback.onResponse(true, loggedInUser);
+                                            } catch (JSONException e) {
+                                                callback.onResponse(false, null);
+                                            }
+                                        }
+                                        @Override
+                                        public void OnErrorResponse(String error) {
                                             callback.onResponse(false, null);
                                         }
-                                    }
-                                    @Override
-                                    public void OnErrorResponse(String error) {
-                                        callback.onResponse(false, null);
-                                    }
-                                });
+                                    });
+                                }
+                                else{
+                                    u.updateStats(avgScore, numComments, percentageCommentersBelow, numEvents, -1);
+                                    callback.onResponse(true, u);
+                                }
                             } catch (JSONException e) {
                                 callback.onResponse(false, null);
                             }
@@ -224,7 +237,7 @@ public class UserModel {
     }
 
 
-    public void getUserFriends(GetUsersCallback callback){
+    public void getCurrentUserFriends(GetUsersCallback callback){
         ApiCommunicator.makeRequest(GET_FRIENDS_URL, RequestMethod.GET, null, true, new ResponseCallback() {
             @Override
             public void OnResponse(String response) {
@@ -278,7 +291,7 @@ public class UserModel {
     }
 
 
-    public void updateUser(User newUser, SuccessCallback callback){
+    public void updateCurrentUser(User newUser, SuccessCallback callback){
         final String bodyString = "{\"name\":\"" + newUser.getName() + "\",\"last_name\":\"" + newUser.getLastName() + "\",\"email\":\"" + newUser.getEmail() + "\",\"password\":\"" + newUser.getPassword() + "\",\"image\":\"" + newUser.getImage() + "\"}";
         ApiCommunicator.makeRequest(UPDATE_USER_URL, RequestMethod.PUT, null, true, new ResponseCallback() {
             @Override
@@ -311,12 +324,14 @@ public class UserModel {
 
 
 
-    private void deleteToken(){
+    private void deleteSharedPreferences(){
         SharedPreferences.Editor spTokenEditor = spToken.edit();
         spTokenEditor.remove(TOKEN_KEY);
+        spTokenEditor.remove(SAVED_USER_KEY);
         spTokenEditor.apply();
 
-        this.token = null;
+        token = null;
+        loggedInUser = null;
         ApiCommunicator.deleteToken();
     }
     private void addToken(String token){
@@ -326,6 +341,13 @@ public class UserModel {
 
         this.token = token;
         ApiCommunicator.setToken(token);
+    }
+    private void addLoggedInUser(User loggedInUser){
+        SharedPreferences.Editor spTokenEditor = spToken.edit();
+        spTokenEditor.putString(SAVED_USER_KEY, new Gson().toJson(loggedInUser));
+        spTokenEditor.apply();
+
+        this.loggedInUser = loggedInUser;
     }
 
 

@@ -25,7 +25,7 @@
             android:id="@+id/fragment1"
             android:layout_width="78dp"
             android:layout_height="67dp"
-            android:layout_margin="20dp"
+            android:layout_margin="2dp"
             android:src="@drawable/ic_home"
             android:text="1" />
 
@@ -33,22 +33,31 @@
             android:id="@+id/search"
             android:layout_width="78dp"
             android:layout_height="67dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/ic_home"
+            android:layout_margin="2dp"
+            android:src="@drawable/ic_search_light"
             android:text="1" />
+
+        <ImageButton
+            android:id="@+id/add_event"
+            android:layout_width="78dp"
+            android:layout_height="67dp"
+            android:layout_margin="2dp"
+            android:src="@drawable/ic_add_event"
+            android:text="1" />
+
         <ImageButton
             android:id="@+id/friends"
             android:layout_width="78dp"
             android:layout_height="67dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/ic_home"
+            android:layout_margin="2dp"
+            android:src="@drawable/ic_like"
             android:text="1" />
 
         <ImageButton
             android:id="@+id/fragemnt2"
             android:layout_width="67dp"
             android:layout_height="67dp"
-            android:layout_margin="20dp"
+            android:layout_margin="2dp"
             android:src="@drawable/ic_person"
             android:text    ="2" />
 

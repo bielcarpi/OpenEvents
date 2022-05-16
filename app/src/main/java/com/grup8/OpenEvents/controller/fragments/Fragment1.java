@@ -100,7 +100,7 @@ public class Fragment1 extends Fragment {
     }
 
     public void showTopRated() {
-        EventModel.getInstance().getFutureUserEvents((success, events) -> {
+        EventModel.getInstance().getBestEvents((success, events) -> {
             System.out.println("Hola! Events -> " + success);
             if(success)
                 eventManager.setlEvents(Arrays.asList(events));

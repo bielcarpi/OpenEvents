@@ -56,12 +56,7 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        UserModel.getInstance().updateUserStats((success, user) -> {
-            if(success){
-                //TODO: Update the stats fields in the view with the user's information
-                //user.getNumEvents() ... etc.
-            }
-        });
+
 
         tvName = v.findViewById(R.id.profile_username);
         ivImage = v.findViewById(R.id.img_person);
@@ -79,6 +74,7 @@ public class ProfileFragment extends Fragment {
 
         tvName.setText(name);
         Picasso.get().load(image).into(ivImage);
+
 
 
         bButton = v.findViewById(R.id.message);
@@ -118,7 +114,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        EventModel.getInstance().getBestEvents((success, events) -> {
+        EventModel.getInstance().getFutureUserEvents(user, (success, events) -> {
             if(success){
                 //TODO: Depending on the selected option, load a type of user event
                 eventManager.setlEvents(Arrays.asList(events));

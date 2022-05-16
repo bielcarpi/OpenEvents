@@ -57,9 +57,12 @@ public class FriendsHolder  extends RecyclerView.ViewHolder implements View.OnCl
 
     public void bind (User user) {
         this.user = user;
-        tvNom.setText(user.getName() + " " + user.getLastName());
-        Picasso.get().load(user.getImage()).into(ivImage);
 
+
+        tvNom.setText(user.getName() + " " + user.getLastName());
+
+        if ( user.getImage() != null) {
+        }
 
     }
 

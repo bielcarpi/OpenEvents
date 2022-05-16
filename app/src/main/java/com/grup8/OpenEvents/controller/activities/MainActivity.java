@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         homeBtn.setOnClickListener(view -> replaceFragment(new Fragment1()));
         searchBtn.setOnClickListener(view -> replaceFragment(new SearchFragment()));
-        friendsBtn.setOnClickListener(view -> replaceFragment(new FriendsFragment())
-        );
+        friendsBtn.setOnClickListener(view -> replaceFragment(new FriendsFragment()));
 
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override

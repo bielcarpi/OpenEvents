@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">OpenEvents</string>
     <string name="token_preference_file">LoginToken</string>
+    <string name="saved_user_preference_file">SavedUser</string>
 
     <string name="no_error" />
     <string name="bad_response">Error. Bad Server Response</string>
@@ -60,6 +61,10 @@
     <string name="add_friend">ADD FRIEND</string>
     <string name="remove_friend">REMOVE FRIEND</string>
     <string name="message">MESSAGE</string>
+
+    <string name="edit">EDIT</string>
+    <string name="delete">DELETE</string>
+    <string name="event_num">EVENT#1</string>
 
 
 </resources>
