@@ -90,7 +90,7 @@ public class FriendsHolder  extends RecyclerView.ViewHolder implements View.OnCl
         profileFragment.setArguments(args);
 
         FragmentManager fm = activity.getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.frame, profileFragment).commit();
+        fm.beginTransaction().replace(R.id.main_fragment, profileFragment).commit();
 
 
     }

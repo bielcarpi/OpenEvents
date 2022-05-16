@@ -176,9 +176,9 @@ public class UserModel {
             public void OnResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
-                    float avgScore = (float)jsonResponse.getDouble("avg_score");
-                    int numComments = jsonResponse.getInt("num_comments");
-                    float percentageCommentersBelow = (float)jsonResponse.getDouble("percentage_commenters_below");
+                    float avgScore = jsonResponse.getString("avg_score").equals("null")? -1: (float)jsonResponse.getDouble("avg_score");
+                    int numComments = jsonResponse.getString("num_comments").equals("null")? -1: jsonResponse.getInt("num_comments");
+                    float percentageCommentersBelow = jsonResponse.getString("percentage_commenters_below").equals("null")? -1: (float)jsonResponse.getDouble("percentage_commenters_below");
                     ApiCommunicator.makeRequest("/users/" + u.getId() + "events", RequestMethod.GET, null, true, new ResponseCallback() {
                         @Override
                         public void OnResponse(String response) {
@@ -198,11 +198,13 @@ public class UserModel {
                                                 loggedInUser.updateStats(avgScore, numComments, percentageCommentersBelow, numEvents, numFriends);
                                                 callback.onResponse(true, loggedInUser);
                                             } catch (JSONException e) {
+                                                e.printStackTrace();
                                                 callback.onResponse(false, null);
                                             }
                                         }
                                         @Override
                                         public void OnErrorResponse(String error) {
+                                            System.out.println(error);
                                             callback.onResponse(false, null);
                                         }
                                     });
@@ -212,15 +214,18 @@ public class UserModel {
                                     callback.onResponse(true, u);
                                 }
                             } catch (JSONException e) {
+                                e.printStackTrace();
                                 callback.onResponse(false, null);
                             }
                         }
                         @Override
                         public void OnErrorResponse(String error) {
+                            System.out.println(error);
                             callback.onResponse(false, null);
                         }
                     });
                 } catch (JSONException e) {
+                    e.printStackTrace();
                     callback.onResponse(false, null);
                 }
             }

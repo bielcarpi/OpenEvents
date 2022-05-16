@@ -79,7 +79,7 @@ public class EventHolder  extends RecyclerView.ViewHolder implements View.OnClic
         descriptionEventFragment.setArguments(args);
 
         FragmentManager fm = activity.getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.frame, descriptionEventFragment).commit();
+        fm.beginTransaction().replace(R.id.main_fragment, descriptionEventFragment).commit();
 
 
     }

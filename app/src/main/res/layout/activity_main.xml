@@ -9,7 +9,7 @@
     android:weightSum="20">
 
     <FrameLayout
-        android:id="@+id/frame"
+        android:id="@+id/main_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="17"/>

@@ -1,6 +1,8 @@
 package com.grup8.OpenEvents.model.entities;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private int id;
     private String name;
     private String lastName;
