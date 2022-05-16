@@ -9,6 +9,9 @@ import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
 import com.grup8.OpenEvents.model.api.ResponseCallback;
+import com.grup8.OpenEvents.model.calllbacks.GetUserCallback;
+import com.grup8.OpenEvents.model.calllbacks.GetUsersCallback;
+import com.grup8.OpenEvents.model.calllbacks.SuccessCallback;
 import com.grup8.OpenEvents.model.entities.User;
 
 import org.json.JSONArray;
@@ -36,17 +39,6 @@ public class UserModel {
 
     public static UserModel getInstance(){
         return singleton;
-    }
-
-
-    public interface SuccessCallback {
-        void onResponse(boolean success, int errorMessage);
-    }
-    public interface GetUsersCallback{
-        void onResponse(boolean success, User[] users);
-    }
-    public interface GetUserCallback{
-        void onResponse(boolean success, User user);
     }
 
 
@@ -123,6 +115,7 @@ public class UserModel {
             callback.onResponse(false, R.string.internal_app_error);
         }
     }
+
 
     public void logOut(){
         deleteSharedPreferences();
@@ -301,7 +294,7 @@ public class UserModel {
     }
 
 
-    private void getUsers(String url, GetUsersCallback callback){
+    protected void getUsers(String url, GetUsersCallback callback){
         ApiCommunicator.makeRequest(url, RequestMethod.GET, null, true, new ResponseCallback() {
             @Override
             public void OnResponse(String response) {
