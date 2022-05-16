@@ -1,6 +1,5 @@
 package com.grup8.OpenEvents.controller.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -55,7 +53,8 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        UserModel.getInstance().updateUserStats((success, user) -> {
+        User userToView = UserModel.getInstance().getLoggedInUser();
+        UserModel.getInstance().getUserStats(userToView, (success, user) -> {
             if(success){
                 //TODO: Update the stats fields in the view with the user's information
                 //user.getNumEvents() ... etc.

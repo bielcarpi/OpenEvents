@@ -5,6 +5,7 @@ import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
 import com.grup8.OpenEvents.model.api.ResponseCallback;
 import com.grup8.OpenEvents.model.entities.Event;
+import com.grup8.OpenEvents.model.entities.User;
 import com.grup8.OpenEvents.model.utils.CalendarHelper;
 
 import org.json.JSONArray;
@@ -43,16 +44,16 @@ public class EventModel {
         getEvents(BEST_EVENTS_REQUEST_URL, callback);
     }
 
-    public void getCurrentUserEvents(EventCallback callback){
-        getEvents("/users/" + UserModel.getInstance().getLoggedInUser().getId() + "/events/current", callback);
+    public void getCurrentUserEvents(User u, EventCallback callback){
+        getEvents("/users/" + u.getId() + "/events/current", callback);
     }
 
-    public void getFutureUserEvents(EventCallback callback){
-        getEvents("/users/" + UserModel.getInstance().getLoggedInUser().getId() + "/events/future", callback);
+    public void getFutureUserEvents(User u, EventCallback callback){
+        getEvents("/users/" + u.getId() + "/events/future", callback);
     }
 
-    public void getFinishedUserEvents(EventCallback callback){
-        getEvents("/users/" + UserModel.getInstance().getLoggedInUser().getId() + "/events/finished", callback);
+    public void getFinishedUserEvents(User u, EventCallback callback){
+        getEvents("/users/" + u.getId() + "/events/finished", callback);
     }
 
     public void searchEventsByLocation(String location, EventCallback callback){

@@ -174,9 +174,9 @@ public class UserModel {
     }
 
 
-    public void updateUserStats(GetUserCallback callback){
+    public void getUserStats(User u, GetUserCallback callback){
         //Needs to make three requests concatenated (first, the statistics, then the number of events, and finally the number of friends)
-        ApiCommunicator.makeRequest("/users/" + loggedInUser.getId() + "/statistics", RequestMethod.GET, null, true, new ResponseCallback() {
+        ApiCommunicator.makeRequest("/users/" + u.getId() + "/statistics", RequestMethod.GET, null, true, new ResponseCallback() {
             @Override
             public void OnResponse(String response) {
                 try {
@@ -184,30 +184,38 @@ public class UserModel {
                     float avgScore = (float)jsonResponse.getDouble("avg_score");
                     int numComments = jsonResponse.getInt("num_comments");
                     float percentageCommentersBelow = (float)jsonResponse.getDouble("percentage_commenters_below");
-                    ApiCommunicator.makeRequest("/users/" + loggedInUser.getId() + "events", RequestMethod.GET, null, true, new ResponseCallback() {
+                    ApiCommunicator.makeRequest("/users/" + u.getId() + "events", RequestMethod.GET, null, true, new ResponseCallback() {
                         @Override
                         public void OnResponse(String response) {
                             try {
                                 JSONArray jsonResponse = new JSONArray(response);
                                 int numEvents = jsonResponse.length();
 
-                                ApiCommunicator.makeRequest(GET_FRIENDS_URL, RequestMethod.GET, null, true, new ResponseCallback() {
-                                    @Override
-                                    public void OnResponse(String response) {
-                                        try {
-                                            JSONArray jsonResponse = new JSONArray(response);
-                                            int numFriends = jsonResponse.length();
-                                            loggedInUser.updateStats(avgScore, numComments, percentageCommentersBelow, numEvents, numFriends);
-                                            callback.onResponse(true, loggedInUser);
-                                        } catch (JSONException e) {
+                                //If the user logged in info is being request, we also want to get the number of friends.
+                                //Otherwise, return with the information received and set the number of friends to -1
+                                if(u.getId() == loggedInUser.getId()){
+                                    ApiCommunicator.makeRequest(GET_FRIENDS_URL, RequestMethod.GET, null, true, new ResponseCallback() {
+                                        @Override
+                                        public void OnResponse(String response) {
+                                            try {
+                                                JSONArray jsonResponse = new JSONArray(response);
+                                                int numFriends = jsonResponse.length();
+                                                loggedInUser.updateStats(avgScore, numComments, percentageCommentersBelow, numEvents, numFriends);
+                                                callback.onResponse(true, loggedInUser);
+                                            } catch (JSONException e) {
+                                                callback.onResponse(false, null);
+                                            }
+                                        }
+                                        @Override
+                                        public void OnErrorResponse(String error) {
                                             callback.onResponse(false, null);
                                         }
-                                    }
-                                    @Override
-                                    public void OnErrorResponse(String error) {
-                                        callback.onResponse(false, null);
-                                    }
-                                });
+                                    });
+                                }
+                                else{
+                                    u.updateStats(avgScore, numComments, percentageCommentersBelow, numEvents, -1);
+                                    callback.onResponse(true, u);
+                                }
                             } catch (JSONException e) {
                                 callback.onResponse(false, null);
                             }
@@ -229,7 +237,7 @@ public class UserModel {
     }
 
 
-    public void getUserFriends(GetUsersCallback callback){
+    public void getCurrentUserFriends(GetUsersCallback callback){
         ApiCommunicator.makeRequest(GET_FRIENDS_URL, RequestMethod.GET, null, true, new ResponseCallback() {
             @Override
             public void OnResponse(String response) {
@@ -283,7 +291,7 @@ public class UserModel {
     }
 
 
-    public void updateUser(User newUser, SuccessCallback callback){
+    public void updateCurrentUser(User newUser, SuccessCallback callback){
         final String bodyString = "{\"name\":\"" + newUser.getName() + "\",\"last_name\":\"" + newUser.getLastName() + "\",\"email\":\"" + newUser.getEmail() + "\",\"password\":\"" + newUser.getPassword() + "\",\"image\":\"" + newUser.getImage() + "\"}";
         ApiCommunicator.makeRequest(UPDATE_USER_URL, RequestMethod.PUT, null, true, new ResponseCallback() {
             @Override
