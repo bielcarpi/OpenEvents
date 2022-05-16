@@ -9,6 +9,9 @@ import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
 import com.grup8.OpenEvents.model.api.ResponseCallback;
+import com.grup8.OpenEvents.model.calllbacks.GetUserCallback;
+import com.grup8.OpenEvents.model.calllbacks.GetUsersCallback;
+import com.grup8.OpenEvents.model.calllbacks.SuccessCallback;
 import com.grup8.OpenEvents.model.entities.User;
 
 import org.json.JSONArray;
@@ -24,8 +27,10 @@ public class UserModel {
     private static final String LOGIN_REQUEST_URL = "/users/login";
     private static final String REGISTER_REQUEST_URL = "/users";
     private static final String SEARCH_USER_URL = "/users/search?s=";
-    private static final String GET_FRIENDS_URL = "/friends";
     private static final String UPDATE_USER_URL = "/users";
+    private static final String GET_FRIENDS_URL = "/friends";
+    private static final String GET_FRIEND_REQUESTS_URL = "/friends/requests";
+
 
     private final SharedPreferences spToken;
     private String token;
@@ -34,17 +39,6 @@ public class UserModel {
 
     public static UserModel getInstance(){
         return singleton;
-    }
-
-
-    public interface SuccessCallback {
-        void onResponse(boolean success, int errorMessage);
-    }
-    public interface GetUsersCallback{
-        void onResponse(boolean success, User[] users);
-    }
-    public interface GetUserCallback{
-        void onResponse(boolean success, User user);
     }
 
 
@@ -121,6 +115,7 @@ public class UserModel {
             callback.onResponse(false, R.string.internal_app_error);
         }
     }
+
 
     public void logOut(){
         deleteSharedPreferences();
@@ -238,56 +233,32 @@ public class UserModel {
 
 
     public void getCurrentUserFriends(GetUsersCallback callback){
-        ApiCommunicator.makeRequest(GET_FRIENDS_URL, RequestMethod.GET, null, true, new ResponseCallback() {
-            @Override
-            public void OnResponse(String response) {
-                try {
-                    JSONArray array = new JSONArray(response);
-                    User[] friends = new User[array.length()];
-                    for(int i = 0; i < array.length(); i++){
-                        JSONObject o = array.getJSONObject(i);
+        getUsers(GET_FRIENDS_URL, callback);
+    }
 
-                        friends[i] = new User(o.getInt("id"), o.getString("name"), o.getString("last_name"),
-                                o.getString("email"), o.getString("image"));
-                    }
-                    callback.onResponse(true, friends);
 
-                } catch (JSONException e) {
-                    callback.onResponse(false, null);
-                }
-            }
-            @Override
-            public void OnErrorResponse(String error) {
-                callback.onResponse(false, null);
-            }
-        });
+    public void getFriendRequests(GetUsersCallback callback){
+        getUsers(GET_FRIEND_REQUESTS_URL, callback);
+    }
+
+
+    public void makeFriendRequest(User u, SuccessCallback callback){
+        friendOperationRequest(GET_FRIENDS_URL + "/" + u.getId(), RequestMethod.POST, callback);
+    }
+
+
+    public void acceptFriendRequest(User u, SuccessCallback callback){
+        friendOperationRequest(GET_FRIENDS_URL + "/" + u.getId(), RequestMethod.PUT, callback);
+    }
+
+
+    public void deleteFriend(User u, SuccessCallback callback){
+        friendOperationRequest(GET_FRIENDS_URL + "/" + u.getId(), RequestMethod.DELETE, callback);
     }
 
 
     public void searchUser(String search, GetUsersCallback callback){
-        ApiCommunicator.makeRequest(SEARCH_USER_URL + search, RequestMethod.GET, null, true, new ResponseCallback() {
-            @Override
-            public void OnResponse(String response) {
-                try {
-                    JSONArray array = new JSONArray(response);
-                    User[] friends = new User[array.length()];
-                    for(int i = 0; i < array.length(); i++){
-                        JSONObject o = array.getJSONObject(i);
-
-                        friends[i] = new User(o.getInt("id"), o.getString("name"), o.getString("last_name"),
-                                o.getString("email"), o.getString("image"));
-                    }
-                    callback.onResponse(true, friends);
-
-                } catch (JSONException e) {
-                    callback.onResponse(false, null);
-                }
-            }
-            @Override
-            public void OnErrorResponse(String error) {
-                callback.onResponse(false, null);
-            }
-        });
+        getUsers(SEARCH_USER_URL + search, callback);
     }
 
 
@@ -322,6 +293,51 @@ public class UserModel {
         return loggedInUser;
     }
 
+
+    protected void getUsers(String url, GetUsersCallback callback){
+        ApiCommunicator.makeRequest(url, RequestMethod.GET, null, true, new ResponseCallback() {
+            @Override
+            public void OnResponse(String response) {
+                try {
+                    JSONArray array = new JSONArray(response);
+                    User[] friends = new User[array.length()];
+                    for(int i = 0; i < array.length(); i++){
+                        JSONObject o = array.getJSONObject(i);
+
+                        friends[i] = new User(o.getInt("id"), o.getString("name"), o.getString("last_name"),
+                                o.getString("email"), o.getString("image"));
+                    }
+                    callback.onResponse(true, friends);
+
+                } catch (JSONException e) {
+                    callback.onResponse(false, null);
+                }
+            }
+            @Override
+            public void OnErrorResponse(String error) {
+                callback.onResponse(false, null);
+            }
+        });
+    }
+
+    private void friendOperationRequest(String url, RequestMethod method, SuccessCallback callback){
+        ApiCommunicator.makeRequest(url, method, null, true, new ResponseCallback() {
+            @Override
+            public void OnResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    if(jsonResponse.has("affectedRows") || jsonResponse.has("serverStatus")) callback.onResponse(true, -1);
+                    else callback.onResponse(true, R.string.bad_response);
+                } catch (JSONException e) {
+                    callback.onResponse(false, R.string.bad_response);
+                }
+            }
+            @Override
+            public void OnErrorResponse(String error) {
+                callback.onResponse(false, R.string.unreachable_server);
+            }
+        });
+    }
 
 
     private void deleteSharedPreferences(){

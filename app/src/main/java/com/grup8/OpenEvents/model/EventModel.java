@@ -4,6 +4,7 @@ package com.grup8.OpenEvents.model;
 import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
 import com.grup8.OpenEvents.model.api.ResponseCallback;
+import com.grup8.OpenEvents.model.calllbacks.GetEventsCallback;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.User;
 import com.grup8.OpenEvents.model.utils.CalendarHelper;
@@ -30,47 +31,42 @@ public class EventModel {
         return singleton;
     }
 
-    public interface EventCallback{
-        void onResponse(boolean success, Event[] events);
-    }
 
-
-
-    public void getAllEvents(EventCallback callback){
+    public void getAllEvents(GetEventsCallback callback){
         getEvents(ALL_EVENTS_REQUEST_URL, callback);
     }
 
-    public void getBestEvents(EventCallback callback){
+    public void getBestEvents(GetEventsCallback callback){
         getEvents(BEST_EVENTS_REQUEST_URL, callback);
     }
 
-    public void getCurrentUserEvents(User u, EventCallback callback){
+    public void getCurrentUserEvents(User u, GetEventsCallback callback){
         getEvents("/users/" + u.getId() + "/events/current", callback);
     }
 
-    public void getFutureUserEvents(User u, EventCallback callback){
+    public void getFutureUserEvents(User u, GetEventsCallback callback){
         getEvents("/users/" + u.getId() + "/events/future", callback);
     }
 
-    public void getFinishedUserEvents(User u, EventCallback callback){
+    public void getFinishedUserEvents(User u, GetEventsCallback callback){
         getEvents("/users/" + u.getId() + "/events/finished", callback);
     }
 
-    public void searchEventsByLocation(String location, EventCallback callback){
+    public void searchEventsByLocation(String location, GetEventsCallback callback){
         getEvents(LOCATION_EVENT_SEARCH_URL + location, callback);
     }
 
-    public void searchEventsByKeyword(String keyword, EventCallback callback){
+    public void searchEventsByKeyword(String keyword, GetEventsCallback callback){
         getEvents(KEYWORD_EVENT_SEARCH_URL + keyword, callback);
     }
 
-    public void searchEventsByDate(Calendar date, EventCallback callback){
+    public void searchEventsByDate(Calendar date, GetEventsCallback callback){
         //TODO: Must control date format (it must be eg. 2022-12-01)
         getEvents(DATE_EVENT_SEARCH_URL + date.toString(), callback);
     }
 
 
-    private void getEvents(String url, EventCallback callback){
+    private void getEvents(String url, GetEventsCallback callback){
         ApiCommunicator.makeRequest(url, RequestMethod.GET, null, true, new ResponseCallback() {
             @Override
             public void OnResponse(String response) {
