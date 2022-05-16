@@ -16,9 +16,8 @@ public class Event {
     private final int participators;
     private final String slug;
     private final String type;
-    private final float avgScore;
 
-    public Event(int id, String name, int ownerId, Calendar creationDate, String image, String location, String description, Calendar startDate, Calendar endDate, int participators, String slug, String type, float avgScore) {
+    public Event(int id, String name, int ownerId, Calendar creationDate, String image, String location, String description, Calendar startDate, Calendar endDate, int participators, String slug, String type) {
         this.id = id;
         this.name = name;
         this.ownerId = ownerId;
@@ -31,7 +30,6 @@ public class Event {
         this.participators = participators;
         this.slug = slug;
         this.type = type;
-        this.avgScore = avgScore;
     }
 
     public int getId() {
@@ -71,9 +69,6 @@ public class Event {
     public String getType() {
         return type;
     }
-    public float getAvgScore() {
-        return avgScore;
-    }
 
     @Override
     public String toString() {
@@ -90,7 +85,6 @@ public class Event {
                 ", participators=" + participators +
                 ", slug='" + slug + '\'' +
                 ", type='" + type + '\'' +
-                ", avgScore=" + avgScore +
                 '}';
     }
 }

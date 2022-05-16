@@ -5,7 +5,6 @@ import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
 import com.grup8.OpenEvents.model.api.ResponseCallback;
 import com.grup8.OpenEvents.model.entities.Event;
-import com.grup8.OpenEvents.model.entities.User;
 import com.grup8.OpenEvents.model.utils.CalendarHelper;
 
 import org.json.JSONArray;
@@ -86,7 +85,7 @@ public class EventModel {
                                 CalendarHelper.getCalendar(o.getString("eventStart_date")),
                                 CalendarHelper.getCalendar(o.getString("eventEnd_date")),
                                 o.getInt("n_participators"), o.getString("slug"),
-                                o.getString("type"), o.getString("avg_score").equals("null")? -1.0f : (float)o.getDouble("avg_score"));
+                                o.getString("type"));
                     }
 
                     callback.onResponse(true, events);

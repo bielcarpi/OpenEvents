@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">OpenEvents</string>
     <string name="token_preference_file">LoginToken</string>
+    <string name="saved_user_preference_file">SavedUser</string>
 
     <string name="no_error" />
     <string name="bad_response">Error. Bad Server Response</string>

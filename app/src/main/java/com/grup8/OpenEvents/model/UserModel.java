@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Patterns;
 
+import com.google.gson.Gson;
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
@@ -18,6 +19,8 @@ public class UserModel {
 
     private static final UserModel singleton = new UserModel();
     private static final String TOKEN_KEY = "token";
+    private static final String SAVED_USER_KEY = "usr";
+
     private static final String LOGIN_REQUEST_URL = "/users/login";
     private static final String REGISTER_REQUEST_URL = "/users";
     private static final String SEARCH_USER_URL = "/users/search?s=";
@@ -50,6 +53,9 @@ public class UserModel {
         spToken = c.getSharedPreferences(c.getString(R.string.token_preference_file), Context.MODE_PRIVATE);
 
         token = spToken.getString(TOKEN_KEY, null);
+        String loggedInUserString = spToken.getString(SAVED_USER_KEY, null);
+        if(loggedInUserString != null) loggedInUser = new Gson().fromJson(loggedInUserString, User.class);
+
         ApiCommunicator.setToken(token);
     }
 
@@ -91,7 +97,7 @@ public class UserModel {
                                     String lastName = jsonResponse.getString("last_name");
                                     String image = jsonResponse.getString("image");
 
-                                    loggedInUser = new User(id, name, lastName, email, image);
+                                    addLoggedInUser(new User(id, name, lastName, email, image));
                                     callback.onResponse(true, -1);
                                 } catch (Exception e) {
                                     callback.onResponse(false, R.string.bad_response);
@@ -117,8 +123,7 @@ public class UserModel {
     }
 
     public void logOut(){
-        loggedInUser = null;
-        deleteToken();
+        deleteSharedPreferences();
     }
 
 
@@ -311,12 +316,14 @@ public class UserModel {
 
 
 
-    private void deleteToken(){
+    private void deleteSharedPreferences(){
         SharedPreferences.Editor spTokenEditor = spToken.edit();
         spTokenEditor.remove(TOKEN_KEY);
+        spTokenEditor.remove(SAVED_USER_KEY);
         spTokenEditor.apply();
 
-        this.token = null;
+        token = null;
+        loggedInUser = null;
         ApiCommunicator.deleteToken();
     }
     private void addToken(String token){
@@ -326,6 +333,13 @@ public class UserModel {
 
         this.token = token;
         ApiCommunicator.setToken(token);
+    }
+    private void addLoggedInUser(User loggedInUser){
+        SharedPreferences.Editor spTokenEditor = spToken.edit();
+        spTokenEditor.putString(SAVED_USER_KEY, new Gson().toJson(loggedInUser));
+        spTokenEditor.apply();
+
+        this.loggedInUser = loggedInUser;
     }
 
 
