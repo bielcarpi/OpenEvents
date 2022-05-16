@@ -76,9 +76,10 @@ public class Fragment1 extends Fragment {
 
                 //TODO: Depending on the selected option, load a type of user event
                 eventManager.setlEvents(Arrays.asList(events));
+                updateUI();
+
 
         });
-        updateUI();
 
 
 
