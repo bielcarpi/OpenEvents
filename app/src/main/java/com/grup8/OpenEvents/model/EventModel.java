@@ -1,10 +1,12 @@
 package com.grup8.OpenEvents.model;
 
 
+import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.model.api.ApiCommunicator;
 import com.grup8.OpenEvents.model.api.RequestMethod;
 import com.grup8.OpenEvents.model.api.ResponseCallback;
 import com.grup8.OpenEvents.model.callbacks.GetEventsCallback;
+import com.grup8.OpenEvents.model.callbacks.SuccessCallback;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.User;
 import com.grup8.OpenEvents.model.utils.CalendarHelper;
@@ -63,6 +65,89 @@ public class EventModel {
     public void searchEventsByDate(Calendar date, GetEventsCallback callback){
         //TODO: Must control date format (it must be eg. 2022-12-01)
         getEvents(DATE_EVENT_SEARCH_URL + date.toString(), callback);
+    }
+
+
+    public void createEvent(Event event, SuccessCallback callback){
+        final String bodyString = "{\"name\":\"" + event.getName() + "\",\"image\":\"" + event.getImage() + "\",\"location\":\"" + event.getLocation()
+                + "\",\"description\":\"" + event.getDescription()  + "\",\"eventStart_date\":\"" + event.getStartDate()
+                + "\",\"eventEnd_date\":\"" + event.getEndDate()  + "\",\"n_participators\":\"" + event.getParticipators() + "\",\"type\":\"" + event.getType() + "\"}";
+        try{
+            JSONObject body = new JSONObject(bodyString);
+            ApiCommunicator.makeRequest(ALL_EVENTS_REQUEST_URL, RequestMethod.POST, body, new ResponseCallback() {
+                @Override
+                public void OnResponse(String strResponse) {
+                    try {
+                        JSONObject response = new JSONObject(strResponse);
+                        if(response.has("affectedRows") && response.has("serverStatus"))
+                            callback.onResponse(true, R.string.no_error);
+                        else
+                            callback.onResponse(false, R.string.bad_response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        callback.onResponse(false, R.string.bad_response);
+                    }
+                }
+                @Override
+                public void OnErrorResponse(String error) {
+                    callback.onResponse(false, R.string.unreachable_server);
+                }
+            });
+        }catch(JSONException e){
+            callback.onResponse(false, R.string.internal_app_error);
+        }
+    }
+
+    public void deleteEvent(Event event, SuccessCallback callback){
+        ApiCommunicator.makeRequest("/events/" + event.getId(), RequestMethod.DELETE, null, new ResponseCallback() {
+            @Override
+            public void OnResponse(String strResponse) {
+                try {
+                    JSONObject response = new JSONObject(strResponse);
+                    if(response.has("affectedRows") && response.has("serverStatus"))
+                        callback.onResponse(true, R.string.no_error);
+                    else
+                        callback.onResponse(false, R.string.bad_response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    callback.onResponse(false, R.string.bad_response);
+                }
+            }
+            @Override
+            public void OnErrorResponse(String error) {
+                callback.onResponse(false, R.string.unreachable_server);
+            }
+        });
+    }
+
+    public void updateEvent(Event event, SuccessCallback callback){
+        final String bodyString = "{\"name\":\"" + event.getName() + "\",\"image\":\"" + event.getImage() + "\",\"location\":\"" + event.getLocation()
+                + "\",\"description\":\"" + event.getDescription()  + "\",\"eventStart_date\":\"" + event.getStartDate()
+                + "\",\"eventEnd_date\":\"" + event.getEndDate()  + "\",\"n_participators\":\"" + event.getParticipators() + "\",\"type\":\"" + event.getType() + "\"}";
+        try{
+            JSONObject body = new JSONObject(bodyString);
+            ApiCommunicator.makeRequest("/events/" + event.getId(), RequestMethod.PUT, body, new ResponseCallback() {
+                @Override
+                public void OnResponse(String strResponse) {
+                    try {
+                        JSONObject response = new JSONObject(strResponse);
+                        if(response.has("affectedRows") && response.has("serverStatus"))
+                            callback.onResponse(true, R.string.no_error);
+                        else
+                            callback.onResponse(false, R.string.bad_response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        callback.onResponse(false, R.string.bad_response);
+                    }
+                }
+                @Override
+                public void OnErrorResponse(String error) {
+                    callback.onResponse(false, R.string.unreachable_server);
+                }
+            });
+        }catch(JSONException e){
+            callback.onResponse(false, R.string.internal_app_error);
+        }
     }
 
 
