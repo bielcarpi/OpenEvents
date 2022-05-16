@@ -35,6 +35,15 @@ public class Fragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        EventModel.getInstance().getBestEvents((success, events) -> {
+
+            //TODO: Depending on the selected option, load a type of user event
+            eventManager.setlEvents(Arrays.asList(events));
+            updateUI();
+
+
+        });
         View v = inflater.inflate(R.layout.fragment_1, container, false);
 
         // Asignamos los valores al spiner

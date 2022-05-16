@@ -53,13 +53,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_profile, container, false);
-
-
-
-        tvName = v.findViewById(R.id.profile_username);
-        ivImage = v.findViewById(R.id.img_person);
 
 
         Bundle data = getArguments();
@@ -71,6 +64,24 @@ public class ProfileFragment extends Fragment {
 
 
         User user = new User(id, name, lastName, email, image);
+
+        EventModel.getInstance().getFutureUserEvents(user, (success, events) -> {
+            if(success){
+                //TODO: Depending on the selected option, load a type of user event
+                eventManager.setlEvents(Arrays.asList(events));
+                updateUI();
+            }
+        });
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_profile, container, false);
+
+
+
+        tvName = v.findViewById(R.id.profile_username);
+        ivImage = v.findViewById(R.id.img_person);
+
+
+
 
         tvName.setText(name);
         Picasso.get().load(image).into(ivImage);
@@ -114,12 +125,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        EventModel.getInstance().getFutureUserEvents(user, (success, events) -> {
-            if(success){
-                //TODO: Depending on the selected option, load a type of user event
-                eventManager.setlEvents(Arrays.asList(events));
-            }
-        });
+
 
 
 
@@ -135,12 +141,9 @@ public class ProfileFragment extends Fragment {
     private void updateUI() {
         List<Event> lEvents = eventManager.getlEvents();
 
-        if (adapter == null) {
             adapter = new EventAdapter(lEvents, (MainActivity) getActivity());
             eventRecyclerView.setAdapter (adapter);
-        } else {
-            adapter.notifyDataSetChanged();
-        }
+
     }
 
     @Override
