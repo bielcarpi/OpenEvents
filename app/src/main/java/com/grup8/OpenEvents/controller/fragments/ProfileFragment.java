@@ -26,6 +26,7 @@ import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.EventManager;
 import com.grup8.OpenEvents.model.entities.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
 import java.util.List;
@@ -62,9 +63,25 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        tvName = v.findViewById(R.id.profile_username);
+        ivImage = v.findViewById(R.id.img_person);
 
 
-         bButton = v.findViewById(R.id.message);
+        Bundle data = getArguments();
+        int id = data.getInt("ID");
+        String name = data.getString("NAME");
+        String lastName = data.getString("LAST_NAME");
+        String email = data.getString("EMAIL");
+        String image = data.getString("IMAGE");
+
+
+        User user = new User(id, name, lastName, email, image);
+
+        tvName.setText(name);
+        Picasso.get().load(image).into(ivImage);
+
+
+        bButton = v.findViewById(R.id.message);
 
         // Tindrem que mirar a quin perfil estem
 

@@ -51,13 +51,7 @@ public class Fragment1 extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selected = adapterView.getItemAtPosition(i).toString();
-                switch(selected) {
-                    case "Rated":
-                        showTopRated();
-                    case "Show all":
-                        showAll();
 
-                }
 
             }
 
@@ -69,17 +63,23 @@ public class Fragment1 extends Fragment {
 
         // Recycle View
 
-        EventModel.getInstance().getBestEvents((success, events) -> {
-            if(success){
-                //TODO: Depending on the selected option, load a type of user event
-                eventManager.setlEvents(Arrays.asList(events));
-            }
-        });
+
+
+
 
 
 
         eventRecyclerView = (RecyclerView) v.findViewById(R.id.event_recycleview);
         eventRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));
+
+        EventModel.getInstance().getBestEvents((success, events) -> {
+
+                //TODO: Depending on the selected option, load a type of user event
+                eventManager.setlEvents(Arrays.asList(events));
+
+        });
+        updateUI();
+
 
 
         return v;
@@ -88,12 +88,9 @@ public class Fragment1 extends Fragment {
     private void updateUI() {
         List<Event> lEvents = eventManager.getlEvents();
 
-        if (adapter == null) {
             adapter = new EventAdapter(lEvents, (MainActivity) getActivity());
             eventRecyclerView.setAdapter (adapter);
-        } else {
-            adapter.notifyDataSetChanged();
-        }
+
     }
 
     @Override
@@ -103,7 +100,7 @@ public class Fragment1 extends Fragment {
     }
 
     public void showTopRated() {
-        EventModel.getInstance().getBestEvents((success, events) -> {
+        EventModel.getInstance().getFutureUserEvents((success, events) -> {
             System.out.println("Hola! Events -> " + success);
             if(success)
                 eventManager.setlEvents(Arrays.asList(events));

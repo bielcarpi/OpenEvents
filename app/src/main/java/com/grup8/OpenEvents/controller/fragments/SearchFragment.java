@@ -70,10 +70,13 @@ public class SearchFragment extends Fragment {
                     if(success) {
                         userManager.setlUser(Arrays.asList(users));
                         updateUI();
+
                     };
 
 
                 });
+
+
             }
 
             @Override
@@ -88,12 +91,9 @@ public class SearchFragment extends Fragment {
 
         List<User> lUser = this.userManager.getlUsers();
 
-        if (adapter == null) {
             adapter = new FriendsAdapter(lUser, (MainActivity) getActivity());
             userRecyclerView.setAdapter (adapter);
-        } else {
-            adapter.notifyDataSetChanged();
-        }
+
     }
 
     @Override

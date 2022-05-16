@@ -17,7 +17,9 @@ import com.grup8.OpenEvents.controller.fragments.FriendsFragment;
 import com.grup8.OpenEvents.controller.fragments.ProfileFragment;
 import com.grup8.OpenEvents.controller.fragments.SearchFragment;
 import com.grup8.OpenEvents.model.EventModel;
+import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.Event;
+import com.grup8.OpenEvents.model.entities.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,11 +39,37 @@ public class MainActivity extends AppCompatActivity {
 
 
         homeBtn.setOnClickListener(view -> replaceFragment(new Fragment1()));
-        profileBtn.setOnClickListener(view -> replaceFragment(new ProfileFragment()));
         searchBtn.setOnClickListener(view -> replaceFragment(new SearchFragment()));
         friendsBtn.setOnClickListener(view -> replaceFragment(new FriendsFragment())
         );
 
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                User user  = UserModel.getInstance().getLoggedInUser();
+
+                ProfileFragment profileFragment = new ProfileFragment();
+
+                Bundle args = new Bundle();
+                args.putInt("ID", user.getId());
+                args.putString("NAME", user.getName());
+                args.putString("LAST_NAME", user.getLastName());
+                args.putString("EMAIL", user.getPassword());
+                args.putString("IMAGE", user.getImage());
+                args.putFloat("AVG_SCORE", user.getAvgScore());
+                args.putInt("NUM_COMMENTS", user.getNumComments());
+                args.putFloat("PERCENTAGE_COMMENTERS_BELOW", user.getPercentageCommentersBelow());
+                args.putInt("NUM_EVENTS", user.getNumEvents());
+                args.putInt("NUM_FRIENDS", user.getNumEvents());
+                // ...
+
+
+                profileFragment.setArguments(args);
+
+                replaceFragment(profileFragment);
+            }
+        });
 
 
     }
