@@ -29,18 +29,15 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string-array name="array">
-        <item>Show all</item>
-        <item>Category</item>
-        <item>Rated</item>
-        <item>Popularitat</item>
-        <item>Data</item>
+    <string-array name="home_events_dropdown">
+        <item>All Events</item>
+        <item>Best Rated</item>
     </string-array>
 
-    <string-array name="date">
-        <item>Already ended</item>
-        <item>Today</item>
+    <string-array name="user_events_dropdown">
         <item>Upcoming</item>
+        <item>Today</item>
+        <item>Already ended</item>
     </string-array>
 
     <string name="event_name">event</string>

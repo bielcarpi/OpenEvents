@@ -125,7 +125,7 @@ public class ProfileFragment extends Fragment {
 
 
         // Asignamos los valores al spiner
-        String [] values = getResources().getStringArray(R.array.date);
+        String [] values = getResources().getStringArray(R.array.user_events_dropdown);
         Spinner spinner = (Spinner) v.findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
