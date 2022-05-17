@@ -1,8 +1,9 @@
 package com.grup8.OpenEvents.model.entities;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Event {
+public class Event implements Serializable {
 
     private final int id;
     private final String name;

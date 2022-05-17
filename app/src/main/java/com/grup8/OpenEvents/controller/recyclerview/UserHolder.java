@@ -19,18 +19,16 @@ import com.squareup.picasso.Picasso;
 public class UserHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     public User user;
-    private TextView txtName, txtEmail;
-    private ImageView imgUser;
-    private Activity activity;
+    private final TextView txtName, txtEmail;
+    private final ImageView imgUser;
 
-    public UserHolder(LayoutInflater inflater, ViewGroup parent, Activity activity) {
+    public UserHolder(LayoutInflater inflater, ViewGroup parent) {
         super(inflater.inflate(R.layout.user_row, parent, false));
 
         txtName = itemView.findViewById(R.id.user_row_name);
         txtEmail = itemView.findViewById(R.id.user_row_email);
         imgUser = itemView.findViewById(R.id.user_row_image);
 
-        this.activity = activity;
         itemView.setOnClickListener(this);
     }
 
@@ -40,19 +38,15 @@ public class UserHolder extends RecyclerView.ViewHolder implements View.OnClickL
         txtName.setText(completeName);
         txtEmail.setText(user.getEmail());
 
-        if(user.getImage() != null && !user.getImage().trim().isEmpty()){
-            System.out.println("Printing path: " + user.getImage());
+        if(user.getImage() != null && !user.getImage().trim().isEmpty())
             Picasso.get().load(user.getImage()).into(imgUser);
-        }
     }
 
     @Override
     public void onClick(View view) {
-        activity = (MainActivity) view.getContext();
         ProfileFragment profileFragment = new ProfileFragment();
 
         Bundle args = new Bundle();
-
         args.putSerializable("user", user);
         profileFragment.setArguments(args);
 

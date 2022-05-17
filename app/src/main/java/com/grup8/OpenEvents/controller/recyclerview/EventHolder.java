@@ -1,5 +1,7 @@
 package com.grup8.OpenEvents.controller.recyclerview;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,62 +19,51 @@ import com.grup8.OpenEvents.controller.fragments.DescriptionEventFragment;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+
 public class EventHolder  extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     public Event event;
 
-
-    private TextView tvNom;
-    private TextView tvData;
-    private ImageView ivImage;
+    private final TextView txtTitle, txtStartDate, txtEndDate, txtLocation, txtDescription;
+    private final ImageView imgEvent;
 
 
-
-
-    private MainActivity activity;
-
-    public EventHolder(LayoutInflater inflater, ViewGroup parent, MainActivity activity) {
+    public EventHolder(LayoutInflater inflater, ViewGroup parent) {
         super(inflater.inflate(R.layout.event_row, parent, false));
 
-        tvNom = (TextView) itemView.findViewById(R.id.event_name);
-        ivImage = itemView.findViewById(R.id.image);
+        txtTitle = itemView.findViewById(R.id.event_row_name);
+        txtStartDate = itemView.findViewById(R.id.event_row_start_date);
+        txtEndDate = itemView.findViewById(R.id.event_row_end_date);
+        txtLocation = itemView.findViewById(R.id.event_row_location);
+        txtDescription = itemView.findViewById(R.id.event_row_description);
+        imgEvent = itemView.findViewById(R.id.event_row_image);
 
-
-        this.activity = activity;
         itemView.setOnClickListener(this);
     }
 
+    @SuppressLint("SimpleDateFormat")
     public void bind (Event event) {
         this.event = event;
-        tvNom.setText(event.getName());
-        Picasso.get().load(event.getImage()).into(ivImage);
+        txtTitle.setText(event.getName());
+        txtLocation.setText(event.getLocation());
+        txtStartDate.setText(event.getStartDate() == null? "": new SimpleDateFormat("dd-MM-yyyy").format(event.getStartDate().getTime()));
+        txtEndDate.setText(event.getEndDate() == null? "": new SimpleDateFormat("dd-MM-yyyy").format(event.getEndDate().getTime()));
+        txtDescription.setText(event.getDescription());
 
-
-
+        if(event.getImage() != null && !event.getImage().trim().isEmpty())
+            Picasso.get().load(event.getImage()).into(imgEvent);
     }
 
     @Override
     public void onClick(View view) {
-        // Get the position of the event we clicked
-
-        activity = (MainActivity) view.getContext();
         DescriptionEventFragment descriptionEventFragment = new DescriptionEventFragment();
 
-        // Pass the user clicked
         Bundle args = new Bundle();
-        args.putString("NAME", event.getName());
-        args.putString("IMAGE", event.getImage());
-
-        // ...
-
-
+        args.putSerializable("event", event);
         descriptionEventFragment.setArguments(args);
 
-        FragmentManager fm = activity.getSupportFragmentManager();
+        FragmentManager fm = ((MainActivity)view.getContext()).getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.main_fragment, descriptionEventFragment).commit();
-
-
     }
-
-
 }

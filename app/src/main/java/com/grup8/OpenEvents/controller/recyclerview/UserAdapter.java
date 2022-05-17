@@ -26,7 +26,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserHolder> {
     public UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Inflates the layout from XML when needed
         LayoutInflater layoutInflater = LayoutInflater.from(activity);
-        return new UserHolder(layoutInflater, parent, activity);
+        return new UserHolder(layoutInflater, parent);
     }
 
     @Override

@@ -15,14 +15,16 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.grup8.OpenEvents.R;
+import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.User;
 import com.squareup.picasso.Picasso;
 
 public class DescriptionEventFragment extends Fragment {
 
-    private TextView tvName;
-    private ImageView ivImage;
+    private Event event;
 
+    private TextView txtTitle;
+    private ImageView imgEvent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,29 +38,15 @@ public class DescriptionEventFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_description_event, container, false);
 
-        tvName = v.findViewById(R.id.name_event);
-        ivImage = v.findViewById(R.id.image_event);
+        txtTitle = v.findViewById(R.id.name_event);
+        imgEvent = v.findViewById(R.id.image_event);
 
+        if(getArguments() == null) return null;
+        event = (Event) getArguments().getSerializable("event");
 
-        Bundle data = getArguments();
-        int id = data.getInt("ID");
-        String name = data.getString("NAME");
-        String lastName = data.getString("LAST_NAME");
-        String email = data.getString("EMAIL");
-        String image = data.getString("IMAGE");
-
-
-
-
-        System.out.println(name);
-
-        tvName.setText(name);
-
-
-
-        Picasso.get().load(image).into(ivImage);
-
-
+        txtTitle.setText(event.getName());
+        if(event.getImage() != null && !event.getImage().trim().isEmpty())
+            Picasso.get().load(event.getImage()).into(imgEvent);
 
         return v;
     }
