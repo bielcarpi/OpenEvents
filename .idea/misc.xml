@@ -18,11 +18,13 @@
         <entry key="app/src/main/res/layout/event_row.xml" value="0.42409638554216866" />
         <entry key="app/src/main/res/layout/fragment_1.xml" value="0.2758655713952105" />
         <entry key="app/src/main/res/layout/fragment_2.xml" value="0.2758152173913043" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1840240478515625" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.4660608927408856" />
         <entry key="app/src/main/res/layout/friends_adapter.xml" value="0.2930253623188406" />
         <entry key="app/src/main/res/layout/list_adapter.xml" value="0.2758152173913043" />
         <entry key="app/src/main/res/layout/user_row.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/app_logo.xml" value="0.1985" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/app_logo_round.xml" value="0.1605" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.174" />
       </map>
     </option>

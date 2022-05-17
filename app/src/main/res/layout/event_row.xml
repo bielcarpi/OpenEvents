@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_marginTop="10dp"
     >
 
     <TextView
@@ -26,7 +27,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginStart="8dp"
+        >
 
         <TextView
             android:id="@+id/event_row_start_date"
@@ -34,7 +37,6 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:fontFamily="@font/helveticaneue_bold"
-            android:layout_marginStart="3dp"
             android:text="@string/event_start"/>
 
         <TextView
@@ -63,7 +65,9 @@
         android:textSize="15sp"
         android:fontFamily="@font/helveticaneue_bold"
         android:gravity="center_vertical"
-        android:text="@string/event_location"/>
+        android:text="@string/event_location"
+        android:layout_marginStart="8dp"
+        />
 
     <TextView
         android:id="@+id/event_row_description"
@@ -72,6 +76,8 @@
         android:textSize="11sp"
         android:fontFamily="@font/helveticaneue_bold"
         android:gravity="center_vertical"
-        android:text="@string/event_time"/>
+        android:text="@string/event_time"
+        android:layout_marginStart="8dp"
+        />
 
 </LinearLayout>

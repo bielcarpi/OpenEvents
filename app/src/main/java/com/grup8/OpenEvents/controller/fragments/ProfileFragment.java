@@ -92,6 +92,7 @@ public class ProfileFragment extends Fragment {
         bButton.setOnClickListener((View.OnClickListener) view -> replaceFragment(view));
          */
 
+        /*
         //Assign Values to the spinner
         String [] values = getResources().getStringArray(R.array.user_events_dropdown);
         Spinner spinner = (Spinner) v.findViewById(R.id.spinner);
@@ -112,6 +113,9 @@ public class ProfileFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+
+         */
 
         //Setup recycler view
         eventRecyclerView = (RecyclerView) v.findViewById(R.id.home_event_recyclerview);

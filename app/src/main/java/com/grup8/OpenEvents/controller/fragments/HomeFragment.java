@@ -1,8 +1,10 @@
 package com.grup8.OpenEvents.controller.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
@@ -22,12 +26,14 @@ import com.grup8.OpenEvents.model.entities.EventManager;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
     private RecyclerView eventRecyclerView;
     private final EventManager eventManager = EventManager.getInstance(getActivity());
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,24 +43,31 @@ public class HomeFragment extends Fragment {
         //Get all the events so as to see them
         showAllEvents();
 
-        //Assign values to the spinner
-        String [] values = getResources().getStringArray(R.array.home_events_dropdown);
-        Spinner spinner = (Spinner) v.findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinner.setAdapter(adapter);
+        TextView txtAllEvents = v.findViewById(R.id.home_all_events);
+        TextView txtBestEvents = v.findViewById(R.id.home_best_events);
+        ImageView imgMessages = v.findViewById(R.id.home_messages);
+        ImageView imgFriends = v.findViewById(R.id.home_friends);
 
-        //Set Up spinner Listener
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0) showAllEvents();
-                else showBestEvents();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
+        txtAllEvents.setOnClickListener(view -> {
+            txtBestEvents.setBackground(null);
+            txtAllEvents.setBackground(requireContext().getDrawable(R.drawable.bg_bottom_selected));
+            showAllEvents();
         });
+        txtBestEvents.setOnClickListener(view -> {
+            txtAllEvents.setBackground(null);
+            txtBestEvents.setBackground(requireContext().getDrawable(R.drawable.bg_bottom_selected));
+            showBestEvents();
+        });
+
+        imgFriends.setOnClickListener(view -> {
+            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.main_fragment, new FriendsFragment());
+            fragmentTransaction.commit();
+        });
+        imgMessages.setOnClickListener(view -> {
+            //TODO: Change activity
+        });
+
 
         //Set Up Recycle View
         eventRecyclerView = (RecyclerView) v.findViewById(R.id.home_event_recyclerview);
