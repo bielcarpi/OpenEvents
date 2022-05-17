@@ -1,272 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".controller.fragments.ProfileFragment"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/profile_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textSize="25sp"
+        android:layout_marginTop="10sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="20">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="2sp">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:id="@+id/profile_num_events"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="12sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/num_events"
+            android:textSize="12sp"
+            android:layout_marginStart="5sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="7"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/profile_image"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="100sp"
+            android:src="@drawable/ic_person"
+            android:contentDescription="@string/user_image"
+            app:civ_circle_color="@color/light_grey"
+            />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="10dp" >
-
-            <LinearLayout
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="10dp"
-                    android:orientation="vertical" >
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/profile_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#8F7B7D8E"
-                    android:text="USERNAME" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/profile_score"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="#00000000"
-                        android:text="0" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="#00000000"
-                        android:text="@string/score"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/profile_num_comments"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="#00000000"
-                        android:text="0" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="#00000000"
-                        android:text="@string/comments"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/profile_top_percent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="#00000000"
-                        android:text="0" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="#00000000"
-                        android:text="@string/top_percentage"/>
-
-                </LinearLayout>
-
-                <ImageButton
-                    android:id="@+id/settings_btn"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="30dp"
-                    android:src="@drawable/ic_settings" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="83dp"
-                    android:layout_height="78dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/ic_person" />
-
+                android:layout_marginStart="20dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/profile_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="0" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/score"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:layout_marginStart="20dp"
+                android:gravity="center"
                 android:orientation="vertical">
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/profile_num_comments"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:gravity="left"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/profile_num_friends"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="#00000000"
-                            android:text="0" />
-
-                        <TextView
-                            android:id="@+id/num_friends"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="#00000000"
-                            android:text="@string/friends"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/profile_num_events"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="#00000000"
-                            android:text="0" />
-
-                        <TextView
-                            android:id="@+id/num_events"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="#00000000"
-                            android:text="@string/num_events"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
+                    android:layout_gravity="center"
+                    android:text="0" />
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/add_friend"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:text="@string/add_friend" />
-
-                    <Button
-                        android:id="@+id/message"
-                        android:layout_width="115dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/message" />
-                </LinearLayout>
-
+                    android:layout_gravity="center"
+                    android:text="@string/comments"/>
             </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:background="#65000000">
-
-            <Spinner
-                android:layout_margin="20dp"
-                android:id="@+id/spinner"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center" />
-
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/home_event_recyclerview"
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-
+                android:layout_marginStart="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/profile_top_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="0" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/top_percentage"/>
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="10sp"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/add_friend"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/add_friend"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/message"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/message"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:layout_marginTop="12sp">
+
+        <TextView
+            android:id="@+id/profile_future_events"
+            android:layout_weight="1"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:text="@string/upcoming_events"
+            android:gravity="center"
+            android:paddingTop="5sp"
+            android:paddingBottom="10sp"
+            android:background="@drawable/bg_bottom_selected">
+        </TextView>
+        <TextView
+            android:id="@+id/profile_current_events"
+            android:layout_weight="1"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:text="@string/today_events"
+            android:gravity="center"
+            android:paddingTop="5sp"
+            android:paddingBottom="10sp">
+        </TextView>
+        <TextView
+            android:id="@+id/profile_ended_events"
+            android:layout_weight="1"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:text="@string/ended_events"
+            android:gravity="center"
+            android:paddingTop="5sp"
+            android:paddingBottom="10sp">
+        </TextView>
+    </LinearLayout>
 
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_event_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
