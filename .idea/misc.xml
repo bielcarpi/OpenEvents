@@ -7,6 +7,7 @@
         <entry key="..\:/Users/david/AndroidStudioProjects/grup_8/app/src/main/res/layout/fragment_description_event.xml" value="0.22" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.174" />
         <entry key="app/src/main/res/drawable/app_logo_foreground.xml" value="0.174" />
+        <entry key="app/src/main/res/drawable/bg_bottom_selected.xml" value="0.206" />
         <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.174" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.174" />
         <entry key="app/src/main/res/drawable/splash_background.xml" value="0.174" />
@@ -15,7 +16,7 @@
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/event_row.xml" value="0.42409638554216866" />
-        <entry key="app/src/main/res/layout/fragment_1.xml" value="0.2758152173913043" />
+        <entry key="app/src/main/res/layout/fragment_1.xml" value="0.2758655713952105" />
         <entry key="app/src/main/res/layout/fragment_2.xml" value="0.2758152173913043" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.4660608927408856" />
         <entry key="app/src/main/res/layout/friends_adapter.xml" value="0.2930253623188406" />

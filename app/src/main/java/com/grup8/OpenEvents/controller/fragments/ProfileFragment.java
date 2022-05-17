@@ -114,7 +114,7 @@ public class ProfileFragment extends Fragment {
         });
 
         //Setup recycler view
-        eventRecyclerView = (RecyclerView) v.findViewById(R.id.event_recycleview);
+        eventRecyclerView = (RecyclerView) v.findViewById(R.id.home_event_recyclerview);
         eventRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));
 
         return v;
