@@ -3,6 +3,7 @@ package com.grup8.OpenEvents.controller.fragments;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,45 +36,29 @@ public class ProfileFragment extends Fragment {
 
     private RecyclerView eventRecyclerView;
 
-    private EventManager eventManager =  EventManager.getInstance(getActivity());
-    private EventAdapter adapter;
-    private MainActivity activity;
+    private final EventManager eventManager =  EventManager.getInstance(getActivity());
+    private User u;
 
-    private ImageView imgUser;
     private TextView txtName, txtScore, txtNumComments, txtTopPercent, txtNumFriends, txtNumEvents;
     private Button btnSettings, btnSendMessage, btnAddRemoveFriend;
     private ImageButton bButton;
+    private ImageView imgUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //A Bundle with User must have been provided
         if(getArguments() == null) return null;
-        User u = (User) getArguments().getSerializable("user");
-        /*
-        Bundle data = getArguments();
-        int id = data.getInt("ID");
-        String name = data.getString("NAME");
-        String last_name = data.getString("LAST_NAME");
-        String email = data.getString("EMAIL");
-        String image = data.getString("IMAGE");
+        u = (User) getArguments().getSerializable("user");
 
-        User u = new User(id,name, last_name, email, image);
-
-
-*/
-
-
-
-
-
+        //Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
         //Get the user stats from the server. Once we have them, update the view
         UserModel.getInstance().getUserStats(u, (success, user) -> {
@@ -86,17 +71,6 @@ public class ProfileFragment extends Fragment {
             txtNumFriends.setText(Integer.toString(u.getNumFriends() == -1? '-': u.getNumFriends()));
             txtNumEvents.setText(Integer.toString(u.getNumEvents()));
         });
-
-        EventModel.getInstance().getFutureUserEvents(u, (success, events) -> {
-            if(!success) return;
-
-            eventManager.setlEvents(Arrays.asList(events));
-            updateUI();
-        });
-
-
-        //Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
         //Catch references to the views
         txtName = v.findViewById(R.id.profile_username);
@@ -112,19 +86,13 @@ public class ProfileFragment extends Fragment {
 
         /*
         bButton = v.findViewById(R.id.message);
-
         // Tindrem que mirar a quin perfil estem
-
         bButton.setText("Edit profile");
-
-
         bButton = v.findViewById(R.id.settings_btn);
         bButton.setOnClickListener((View.OnClickListener) view -> replaceFragment(view));
-
          */
 
-
-        // Asignamos los valores al spiner
+        //Assign Values to the spinner
         String [] values = getResources().getStringArray(R.array.user_events_dropdown);
         Spinner spinner = (Spinner) v.findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
@@ -132,20 +100,20 @@ public class ProfileFragment extends Fragment {
         spinner.setAdapter(adapter);
 
 
-
-        // Recogemos el valor que ha pulsado del spinner
+        //Setup Spinner Listenner
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String selected = adapterView.getItemAtPosition(i).toString();
+                if(i == 0) showFutureUserEvents();
+                else if(i == 1) showCurrentUserEvents();
+                else showFinishedUserEvents();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
+        //Setup recycler view
         eventRecyclerView = (RecyclerView) v.findViewById(R.id.event_recycleview);
         eventRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));
 
@@ -155,7 +123,7 @@ public class ProfileFragment extends Fragment {
 
     private void updateUI() {
         List<Event> lEvents = eventManager.getlEvents();
-        adapter = new EventAdapter(lEvents, (MainActivity) getActivity());
+        EventAdapter adapter = new EventAdapter(lEvents, (MainActivity) getActivity());
         eventRecyclerView.setAdapter (adapter);
     }
 
@@ -167,4 +135,25 @@ public class ProfileFragment extends Fragment {
     }
 
 
+    private void showFutureUserEvents() {
+        EventModel.getInstance().getFutureUserEvents(u, (success, events) -> {
+            if(!success) return;
+            eventManager.setlEvents(Arrays.asList(events));
+            updateUI();
+        });
+    }
+    private void showCurrentUserEvents() {
+        EventModel.getInstance().getCurrentUserEvents(u, (success, events) -> {
+            if(!success) return;
+            eventManager.setlEvents(Arrays.asList(events));
+            updateUI();
+        });
+    }
+    private void showFinishedUserEvents() {
+        EventModel.getInstance().getFinishedUserEvents(u, (success, events) -> {
+            if(!success) return;
+            eventManager.setlEvents(Arrays.asList(events));
+            updateUI();
+        });
+    }
 }
