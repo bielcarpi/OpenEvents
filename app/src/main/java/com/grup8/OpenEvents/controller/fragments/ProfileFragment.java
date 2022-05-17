@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +28,7 @@ import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.EventManager;
 import com.grup8.OpenEvents.model.entities.User;
-import com.grup8.OpenEvents.model.utils.ImageHelper;
+import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +45,7 @@ public class ProfileFragment extends Fragment {
     private TextView txtName, txtScore, txtNumComments, txtTopPercent, txtNumFriends, txtNumEvents;
     private Button btnSettings, btnSendMessage, btnAddRemoveFriend;
     private ImageButton bButton;
+    FragmentManager fm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,24 +111,17 @@ public class ProfileFragment extends Fragment {
         imgUser = v.findViewById(R.id.profile_image);
 
         txtName.setText(u.getName());
-        ImageHelper.bindImageToUser(u.getImage(), imgUser);
-
-        /*
-        bButton = v.findViewById(R.id.message);
-
-        // Tindrem que mirar a quin perfil estem
-
-        bButton.setText("Edit profile");
+        Picasso.get().load(u.getImage()).into(imgUser);
 
 
+
+        //AQUEST HA DE CANVIAR DE PANTALLA AMB LA IMATGE DEL SETTINGS
         bButton = v.findViewById(R.id.settings_btn);
-        bButton.setOnClickListener((View.OnClickListener) view -> replaceFragment(view));
-
-         */
+        //bButton.setOnClickListener(new Fragment2(v));
 
 
         // Asignamos los valores al spiner
-        String [] values = getResources().getStringArray(R.array.user_events_dropdown);
+        String [] values = getResources().getStringArray(R.array.home_events_dropdown);
         Spinner spinner = (Spinner) v.findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
