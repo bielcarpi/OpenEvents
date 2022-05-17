@@ -59,6 +59,7 @@ public class EventHolder  extends RecyclerView.ViewHolder implements View.OnClic
         Picasso.get().load(event.getImage()).into(ivImage);
 
 
+
     }
 
     @Override

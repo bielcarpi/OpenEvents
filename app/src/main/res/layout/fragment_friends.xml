@@ -16,10 +16,33 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="friends"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/friends"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/friends" />
+
+            <TextView
+                android:id="@+id/friends_request"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="FRIENDS REQUESTS" />
+
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/friends_recycleview"
-            android:layout_weight="9"
+            android:layout_weight="8"
             android:layout_width="match_parent"
             android:layout_height="0dp" />
 

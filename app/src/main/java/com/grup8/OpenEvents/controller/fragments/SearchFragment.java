@@ -15,11 +15,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.UserModel;
+import com.grup8.OpenEvents.model.entities.Event;
+import com.grup8.OpenEvents.model.entities.EventManager;
 import com.grup8.OpenEvents.model.entities.User;
 import com.grup8.OpenEvents.model.entities.UserManager;
 
@@ -34,25 +37,49 @@ public class SearchFragment extends Fragment {
 
 
     private UserManager userManager = UserManager.getInstance(getActivity());
+    private EventManager eventManager = EventManager.getInstance(getActivity());
     private FriendsAdapter adapter;
+    private EventAdapter eventAdapter;
+
+    private TextView tvUsers, tvEvents;
 
 
     private RecyclerView userRecyclerView;
+
+    private int search = 0;
+    private String text;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_search, container, false);
 
         etSearch = v.findViewById(R.id.search_bar);
 
-
-        userRecyclerView = (RecyclerView) v.findViewById(R.id.user_recycleview);
+        tvUsers = v.findViewById(R.id.users);
+        tvEvents = v.findViewById(R.id.events);
+        userRecyclerView = (RecyclerView) v.findViewById(R.id.search_recycleview);
         userRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));
 
 
+        tvUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search = 0;
+                updateUsers();
+            }
+        });
+        tvEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search = 1;
+                updateEvents();
+            }
+        });
 
 
 
@@ -64,17 +91,12 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                UserModel.getInstance().searchUser(charSequence.toString(), (success, users) -> {
-                    System.out.println("Hola! User -> " + success);
-                    if(success) {
-                        userManager.setlUser(Arrays.asList(users));
-                        updateUI();
-
-                    };
-
-
-                });
+                text = charSequence.toString();
+                if (search == 0) {
+                    updateUsers();
+                } else {
+                    updateEvents();
+                }
 
 
             }
@@ -89,10 +111,18 @@ public class SearchFragment extends Fragment {
     }
     private void updateUI() {
 
-        List<User> lUser = this.userManager.getlUsers();
+        if(search == 0) {
+
+            List<User> lUser = this.userManager.getlUsers();
 
             adapter = new FriendsAdapter(lUser, (MainActivity) getActivity());
-            userRecyclerView.setAdapter (adapter);
+            userRecyclerView.setAdapter(adapter);
+        } else {
+            List<Event> lEvent = this.eventManager.getlEvents();
+            eventAdapter = new EventAdapter(lEvent, (MainActivity) getActivity());
+            userRecyclerView.setAdapter(eventAdapter);
+
+        }
 
     }
 
@@ -101,6 +131,31 @@ public class SearchFragment extends Fragment {
         super.onResume();
         updateUI();
     }
+
+    public void updateUsers() {
+        UserModel.getInstance().searchUser(text, (success, users) -> {
+            System.out.println("Hola! User -> " + success);
+            if (success) {
+                userManager.setlUser(Arrays.asList(users));
+                updateUI();
+
+            }
+
+        });
+    }
+
+    public void updateEvents() {
+        EventModel.getInstance().searchEventsByKeyword(text, ((success, events) -> {
+            if (success) {
+                eventManager.setlEvents(Arrays.asList(events));
+                updateUI();
+
+            }
+        }
+        ));
+
+    }
+
 
 
 

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
@@ -16,16 +17,18 @@ import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.User;
+import com.grup8.OpenEvents.model.entities.UserManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class FriendsFragment extends Fragment {
-    private List<User> lUser;
+    private UserManager userManager = UserManager.getInstance(getActivity());
     private FriendsAdapter adapter;
 
 
+    private TextView friends, friends_request;
 
     private RecyclerView friendsRecyclerView;
 
@@ -35,10 +38,44 @@ public class FriendsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_friends, container, false);
 
-        lUser = new ArrayList<>();
 
         friendsRecyclerView = (RecyclerView) v.findViewById(R.id.friends_recycleview);
         friendsRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));
+
+        friends = v.findViewById(R.id.friends);
+        friends_request = v.findViewById(R.id.friends_request);
+
+        friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserModel.getInstance().getCurrentUserFriends( (success, users) -> {
+                    System.out.println("Hola! User -> " + success);
+                    if(success) {
+                        userManager.setlUser(Arrays.asList(users));
+                        updateUI();
+
+                    };
+
+
+                });
+            }
+        });
+
+        friends_request.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserModel.getInstance().getFriendRequests( (success, users) -> {
+                    System.out.println("Hola! User -> " + success);
+                    if(success) {
+                        userManager.setlUser(Arrays.asList(users));
+                        updateUI();
+
+                    };
+
+
+                });
+            }
+        });
 
 
         return v;
@@ -49,14 +86,11 @@ public class FriendsFragment extends Fragment {
         // demanar info de qui
 
 
-        List<User> lUser = this.lUser;
+        List<User> lUser = this.userManager.getlUsers();
 
-        if (adapter == null) {
             adapter = new FriendsAdapter(lUser, (MainActivity) getActivity());
             friendsRecyclerView.setAdapter (adapter);
-        } else {
-            adapter.notifyDataSetChanged();
-        }
+
     }
 
     @Override

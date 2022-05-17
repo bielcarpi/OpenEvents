@@ -74,16 +74,15 @@ public class FriendsHolder  extends RecyclerView.ViewHolder implements View.OnCl
         ProfileFragment profileFragment = new ProfileFragment();
 
         Bundle args = new Bundle();
+
+        args.putSerializable("user", user);
+/*
         args.putInt("ID", user.getId());
         args.putString("NAME", user.getName());
         args.putString("LAST_NAME", user.getLastName());
         args.putString("EMAIL", user.getPassword());
         args.putString("IMAGE", user.getImage());
-        args.putFloat("AVG_SCORE", user.getAvgScore());
-        args.putInt("NUM_COMMENTS", user.getNumComments());
-        args.putFloat("PERCENTAGE_COMMENTERS_BELOW", user.getPercentageCommentersBelow());
-        args.putInt("NUM_EVENTS", user.getNumEvents());
-        args.putInt("NUM_FRIENDS", user.getNumEvents());
+*/
         // ...
 
 

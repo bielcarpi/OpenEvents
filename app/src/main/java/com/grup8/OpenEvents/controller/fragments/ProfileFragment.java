@@ -55,19 +55,23 @@ public class ProfileFragment extends Fragment {
         //A Bundle with User must have been provided
         if(getArguments() == null) return null;
         User u = (User) getArguments().getSerializable("user");
+        /*
+        Bundle data = getArguments();
+        int id = data.getInt("ID");
+        String name = data.getString("NAME");
+        String last_name = data.getString("LAST_NAME");
+        String email = data.getString("EMAIL");
+        String image = data.getString("IMAGE");
+
+        User u = new User(id,name, last_name, email, image);
 
 
-        //Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_profile, container, false);
+*/
 
-        //Catch references to the views
-        txtName = v.findViewById(R.id.profile_username);
-        txtScore = v.findViewById(R.id.profile_score);
-        txtNumComments = v.findViewById(R.id.profile_num_comments);
-        txtTopPercent = v.findViewById(R.id.profile_top_percent);
-        txtNumFriends = v.findViewById(R.id.profile_num_friends);
-        txtNumEvents = v.findViewById(R.id.profile_num_events);
-        imgUser = v.findViewById(R.id.profile_image);
+
+
+
+
 
         //Get the user stats from the server. Once we have them, update the view
         UserModel.getInstance().getUserStats(u, (success, user) -> {
@@ -87,10 +91,22 @@ public class ProfileFragment extends Fragment {
             eventManager.setlEvents(Arrays.asList(events));
             updateUI();
         });
+
+
+        //Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        //Catch references to the views
+        txtName = v.findViewById(R.id.profile_username);
+        txtScore = v.findViewById(R.id.profile_score);
+        txtNumComments = v.findViewById(R.id.profile_num_comments);
+        txtTopPercent = v.findViewById(R.id.profile_top_percent);
+        txtNumFriends = v.findViewById(R.id.profile_num_friends);
+        txtNumEvents = v.findViewById(R.id.profile_num_events);
+        imgUser = v.findViewById(R.id.profile_image);
+
         txtName.setText(u.getName());
         Picasso.get().load(u.getImage()).into(imgUser);
-
-
         /*
         bButton = v.findViewById(R.id.message);
 
@@ -146,11 +162,4 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    public void replaceFragment(View view) {
-        activity = (MainActivity) view.getContext();
-        // ...
-
-        FragmentManager fm = activity.getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.main_fragment, new Fragment2()).commit();
-    }
 }
