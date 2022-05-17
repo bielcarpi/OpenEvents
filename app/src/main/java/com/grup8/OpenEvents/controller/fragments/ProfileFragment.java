@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ public class ProfileFragment extends Fragment {
     private ImageView imgUser;
     private TextView txtName, txtScore, txtNumComments, txtTopPercent, txtNumFriends, txtNumEvents;
     private Button btnSettings, btnSendMessage, btnAddRemoveFriend;
+    private ImageButton bButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,6 +116,8 @@ public class ProfileFragment extends Fragment {
 
         bButton.setText("Edit profile");
 
+
+        bButton = v.findViewById(R.id.settings_btn);
         bButton.setOnClickListener((View.OnClickListener) view -> replaceFragment(view));
 
          */

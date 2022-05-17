@@ -61,6 +61,8 @@
     <string name="add_friend">ADD FRIEND</string>
     <string name="remove_friend">REMOVE FRIEND</string>
     <string name="message">MESSAGE</string>
+    <string name="event_user_name">USERNAME</string>
+    <string name="event_description">DESCRIPTION:</string>
 
     <string name="edit">EDIT</string>
     <string name="delete">DELETE</string>
