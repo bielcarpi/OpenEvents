@@ -62,8 +62,10 @@
     <string name="add_friend">ADD FRIEND</string>
     <string name="remove_friend">REMOVE FRIEND</string>
     <string name="message">MESSAGE</string>
-    <string name="event_user_name">USERNAME</string>
-    <string name="event_description">DESCRIPTION:</string>
+    <string name="event_start">17/05/2022</string>
+    <string name="event_end">17/05/2022</string>
+    <string name="event_location">LOCATION</string>
+    <string name="event_time">2 HOUR(S) AGO</string>
 
     <string name="edit">EDIT</string>
     <string name="delete">DELETE</string>
