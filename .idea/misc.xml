@@ -6,14 +6,15 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.16438703140830802" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14909515380859378" />
         <entry key="app/src/main/res/layout/activity_modify_event.xml" value="0.2664822455718283" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.14184397163120568" />
         <entry key="app/src/main/res/layout/fragment_1.xml" value="0.3072916666666667" />
         <entry key="app/src/main/res/layout/fragment_2.xml" value="0.11284027099609381" />
         <entry key="app/src/main/res/layout/fragment_description_event.xml" value="0.3072916666666667" />
         <entry key="app/src/main/res/layout/fragment_friends.xml" value="0.3072916666666667" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.22147168717002674" />
-        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.3072916666666667" />
-        <entry key="app/src/main/res/layout/friends_adapter.xml" value="0.3072916666666667" />
-        <entry key="app/src/main/res/layout/list_adapter.xml" value="0.3072916666666667" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.2269266764322917" />
+        <entry key="app/src/main/res/layout/friends_adapter.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/list_adapter.xml" value="0.2771464029947917" />
       </map>
     </option>
   </component>
