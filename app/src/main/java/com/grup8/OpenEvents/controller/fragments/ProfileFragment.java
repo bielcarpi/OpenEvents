@@ -26,7 +26,7 @@ import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.EventManager;
 import com.grup8.OpenEvents.model.entities.User;
-import com.squareup.picasso.Picasso;
+import com.grup8.OpenEvents.model.utils.ImageHelper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -108,7 +108,8 @@ public class ProfileFragment extends Fragment {
         imgUser = v.findViewById(R.id.profile_image);
 
         txtName.setText(u.getName());
-        Picasso.get().load(u.getImage()).into(imgUser);
+        ImageHelper.bindImageToUser(u.getImage(), imgUser);
+
         /*
         bButton = v.findViewById(R.id.message);
 

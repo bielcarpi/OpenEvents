@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,8 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.model.entities.Event;
-import com.grup8.OpenEvents.model.entities.User;
-import com.squareup.picasso.Picasso;
+import com.grup8.OpenEvents.model.utils.ImageHelper;
 
 public class DescriptionEventFragment extends Fragment {
 
@@ -45,8 +43,7 @@ public class DescriptionEventFragment extends Fragment {
         event = (Event) getArguments().getSerializable("event");
 
         txtTitle.setText(event.getName());
-        if(event.getImage() != null && !event.getImage().trim().isEmpty())
-            Picasso.get().load(event.getImage()).into(imgEvent);
+        ImageHelper.bindImageToEvent(event.getImage(), imgEvent);
 
         return v;
     }

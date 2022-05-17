@@ -1,6 +1,5 @@
 package com.grup8.OpenEvents.controller.recyclerview;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,7 @@ import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.controller.fragments.ProfileFragment;
 import com.grup8.OpenEvents.model.entities.User;
-import com.squareup.picasso.Picasso;
+import com.grup8.OpenEvents.model.utils.ImageHelper;
 
 
 public class UserHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -38,8 +37,7 @@ public class UserHolder extends RecyclerView.ViewHolder implements View.OnClickL
         txtName.setText(completeName);
         txtEmail.setText(user.getEmail());
 
-        if(user.getImage() != null && !user.getImage().trim().isEmpty())
-            Picasso.get().load(user.getImage()).into(imgUser);
+        ImageHelper.bindImageToUser(user.getImage(), imgUser);
     }
 
     @Override

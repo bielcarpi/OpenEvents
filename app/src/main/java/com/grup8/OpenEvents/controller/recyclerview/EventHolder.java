@@ -1,7 +1,6 @@
 package com.grup8.OpenEvents.controller.recyclerview;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,7 @@ import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.controller.fragments.DescriptionEventFragment;
 import com.grup8.OpenEvents.model.entities.Event;
-import com.squareup.picasso.Picasso;
+import com.grup8.OpenEvents.model.utils.ImageHelper;
 
 import java.text.SimpleDateFormat;
 
@@ -51,8 +50,7 @@ public class EventHolder  extends RecyclerView.ViewHolder implements View.OnClic
         txtEndDate.setText(event.getEndDate() == null? "": new SimpleDateFormat("dd-MM-yyyy").format(event.getEndDate().getTime()));
         txtDescription.setText(event.getDescription());
 
-        if(event.getImage() != null && !event.getImage().trim().isEmpty())
-            Picasso.get().load(event.getImage()).into(imgEvent);
+        ImageHelper.bindImageToEvent(event.getImage(), imgEvent);
     }
 
     @Override
