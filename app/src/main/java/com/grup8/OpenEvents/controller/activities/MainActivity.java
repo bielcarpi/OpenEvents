@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.grup8.OpenEvents.R;
+import com.grup8.OpenEvents.controller.fragments.AddPostFragment;
 import com.grup8.OpenEvents.controller.fragments.Fragment1;
 import com.grup8.OpenEvents.controller.fragments.Fragment2;
 import com.grup8.OpenEvents.controller.fragments.FriendsFragment;
@@ -23,7 +24,7 @@ import com.grup8.OpenEvents.model.entities.User;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageButton homeBtn, profileBtn, searchBtn, friendsBtn;
+    private ImageButton homeBtn, profileBtn, searchBtn, friendsBtn, addBtn;
     private FragmentManager fm;
 
     @Override
@@ -38,12 +39,14 @@ public class MainActivity extends AppCompatActivity {
         profileBtn = findViewById(R.id.fragemnt2);
         searchBtn = findViewById(R.id.search);
         friendsBtn = findViewById(R.id.friends);
+        addBtn = findViewById(R.id.add_event);
 
 
 
         homeBtn.setOnClickListener(view -> replaceFragment(new Fragment1()));
         searchBtn.setOnClickListener(view -> replaceFragment(new SearchFragment()));
         friendsBtn.setOnClickListener(view -> replaceFragment(new FriendsFragment()));
+        addBtn.setOnClickListener(view -> replaceFragment(new AddPostFragment()));
         profileBtn.setOnClickListener(view -> {
             User user  = UserModel.getInstance().getLoggedInUser();
 
