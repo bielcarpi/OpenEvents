@@ -1,10 +1,5 @@
-package com.grup8.OpenEvents.controller.fragments;
+package com.grup8.OpenEvents.controller.recyclerview;
 
-import android.app.Activity;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,20 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
+import com.grup8.OpenEvents.controller.fragments.DescriptionEventFragment;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.squareup.picasso.Picasso;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 
 public class EventHolder  extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -43,7 +32,7 @@ public class EventHolder  extends RecyclerView.ViewHolder implements View.OnClic
     private MainActivity activity;
 
     public EventHolder(LayoutInflater inflater, ViewGroup parent, MainActivity activity) {
-        super(inflater.inflate(R.layout.list_adapter, parent, false));
+        super(inflater.inflate(R.layout.event_row, parent, false));
 
         tvNom = (TextView) itemView.findViewById(R.id.event_name);
         ivImage = itemView.findViewById(R.id.image);

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +20,7 @@ import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
+import com.grup8.OpenEvents.controller.recyclerview.EventAdapter;
 import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.Event;

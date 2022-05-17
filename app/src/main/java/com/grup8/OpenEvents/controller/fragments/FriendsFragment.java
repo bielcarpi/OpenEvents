@@ -13,19 +13,17 @@ import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
-import com.grup8.OpenEvents.model.EventModel;
+import com.grup8.OpenEvents.controller.recyclerview.UserAdapter;
 import com.grup8.OpenEvents.model.UserModel;
-import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.User;
 import com.grup8.OpenEvents.model.entities.UserManager;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class FriendsFragment extends Fragment {
     private UserManager userManager = UserManager.getInstance(getActivity());
-    private FriendsAdapter adapter;
+    private UserAdapter adapter;
 
 
     private TextView friends, friends_request;
@@ -88,7 +86,7 @@ public class FriendsFragment extends Fragment {
 
         List<User> lUser = this.userManager.getlUsers();
 
-            adapter = new FriendsAdapter(lUser, (MainActivity) getActivity());
+            adapter = new UserAdapter(lUser, (MainActivity) getActivity());
             friendsRecyclerView.setAdapter (adapter);
 
     }

@@ -3,7 +3,6 @@ package com.grup8.OpenEvents.controller.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,13 +11,13 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
+import com.grup8.OpenEvents.controller.recyclerview.EventAdapter;
+import com.grup8.OpenEvents.controller.recyclerview.UserAdapter;
 import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.Event;
@@ -26,7 +25,6 @@ import com.grup8.OpenEvents.model.entities.EventManager;
 import com.grup8.OpenEvents.model.entities.User;
 import com.grup8.OpenEvents.model.entities.UserManager;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,7 +36,7 @@ public class SearchFragment extends Fragment {
 
     private UserManager userManager = UserManager.getInstance(getActivity());
     private EventManager eventManager = EventManager.getInstance(getActivity());
-    private FriendsAdapter adapter;
+    private UserAdapter adapter;
     private EventAdapter eventAdapter;
 
     private TextView tvUsers, tvEvents;
@@ -115,7 +113,7 @@ public class SearchFragment extends Fragment {
 
             List<User> lUser = this.userManager.getlUsers();
 
-            adapter = new FriendsAdapter(lUser, (MainActivity) getActivity());
+            adapter = new UserAdapter(lUser, (MainActivity) getActivity());
             userRecyclerView.setAdapter(adapter);
         } else {
             List<Event> lEvent = this.eventManager.getlEvents();

@@ -1,6 +1,5 @@
-package com.grup8.OpenEvents.controller.fragments;
+package com.grup8.OpenEvents.controller.recyclerview;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
