@@ -13,9 +13,8 @@ public class User implements Serializable {
     private int numComments;
     private float percentageCommentersBelow;
     private int numEvents;
-    private int numFriends;
 
-    public User(int id, String name, String lastName, String email, String image){
+    public User(int id, String name, String lastName, String email, String image) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -23,7 +22,7 @@ public class User implements Serializable {
         this.image = image;
     }
 
-    public User(String name, String lastName, String email, String password, String image){
+    public User(String name, String lastName, String email, String password, String image) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -32,15 +31,14 @@ public class User implements Serializable {
     }
 
 
-    public void updateStats(float avgScore, int numComments, float percentageCommentersBelow, int numEvents, int numFriends){
+    public void updateStats(float avgScore, int numComments, float percentageCommentersBelow, int numEvents) {
         this.avgScore = avgScore;
         this.numComments = numComments;
         this.percentageCommentersBelow = percentageCommentersBelow;
         this.numEvents = numEvents;
-        this.numFriends = numFriends;
     }
 
-    public void updateInfo(String name, String lastName, String email, String password, String image){
+    public void updateInfo(String name, String lastName, String email, String password, String image) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -79,7 +77,5 @@ public class User implements Serializable {
     public int getNumEvents() {
         return numEvents;
     }
-    public int getNumFriends() {
-        return numFriends;
-    }
+
 }

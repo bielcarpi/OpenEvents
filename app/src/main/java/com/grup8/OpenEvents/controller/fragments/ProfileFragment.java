@@ -11,12 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
@@ -37,52 +32,69 @@ public class ProfileFragment extends Fragment {
     private RecyclerView eventRecyclerView;
 
     private final EventManager eventManager =  EventManager.getInstance(getActivity());
-    private User u;
-
-    private TextView txtName, txtScore, txtNumComments, txtTopPercent, txtNumFriends, txtNumEvents;
-    private Button btnSettings, btnSendMessage, btnAddRemoveFriend;
-    private ImageButton bButton;
-    private ImageView imgUser;
+    private User user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //A Bundle with User must have been provided
         if(getArguments() == null) return null;
-        u = (User) getArguments().getSerializable("user");
+        user = (User) getArguments().getSerializable("user");
 
         //Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        //Catch references to the views
+        TextView txtName = v.findViewById(R.id.profile_username);
+        TextView txtScore = v.findViewById(R.id.profile_score);
+        TextView txtNumComments = v.findViewById(R.id.profile_num_comments);
+        TextView txtTopPercent = v.findViewById(R.id.profile_top_percent);
+        TextView txtNumEvents = v.findViewById(R.id.profile_num_events);
+        ImageView imgUser = v.findViewById(R.id.profile_image);
+        TextView txtFutureEvents = v.findViewById(R.id.profile_future_events);
+        TextView txtCurrentEvents = v.findViewById(R.id.profile_current_events);
+        TextView txtEndedEvents = v.findViewById(R.id.profile_ended_events);
+
         //Get the user stats from the server. Once we have them, update the view
-        UserModel.getInstance().getUserStats(u, (success, user) -> {
+        UserModel.getInstance().getUserStats(user, (success, u) -> {
             if(!success) return;
 
-            txtScore.setText(Float.toString(u.getAvgScore()));
+            txtScore.setText(u.getAvgScore() < 0? "-": Float.toString(u.getAvgScore()));
             txtNumComments.setText(Integer.toString(u.getNumComments()));
-            String topPercent = u.getPercentageCommentersBelow() + "%";
+            String topPercent = u.getPercentageCommentersBelow() < 0? "-": u.getPercentageCommentersBelow() + "%";
             txtTopPercent.setText(topPercent);
-            txtNumFriends.setText(Integer.toString(u.getNumFriends() == -1? '-': u.getNumFriends()));
             txtNumEvents.setText(Integer.toString(u.getNumEvents()));
         });
 
-        //Catch references to the views
-        txtName = v.findViewById(R.id.profile_username);
-        txtScore = v.findViewById(R.id.profile_score);
-        txtNumComments = v.findViewById(R.id.profile_num_comments);
-        txtTopPercent = v.findViewById(R.id.profile_top_percent);
-        txtNumFriends = v.findViewById(R.id.profile_num_friends);
-        txtNumEvents = v.findViewById(R.id.profile_num_events);
-        imgUser = v.findViewById(R.id.profile_image);
+        txtFutureEvents.setOnClickListener(view -> {
+            txtCurrentEvents.setBackground(null);
+            txtEndedEvents.setBackground(null);
+            txtFutureEvents.setBackground(requireContext().getDrawable(R.drawable.bg_bottom_selected));
+            showFutureUserEvents();
+        });
+        txtCurrentEvents.setOnClickListener(view -> {
+            txtFutureEvents.setBackground(null);
+            txtEndedEvents.setBackground(null);
+            txtCurrentEvents.setBackground(requireContext().getDrawable(R.drawable.bg_bottom_selected));
+            showCurrentUserEvents();
+        });
+        txtEndedEvents.setOnClickListener(view -> {
+            txtCurrentEvents.setBackground(null);
+            txtFutureEvents.setBackground(null);
+            txtEndedEvents.setBackground(requireContext().getDrawable(R.drawable.bg_bottom_selected));
+            showEndedUserEvents();
+        });
 
-        txtName.setText(u.getName());
-        ImageHelper.bindImageToUser(u.getImage(), imgUser);
+
+        String username = user.getName() + " " + user.getLastName();
+        txtName.setText(username);
+        ImageHelper.bindImageToUser(user.getImage(), imgUser);
 
         /*
         bButton = v.findViewById(R.id.message);
@@ -92,30 +104,6 @@ public class ProfileFragment extends Fragment {
         bButton.setOnClickListener((View.OnClickListener) view -> replaceFragment(view));
          */
 
-        /*
-        //Assign Values to the spinner
-        String [] values = getResources().getStringArray(R.array.user_events_dropdown);
-        Spinner spinner = (Spinner) v.findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinner.setAdapter(adapter);
-
-
-        //Setup Spinner Listenner
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0) showFutureUserEvents();
-                else if(i == 1) showCurrentUserEvents();
-                else showFinishedUserEvents();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
-
-         */
 
         //Setup recycler view
         eventRecyclerView = (RecyclerView) v.findViewById(R.id.home_event_recyclerview);
@@ -140,21 +128,21 @@ public class ProfileFragment extends Fragment {
 
 
     private void showFutureUserEvents() {
-        EventModel.getInstance().getFutureUserEvents(u, (success, events) -> {
+        EventModel.getInstance().getFutureUserEvents(user, (success, events) -> {
             if(!success) return;
             eventManager.setlEvents(Arrays.asList(events));
             updateUI();
         });
     }
     private void showCurrentUserEvents() {
-        EventModel.getInstance().getCurrentUserEvents(u, (success, events) -> {
+        EventModel.getInstance().getCurrentUserEvents(user, (success, events) -> {
             if(!success) return;
             eventManager.setlEvents(Arrays.asList(events));
             updateUI();
         });
     }
-    private void showFinishedUserEvents() {
-        EventModel.getInstance().getFinishedUserEvents(u, (success, events) -> {
+    private void showEndedUserEvents() {
+        EventModel.getInstance().getFinishedUserEvents(user, (success, events) -> {
             if(!success) return;
             eventManager.setlEvents(Arrays.asList(events));
             updateUI();
