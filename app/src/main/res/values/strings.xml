@@ -71,5 +71,10 @@
     <string name="delete">DELETE</string>
     <string name="event_num">EVENT#1</string>
 
+    <string name="add_event_name">ADD EVENT NAME</string>
+    <string name="add_event_start">EVENT START</string>
+    <string name="add_event_end">ADD EVENT END</string>
+    <string name="add_event_location">ADD EVENT LOCATION</string>
+
 
 </resources>
