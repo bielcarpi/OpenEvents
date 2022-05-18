@@ -12,28 +12,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.ChatActivity;
-import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.controller.recyclerview.EventAdapter;
 import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.entities.Event;
-import com.grup8.OpenEvents.model.entities.EventManager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
     private RecyclerView eventRecyclerView;
-    private final EventManager eventManager = EventManager.getInstance(getActivity());
+    private EventAdapter eventAdapter;
+    private ArrayList<Event> latestEvents;
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
@@ -41,9 +36,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-
-        //Get all the events so as to see them
-        showAllEvents();
+        latestEvents = new ArrayList<>();
 
         TextView txtAllEvents = v.findViewById(R.id.home_all_events);
         TextView txtBestEvents = v.findViewById(R.id.home_best_events);
@@ -75,34 +68,41 @@ public class HomeFragment extends Fragment {
         eventRecyclerView = v.findViewById(R.id.home_event_recyclerview);
         eventRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        //Get all the events so as to see them
+        showAllEvents();
+
         return v;
     }
 
-    private void updateUI() {
-        List<Event> lEvents = eventManager.getlEvents();
-        EventAdapter adapter = new EventAdapter(lEvents, (MainActivity) getActivity());
-        eventRecyclerView.setAdapter (adapter);
+    private void updateUI(ArrayList<Event> events) {
+        latestEvents = events;
+
+        if(eventAdapter == null){
+            eventAdapter = new EventAdapter(events, getActivity());
+            eventRecyclerView.setAdapter(eventAdapter);
+        }
+        else{
+            eventAdapter.updateList(events);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        updateUI();
+        updateUI(latestEvents);
     }
 
 
     private void showBestEvents() {
         EventModel.getInstance().getBestEvents((success, events) -> {
-            if(!success) return;
-            eventManager.setlEvents(Arrays.asList(events));
-            updateUI();
+            if(success)
+                updateUI(new ArrayList<>(Arrays.asList(events)));
         });
     }
     private void showAllEvents() {
         EventModel.getInstance().getAllEvents((success, events) -> {
-            if(!success) return;
-            eventManager.setlEvents(Arrays.asList(events));
-            updateUI();
+            if(success)
+                updateUI(new ArrayList<>(Arrays.asList(events)));
         });
     }
 }

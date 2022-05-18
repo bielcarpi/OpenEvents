@@ -8,17 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.grup8.OpenEvents.*;
 import com.grup8.OpenEvents.controller.recyclerview.UserAdapter;
-import com.grup8.OpenEvents.model.entities.User;
-import com.grup8.OpenEvents.model.entities.UserManager;
-
-import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
 
-    private UserManager userManager = UserManager.getInstance(this);
-    private UserAdapter adapter;
-
     private RecyclerView userRecyclerView;
+    private UserAdapter userAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,21 +22,13 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        userRecyclerView = (RecyclerView) findViewById(R.id.chat_recycleview);
+        userRecyclerView = findViewById(R.id.chat_recycleview);
         userRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
     }
+
     private void updateUI() {
-
-
-
-            List<User> lUser = this.userManager.getlUsers();
-
-            adapter = new UserAdapter(lUser, (ChatActivity) this);
-            userRecyclerView.setAdapter(adapter);
-
-
     }
 
     @Override

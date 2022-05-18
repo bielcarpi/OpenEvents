@@ -11,38 +11,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
-import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.controller.recyclerview.EventAdapter;
 import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.Event;
-import com.grup8.OpenEvents.model.entities.EventManager;
 import com.grup8.OpenEvents.model.entities.User;
 import com.grup8.OpenEvents.model.utils.ImageHelper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
     private RecyclerView eventRecyclerView;
-
-    private final EventManager eventManager =  EventManager.getInstance(getActivity());
+    private EventAdapter eventAdapter;
     private User user;
+    private ArrayList<Event> latestEvents;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
@@ -52,6 +44,7 @@ public class ProfileFragment extends Fragment {
         //A Bundle with User must have been provided
         if(getArguments() == null) return null;
         user = (User) getArguments().getSerializable("user");
+        latestEvents = new ArrayList<>();
 
         //Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -110,48 +103,53 @@ public class ProfileFragment extends Fragment {
         bButton.setOnClickListener((View.OnClickListener) view -> replaceFragment(view));
          */
 
-
         //Setup recycler view
-        eventRecyclerView = (RecyclerView) v.findViewById(R.id.home_event_recyclerview);
+        eventRecyclerView = v.findViewById(R.id.home_event_recyclerview);
         eventRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));
+
+        //Get Future User Events so as to see them
+        showFutureUserEvents();
 
         return v;
     }
 
 
-    private void updateUI() {
-        List<Event> lEvents = eventManager.getlEvents();
-        EventAdapter adapter = new EventAdapter(lEvents, (MainActivity) getActivity());
-        eventRecyclerView.setAdapter (adapter);
+    private void updateUI(ArrayList<Event> events) {
+        latestEvents = events;
+
+        if(eventAdapter == null){
+            eventAdapter = new EventAdapter(events, getActivity());
+            eventRecyclerView.setAdapter(eventAdapter);
+        }
+        else{
+            eventAdapter.updateList(events);
+        }
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        updateUI();
+        updateUI(latestEvents);
     }
 
 
     private void showFutureUserEvents() {
         EventModel.getInstance().getFutureUserEvents(user, (success, events) -> {
-            if(!success) return;
-            eventManager.setlEvents(Arrays.asList(events));
-            updateUI();
+            if (success)
+                updateUI(new ArrayList<>(Arrays.asList(events)));
         });
     }
     private void showCurrentUserEvents() {
         EventModel.getInstance().getCurrentUserEvents(user, (success, events) -> {
-            if(!success) return;
-            eventManager.setlEvents(Arrays.asList(events));
-            updateUI();
+            if(success)
+                updateUI(new ArrayList<>(Arrays.asList(events)));
         });
     }
     private void showEndedUserEvents() {
         EventModel.getInstance().getFinishedUserEvents(user, (success, events) -> {
-            if(!success) return;
-            eventManager.setlEvents(Arrays.asList(events));
-            updateUI();
+            if(success)
+                updateUI(new ArrayList<>(Arrays.asList(events)));
         });
     }
 }

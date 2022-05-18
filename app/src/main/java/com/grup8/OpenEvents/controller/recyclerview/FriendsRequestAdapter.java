@@ -1,6 +1,7 @@
 package com.grup8.OpenEvents.controller.recyclerview;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.grup8.OpenEvents.model.entities.User;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class FriendsRequestAdapter extends RecyclerView.Adapter<FriendsRequestHolder> {
-    private final List<User> users;
+    private final ArrayList<User> users;
     private final Activity activity;
 
-    public FriendsRequestAdapter(List<User> users, Activity activity) {
+    public FriendsRequestAdapter(ArrayList<User> users, Activity activity) {
         this.users = users;
         this.activity = activity;
     }
@@ -40,5 +41,12 @@ public class FriendsRequestAdapter extends RecyclerView.Adapter<FriendsRequestHo
         return users.size();
     }
 
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateList(ArrayList<User> newList){
+        users.clear();
+        users.addAll(newList);
+        notifyDataSetChanged();
+    }
 }
 
