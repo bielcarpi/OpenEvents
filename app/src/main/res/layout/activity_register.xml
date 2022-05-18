@@ -6,11 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:gravity="center"
@@ -20,18 +18,17 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
-
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/logo"
-                app:tint="@color/primary_blue"></ImageView>
+                app:tint="@color/primary_blue" />
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -41,7 +38,6 @@
                 android:textSize="25sp"
                 android:textStyle="bold"
                 tools:ignore="RtlCompat">
-
             </TextView>
         </LinearLayout>
 
@@ -52,7 +48,9 @@
             android:hint="@string/name"
             android:background="@drawable/bg_edittext"
             android:layout_marginTop="32dp"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:autofillHints=""
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/surname_register"
@@ -62,7 +60,8 @@
             android:hint="@string/surname"
             android:padding="12dp"
             android:layout_marginTop="16dp"
-            android:inputType="textPassword"/>
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/email_register"
@@ -72,7 +71,8 @@
             android:hint="@string/email"
             android:padding="12dp"
             android:layout_marginTop="16dp"
-            android:inputType="textPassword"/>
+            android:inputType="textEmailAddress"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/password_register"
@@ -82,7 +82,8 @@
             android:hint="@string/password"
             android:padding="12dp"
             android:layout_marginTop="16dp"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:autofillHints="" />
         <EditText
             android:id="@+id/confirm_password_register"
             android:layout_width="match_parent"
@@ -91,7 +92,8 @@
             android:hint="@string/confirm_password"
             android:padding="12dp"
             android:layout_marginTop="16dp"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:autofillHints="" />
         <Button
             android:id="@+id/register_btn"
             android:layout_width="match_parent"
@@ -108,9 +110,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"/>
-
-
-
     </LinearLayout>
 
     <View
@@ -118,7 +117,6 @@
         android:layout_height="1dp"
         android:layout_above="@id/bottom_view"
         android:background="#E7E7E7" />
-
 
     <LinearLayout
         android:id="@+id/bottom_view"
@@ -138,9 +136,8 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textColor="#333333"
+            android:layout_marginStart="5dp"
             android:text="@string/log_in"/>
-
-
     </LinearLayout>
 
 </RelativeLayout>

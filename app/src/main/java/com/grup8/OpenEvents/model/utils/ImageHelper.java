@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso;
 public class ImageHelper {
 
     public static void bindImageToEvent(String url, ImageView holder){
-        bindImage(url, R.drawable.ic_add_event, holder);
+        bindImage(url, R.drawable.empty_event, holder);
     }
 
 

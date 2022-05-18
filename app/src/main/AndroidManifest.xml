@@ -38,13 +38,17 @@
             android:configChanges="orientation"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustResize"
+            />
         <activity
             android:name=".controller.activities.RegisterActivity"
             android:configChanges="orientation"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="stateVisible"
+            />
         <activity
             android:name=".controller.activities.MainActivity"
             android:configChanges="orientation"

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="15dp"
     >
 
     <TextView
@@ -11,16 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="26sp"
-        android:fontFamily="@font/helveticaneue_bold"
-        android:gravity="center"
+        android:layout_marginStart="10dp"
         android:text="@string/event_name"/>
 
     <ImageView
         android:id="@+id/event_row_image"
         android:layout_width="match_parent"
-        android:layout_height="250sp"
+        android:layout_height="280dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_eventimg"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:src="@drawable/empty_event"
         android:contentDescription="@string/event_name" />
 
     <LinearLayout
@@ -28,56 +29,79 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
         >
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:fontFamily="@font/helveticaneue_bold"
+            android:text="@string/time_emoji"
+            android:layout_marginEnd="5sp"/>
         <TextView
             android:id="@+id/event_row_start_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:fontFamily="@font/helveticaneue_bold"
-            android:text="@string/event_start"/>
-
+            android:text=""/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:fontFamily="@font/helveticaneue_bold"
-            android:layout_marginStart="10dp"
-            android:text="to"/>
-
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="@string/to"/>
         <TextView
             android:id="@+id/event_row_end_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:fontFamily="@font/helveticaneue_bold"
-            android:layout_marginStart="10dp"
-            android:text="@string/event_end"/>
-
+            android:text=""/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/event_row_location"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:fontFamily="@font/helveticaneue_bold"
         android:gravity="center_vertical"
-        android:text="@string/event_location"
-        android:layout_marginStart="8dp"
-        />
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/location_emoji"
+            android:layout_marginEnd="5sp"/>
+        <TextView
+            android:id="@+id/event_row_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/event_location"/>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/event_row_description"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="11sp"
-        android:fontFamily="@font/helveticaneue_bold"
         android:gravity="center_vertical"
-        android:text="@string/event_time"
-        android:layout_marginStart="8dp"
-        />
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/description_emoji"
+            android:layout_marginEnd="5sp"/>
+        <TextView
+            android:id="@+id/event_row_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/description"/>
+    </LinearLayout>
 
 </LinearLayout>

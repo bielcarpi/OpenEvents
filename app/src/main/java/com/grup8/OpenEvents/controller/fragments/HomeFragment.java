@@ -68,12 +68,11 @@ public class HomeFragment extends Fragment {
         });
         imgMessages.setOnClickListener(view -> {
             startActivity(new Intent(getActivity(), ChatActivity.class));
-            //TODO: Change activity
         });
 
 
         //Set Up Recycle View
-        eventRecyclerView = (RecyclerView) v.findViewById(R.id.home_event_recyclerview);
+        eventRecyclerView = v.findViewById(R.id.home_event_recyclerview);
         eventRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return v;
