@@ -18,7 +18,6 @@ public class UserManager {
 
     private UserManager(Context context) {
         lUser = new ArrayList<>();
-
     }
 
     public List<User> getlUsers() {
@@ -26,7 +25,6 @@ public class UserManager {
     }
 
     public void setlUser(List<User> lUsers) {
-
         this.lUser = lUsers;
     }
 }

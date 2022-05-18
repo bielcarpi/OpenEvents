@@ -61,10 +61,12 @@
     <string name="message">Message</string>
     <string name="to">to</string>
     <string name="event_location">Location</string>
+    <string name="event_date">Date</string>
     <string name="description">Description</string>
     <string name="time_emoji">⌛</string>
     <string name="location_emoji">🗺️</string>
     <string name="description_emoji">📋</string>
+    <string name="search">Search</string>
 
     <string name="edit">EDIT</string>
     <string name="delete">DELETE</string>
