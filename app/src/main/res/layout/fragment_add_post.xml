@@ -10,24 +10,10 @@
         android:orientation="vertical"
         android:weightSum="20">
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_weight="7"
-            android:weightSum="10"
-            android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/add_post"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_eventimg" />
-
-        </LinearLayout>
 
         <LinearLayout
-            android:layout_margin="15dp"
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -74,10 +60,30 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"                android:gravity="center" />
             <EditText
-                android:id="@+id/add_event_participantsn"
+                android:id="@+id/add_event_participants"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="@string/add_event_participants"
+                android:background="@drawable/bg_edittext"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center" />
+            <EditText
+                android:id="@+id/add_event_type"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/add_event_type"
+                android:background="@drawable/bg_edittext"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center" />
+            <EditText
+                android:id="@+id/add_event_description"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/add_event_description"
                 android:background="@drawable/bg_edittext"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"

@@ -40,10 +40,10 @@
             android:layout_width="match_parent"
             android:layout_height="320dp"
             android:layout_gravity="center"
-            android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            android:src="@drawable/empty_event"
-            android:contentDescription="@string/event_name" />
+            android:contentDescription="@string/event_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/empty_event" />
 
         <Button
             android:id="@+id/description_event_assist_btn"

@@ -83,6 +83,8 @@
     <string name="add_event_end">EVENT END</string>
     <string name="add_event_location">ADD EVENT LOCATION</string>
     <string name="add_event_participants">PARTICIPANTS</string>
+    <string name="add_event_type">TYPE</string>
+    <string name="add_event_description">DESCRIPTION</string>
 
 
     <string name="users_search">Users</string>
