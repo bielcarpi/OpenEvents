@@ -37,7 +37,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="20dp"
-                android:background="#8F7B7D8E"
+
+                android:background="@drawable/bg_search_bar"
+                android:padding="10dp"
                 android:hint="Buscar..." />
 
         </LinearLayout>

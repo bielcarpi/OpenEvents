@@ -1,6 +1,7 @@
 package com.grup8.OpenEvents.controller.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -14,8 +15,11 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.grup8.OpenEvents.R;
+import com.grup8.OpenEvents.controller.activities.CommentActivity;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.utils.ImageHelper;
+
+import org.w3c.dom.Text;
 
 public class DescriptionEventFragment extends Fragment {
 
@@ -44,6 +48,11 @@ public class DescriptionEventFragment extends Fragment {
 
         txtTitle.setText(event.getName());
         ImageHelper.bindImageToEvent(event.getImage(), imgEvent);
+
+        TextView comments = v.findViewById(R.id.event_comments);
+        comments.setOnClickListener(view -> startActivity(new Intent(getActivity(), CommentActivity.class)));
+
+
 
         return v;
     }

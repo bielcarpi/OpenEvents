@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OpenEvents">
         <activity
+            android:name=".controller.activities.CommentActivity"
+            android:exported="false" />
+        <activity
             android:name=".controller.activities.ChatActivity"
             android:exported="false" />
         <activity
