@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
+import com.grup8.OpenEvents.controller.recyclerview.FriendsRequestAdapter;
 import com.grup8.OpenEvents.controller.recyclerview.UserAdapter;
 import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.User;
@@ -24,11 +25,12 @@ import java.util.List;
 public class FriendsFragment extends Fragment {
     private UserManager userManager = UserManager.getInstance(getActivity());
     private UserAdapter adapter;
+    private FriendsRequestAdapter friendsRequestAdapter;
 
 
-    private TextView friends, friends_request;
 
     private RecyclerView friendsRecyclerView;
+    private int option = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,16 +42,20 @@ public class FriendsFragment extends Fragment {
         friendsRecyclerView = (RecyclerView) v.findViewById(R.id.friends_recycleview);
         friendsRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));
 
-        friends = v.findViewById(R.id.friends);
-        friends_request = v.findViewById(R.id.friends_request);
+        TextView txtFriends = v.findViewById(R.id.friends);
+        TextView txtFriendsRequest = v.findViewById(R.id.friends_request);
 
-        friends.setOnClickListener(new View.OnClickListener() {
+        txtFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                txtFriendsRequest.setBackground(null);
+                txtFriends.setBackground(requireContext().getDrawable(R.drawable.bg_bottom_selected));
                 UserModel.getInstance().getCurrentUserFriends( (success, users) -> {
                     System.out.println("Hola! User -> " + success);
                     if(success) {
                         userManager.setlUser(Arrays.asList(users));
+                        option = 0;
                         updateUI();
 
                     };
@@ -59,13 +65,16 @@ public class FriendsFragment extends Fragment {
             }
         });
 
-        friends_request.setOnClickListener(new View.OnClickListener() {
+        txtFriendsRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                txtFriends.setBackground(null);
+                txtFriendsRequest.setBackground(requireContext().getDrawable(R.drawable.bg_bottom_selected));
                 UserModel.getInstance().getFriendRequests( (success, users) -> {
                     System.out.println("Hola! User -> " + success);
                     if(success) {
                         userManager.setlUser(Arrays.asList(users));
+                        option = 1;
                         updateUI();
 
                     };
@@ -86,8 +95,13 @@ public class FriendsFragment extends Fragment {
 
         List<User> lUser = this.userManager.getlUsers();
 
-            adapter = new UserAdapter(lUser, (MainActivity) getActivity());
-            friendsRecyclerView.setAdapter (adapter);
+            if (option == 0) {
+                adapter = new UserAdapter(lUser, (MainActivity) getActivity());
+                friendsRecyclerView.setAdapter(adapter);
+            } else {
+                friendsRequestAdapter = new FriendsRequestAdapter(lUser, (MainActivity) getActivity());
+                friendsRecyclerView.setAdapter(friendsRequestAdapter);
+            }
 
     }
 

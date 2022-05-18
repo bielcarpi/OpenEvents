@@ -57,8 +57,7 @@
             android:layout_height="100sp"
             android:src="@drawable/ic_person"
             android:contentDescription="@string/user_image"
-            app:civ_circle_color="@color/light_grey"
-            />
+            app:civ_circle_color="@color/light_grey" />
 
         <LinearLayout
             android:layout_weight="5"

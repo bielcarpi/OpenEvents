@@ -39,7 +39,7 @@ public class SearchFragment extends Fragment {
     private UserAdapter adapter;
     private EventAdapter eventAdapter;
 
-    private TextView tvUsers, tvEvents;
+
 
 
     private RecyclerView userRecyclerView;
@@ -56,24 +56,28 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_search, container, false);
 
-        etSearch = v.findViewById(R.id.search_bar);
+        EditText etSearch = v.findViewById(R.id.search_bar);
 
-        tvUsers = v.findViewById(R.id.users);
-        tvEvents = v.findViewById(R.id.events);
+        TextView txtUsers = v.findViewById(R.id.users);
+        TextView txtEvents = v.findViewById(R.id.events);
         userRecyclerView = (RecyclerView) v.findViewById(R.id.search_recycleview);
         userRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));
 
 
-        tvUsers.setOnClickListener(new View.OnClickListener() {
+        txtUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                txtEvents.setBackground(null);
+                txtUsers.setBackground(requireContext().getDrawable(R.drawable.bg_bottom_selected));
                 search = 0;
                 updateUsers();
             }
         });
-        tvEvents.setOnClickListener(new View.OnClickListener() {
+        txtEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                txtUsers.setBackground(null);
+                txtEvents.setBackground(requireContext().getDrawable(R.drawable.bg_bottom_selected));
                 search = 1;
                 updateEvents();
             }

@@ -1,6 +1,7 @@
 package com.grup8.OpenEvents.controller.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
+import com.grup8.OpenEvents.controller.activities.ChatActivity;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.controller.recyclerview.EventAdapter;
 import com.grup8.OpenEvents.model.EventModel;
@@ -65,6 +67,7 @@ public class HomeFragment extends Fragment {
             fragmentTransaction.commit();
         });
         imgMessages.setOnClickListener(view -> {
+            startActivity(new Intent(getActivity(), ChatActivity.class));
             //TODO: Change activity
         });
 

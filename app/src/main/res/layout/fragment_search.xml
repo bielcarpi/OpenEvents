@@ -7,13 +7,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:weightSum="20"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="20dp"
             android:gravity="center"
             android:orientation="horizontal">
         </LinearLayout>
@@ -43,34 +43,38 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:weightSum="2">
 
             <TextView
                 android:id="@+id/users"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:text="@string/users_search"
                 android:gravity="center"
-                android:text="USERS" />
-
+                android:paddingTop="5sp"
+                android:paddingBottom="10sp"
+                android:background="@drawable/bg_bottom_selected">
+            </TextView>
             <TextView
                 android:id="@+id/events"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:text="@string/events_search"
                 android:gravity="center"
-                android:text="EVENTS" />
-
-
+                android:paddingTop="5sp"
+                android:paddingBottom="10sp">
+            </TextView>
 
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_weight="18"
+            android:layout_weight="20"
             android:id="@+id/search_recycleview"
             android:layout_width="match_parent"
             android:layout_height="0dp" />

@@ -16,8 +16,8 @@
     <string name="incorrect_login">Error. Either the email or the password are incorrect</string>
     <string name="successful_register">Register was successful!</string>
 
-    <string name="login">LOGIN</string>
-    <string name="register">REGISTER</string>
+    <string name="login">Log in</string>
+    <string name="register">Sign up</string>
     <string name="email">Email</string>
     <string name="name">Name</string>
     <string name="surname">Surname</string>
@@ -26,6 +26,11 @@
     <string name="home">home</string>
     <string name="profile">profile</string>
     <string name="user_image">User Image</string>
+
+    <string name="no_account">Don\'t have an account? </string>
+    <string name="sign_up">Sign up.</string>
+    <string name="already_account">Already have an account? </string>
+    <string name="log_in">Log in.</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -67,6 +72,13 @@
     <string name="add_event_start">EVENT START</string>
     <string name="add_event_end">EVENT END</string>
     <string name="add_event_location">ADD EVENT LOCATION</string>
+
+
+    <string name="users_search">Users</string>
+    <string name="events_search">Events</string>
+    <string name="friends_rquest">Friends Resquest</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
 
 
 </resources>

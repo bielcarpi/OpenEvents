@@ -16,10 +16,10 @@ import com.grup8.OpenEvents.model.entities.User;
 
 
 public class LoginActivity extends AppCompatActivity {
-
-    private Button btnLogin, btnRegister;
+    private Button btnLogin;
+    private TextView txtRegister, txtError;
     private EditText etEmail, etPassword;
-    private TextView txtError;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         btnLogin = findViewById(R.id.login_btn);
-        btnRegister = findViewById(R.id.go_to_register_btn);
+        txtRegister = findViewById(R.id.go_to_register_btn);
         etEmail = findViewById(R.id.email_login);
         etPassword = findViewById(R.id.password_login);
         txtError = findViewById(R.id.login_error);
@@ -45,6 +45,6 @@ public class LoginActivity extends AppCompatActivity {
             });
         });
 
-        btnRegister.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, RegisterActivity.class)));
+        txtRegister.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, RegisterActivity.class)));
     }
 }

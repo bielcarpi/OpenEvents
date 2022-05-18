@@ -16,9 +16,11 @@ import com.grup8.OpenEvents.model.entities.User;
 
 public class RegisterActivity extends AppCompatActivity {
 
+
     private EditText etName, etSurname, etEmail, etPassword, etConfirmPassword;
-    private Button btnRegister, btnLogin;
-    private TextView txtError;
+
+    private TextView txtError, txtLogin;
+    private Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
         txtError = findViewById(R.id.register_error);
 
         btnRegister = findViewById(R.id.register_btn);
-        btnLogin = findViewById(R.id.go_to_login_btn);
+        txtLogin = findViewById(R.id.go_to_login_btn);
 
 
         btnRegister.setOnClickListener(view -> {
@@ -61,6 +63,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         });
 
-        btnLogin.setOnClickListener(view -> startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));
+        txtLogin.setOnClickListener(view -> startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));
     }
 }
