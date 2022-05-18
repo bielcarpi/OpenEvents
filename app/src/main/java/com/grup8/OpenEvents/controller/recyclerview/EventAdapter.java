@@ -1,21 +1,21 @@
 package com.grup8.OpenEvents.controller.recyclerview;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.model.entities.Event;
 
 import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
     private List<Event> events;
-    private MainActivity activity;
+    private Activity activity;
 
-    public EventAdapter(List<Event> events, MainActivity activity) {
+    public EventAdapter(List<Event> events, Activity activity) {
         this.events = events;
         this.activity = activity;
     }

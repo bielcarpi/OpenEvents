@@ -62,9 +62,9 @@ public class EventModel {
         getEvents(KEYWORD_EVENT_SEARCH_URL + keyword, callback);
     }
 
-    public void searchEventsByDate(Calendar date, GetEventsCallback callback){
+    public void searchEventsByDate(String date, GetEventsCallback callback){
         //TODO: Must control date format (it must be eg. 2022-12-01)
-        getEvents(DATE_EVENT_SEARCH_URL + date.toString(), callback);
+        getEvents(DATE_EVENT_SEARCH_URL + date, callback);
     }
 
 

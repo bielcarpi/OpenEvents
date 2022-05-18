@@ -26,7 +26,6 @@ public class EventManager {
     }
 
     public void setlEvents(List<Event> lEvents) {
-
         this.lEvents = lEvents;
     }
 }

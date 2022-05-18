@@ -1,86 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.fragments.SearchFragment">
+    tools:context=".controller.fragments.SearchFragment"
+    android:weightSum="20"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="20"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_search_light"
+            android:contentDescription="@string/events_search" />
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/search_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/search_button"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_search_light" />
-
-            <EditText
-                android:id="@+id/search_bar"
-                android:layout_width="350dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="20dp"
-
-                android:background="@drawable/bg_search_bar"
-                android:padding="10dp"
-                android:hint="Buscar..." />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:weightSum="2">
-
-            <TextView
-                android:id="@+id/users"
-                android:layout_weight="1"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:text="@string/users_search"
-                android:gravity="center"
-                android:paddingTop="5sp"
-                android:paddingBottom="10sp"
-                android:background="@drawable/bg_bottom_selected">
-            </TextView>
-            <TextView
-                android:id="@+id/events"
-                android:layout_weight="1"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:text="@string/events_search"
-                android:gravity="center"
-                android:paddingTop="5sp"
-                android:paddingBottom="10sp">
-            </TextView>
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_weight="20"
-            android:id="@+id/search_recycleview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp" />
-
+            android:background="@drawable/bg_search_bar"
+            android:padding="10dp"
+            android:hint="@string/search"
+            android:importantForAutofill="no"
+            android:inputType="text" />
     </LinearLayout>
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/search_users"
+            android:layout_weight="1"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:text="@string/users_search"
+            android:gravity="center"
+            android:paddingTop="5sp"
+            android:paddingBottom="10sp"
+            android:background="@drawable/bg_bottom_selected">
+        </TextView>
+        <TextView
+            android:id="@+id/search_events"
+            android:layout_weight="1"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:text="@string/events_search"
+            android:gravity="center"
+            android:paddingTop="5sp"
+            android:paddingBottom="10sp">
+        </TextView>
+        <TextView
+            android:id="@+id/search_events_location"
+            android:layout_weight="1"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:text="@string/event_location"
+            android:gravity="center"
+            android:paddingTop="5sp"
+            android:paddingBottom="10sp">
+        </TextView>
+        <TextView
+            android:id="@+id/search_events_date"
+            android:layout_weight="1"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:text="@string/event_date"
+            android:gravity="center"
+            android:paddingTop="5sp"
+            android:paddingBottom="10sp">
+        </TextView>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
