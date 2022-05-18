@@ -50,6 +50,10 @@ public class UserHolder extends RecyclerView.ViewHolder implements View.OnClickL
 
         FragmentManager fm = ((MainActivity)view.getContext()).getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.main_fragment, profileFragment).commit();
+
+
+
+
     }
 
 
