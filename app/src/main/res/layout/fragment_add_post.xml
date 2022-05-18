@@ -11,6 +11,7 @@
         android:weightSum="10">
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:layout_weight="4"
@@ -26,6 +27,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_margin="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -35,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="@string/add_event_name"
+                android:background="@drawable/bg_edittext"
                 android:layout_margin="20dp"
                 android:gravity="center" />
 
@@ -43,6 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="20dp"
+                android:background="@drawable/bg_edittext"
                 android:gravity="center"
                 android:hint="@string/add_event_start" />
 
@@ -51,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="@string/add_event_end"
+                android:background="@drawable/bg_edittext"
                 android:layout_margin="20dp"
                 android:gravity="center" />
 
@@ -59,6 +64,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="@string/add_event_location"
+                android:background="@drawable/bg_edittext"
+                android:layout_margin="20dp"
+                android:gravity="center" />
+            <EditText
+                android:id="@+id/add_event_participantsn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/add_event_participants"
+                android:background="@drawable/bg_edittext"
                 android:layout_margin="20dp"
                 android:gravity="center" />
 

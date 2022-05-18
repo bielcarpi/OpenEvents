@@ -12,9 +12,10 @@
         <entry key="..\:/Users/david/AndroidStudioProjects/grup_8/app/src/main/res/drawable/bg_search_bar.xml" value="0.206" />
         <entry key="..\:/Users/david/AndroidStudioProjects/grup_8/app/src/main/res/layout/activity_chat.xml" value="0.1984375" />
         <entry key="..\:/Users/david/AndroidStudioProjects/grup_8/app/src/main/res/layout/activity_comment.xml" value="0.2717391304347826" />
-        <entry key="..\:/Users/david/AndroidStudioProjects/grup_8/app/src/main/res/layout/activity_login.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/grup_8/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/grup_8/app/src/main/res/layout/activity_main.xml" value="0.1272644927536232" />
         <entry key="..\:/Users/david/AndroidStudioProjects/grup_8/app/src/main/res/layout/activity_register.xml" value="0.22" />
-        <entry key="..\:/Users/david/AndroidStudioProjects/grup_8/app/src/main/res/layout/fragment_add_post.xml" value="0.2717391304347826" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/grup_8/app/src/main/res/layout/fragment_add_post.xml" value="0.22" />
         <entry key="..\:/Users/david/AndroidStudioProjects/grup_8/app/src/main/res/layout/fragment_comment.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/david/AndroidStudioProjects/grup_8/app/src/main/res/layout/fragment_description_event.xml" value="0.20606884057971014" />
         <entry key="..\:/Users/david/AndroidStudioProjects/grup_8/app/src/main/res/layout/fragment_profile.xml" value="0.20606884057971014" />

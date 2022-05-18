@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         addBtn = findViewById(R.id.add_event);
 
 
-
         homeBtn.setOnClickListener(view -> replaceFragment(new HomeFragment()));
         searchBtn.setOnClickListener(view -> replaceFragment(new SearchFragment()));
         friendsBtn.setOnClickListener(view -> replaceFragment(new FriendsFragment()));
