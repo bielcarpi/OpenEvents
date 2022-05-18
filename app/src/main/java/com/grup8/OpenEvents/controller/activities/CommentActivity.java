@@ -13,18 +13,11 @@ import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.recyclerview.CommentAdapter;
-import com.grup8.OpenEvents.controller.recyclerview.EventAdapter;
-import com.grup8.OpenEvents.model.entities.Event;
-
-import java.util.List;
 
 public class CommentActivity extends AppCompatActivity {
 
     private RecyclerView commentRecycleView;
-
     private CommentAdapter commentAdapter;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +28,13 @@ public class CommentActivity extends AppCompatActivity {
         TextView txtPost = findViewById(R.id.post);
         ImageView imgUser = findViewById(R.id.profile_image);
 
-        commentRecycleView = findViewById(R.id.comments_recycleview);
+        commentRecycleView = findViewById(R.id.comments_recyclerview);
         commentRecycleView.setLayoutManager(new LinearLayoutManager(this));
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.comments_toolbar);
+        toolbar.setTitle(R.string.comments);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Comments");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         toolbar.setNavigationOnClickListener(view -> finish());
 
 

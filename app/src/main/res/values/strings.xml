@@ -53,6 +53,7 @@
 
     <string name="score">Score</string>
     <string name="comments">Comments</string>
+    <string name="see_comments">See comments</string>
     <string name="top_percentage">Top %</string>
     <string name="friends">Friends</string>
     <string name="num_events">Events Created</string>
@@ -66,7 +67,12 @@
     <string name="time_emoji">⌛</string>
     <string name="location_emoji">🗺️</string>
     <string name="description_emoji">📋</string>
+    <string name="type_emoji">💣</string>
+    <string name="slug_emoji">📝️</string>
+    <string name="assistants_emoji">🙍</string>
     <string name="search">Search</string>
+    <string name="back">Back</string>
+    <string name="assist">Assist</string>
 
     <string name="edit">EDIT</string>
     <string name="delete">DELETE</string>

@@ -12,102 +12,89 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
-import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.controller.recyclerview.FriendsRequestAdapter;
 import com.grup8.OpenEvents.controller.recyclerview.UserAdapter;
 import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.User;
-import com.grup8.OpenEvents.model.entities.UserManager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class FriendsFragment extends Fragment {
-    private UserManager userManager = UserManager.getInstance(getActivity());
-    private UserAdapter adapter;
-    private FriendsRequestAdapter friendsRequestAdapter;
-
-
 
     private RecyclerView friendsRecyclerView;
-    private int option = 0;
+    private UserAdapter friendsAdapter;
+    private FriendsRequestAdapter friendsRequestAdapter;
+
+    private enum FriendsType{
+        FRIEND,
+        FRIEND_REQUEST
+    }
+    private FriendsType currentFriendsType;
+    private ArrayList<?> latestList;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_friends, container, false);
+        latestList = new ArrayList<>();
 
-
-        friendsRecyclerView = (RecyclerView) v.findViewById(R.id.friends_recycleview);
+        friendsRecyclerView = v.findViewById(R.id.friends_recycleview);
         friendsRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));
 
         TextView txtFriends = v.findViewById(R.id.friends);
         TextView txtFriendsRequest = v.findViewById(R.id.friends_request);
 
-        txtFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                txtFriendsRequest.setBackground(null);
-                txtFriends.setBackground(requireContext().getDrawable(R.drawable.bg_bottom_selected));
-                UserModel.getInstance().getCurrentUserFriends( (success, users) -> {
-                    System.out.println("Hola! User -> " + success);
-                    if(success) {
-                        userManager.setlUser(Arrays.asList(users));
-                        option = 0;
-                        updateUI();
-
-                    };
-
-
-                });
-            }
-        });
-
-        txtFriendsRequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                txtFriends.setBackground(null);
-                txtFriendsRequest.setBackground(requireContext().getDrawable(R.drawable.bg_bottom_selected));
-                UserModel.getInstance().getFriendRequests( (success, users) -> {
-                    System.out.println("Hola! User -> " + success);
-                    if(success) {
-                        userManager.setlUser(Arrays.asList(users));
-                        option = 1;
-                        updateUI();
-
-                    };
-
-
-                });
-            }
-        });
-
+        txtFriends.setOnClickListener(view -> searchFriends());
+        txtFriendsRequest.setOnClickListener(view -> searchFriendRequests());
 
         return v;
     }
 
-    private void updateUI() {
 
-        // demanar info de qui
+    @SuppressWarnings("unchecked")
+    private void updateUI(FriendsType friendsType, ArrayList<?> list) {
+        currentFriendsType = friendsType;
+        latestList = list;
 
-
-        List<User> lUser = this.userManager.getlUsers();
-
-            if (option == 0) {
-                adapter = new UserAdapter(lUser, (MainActivity) getActivity());
-                friendsRecyclerView.setAdapter(adapter);
+        if (friendsType == FriendsType.FRIEND) {
+            if (friendsAdapter == null) {
+                friendsAdapter = new UserAdapter((ArrayList<User>) list, getActivity());
+                friendsRecyclerView.setAdapter(friendsAdapter);
             } else {
-                friendsRequestAdapter = new FriendsRequestAdapter(lUser, (MainActivity) getActivity());
-                friendsRecyclerView.setAdapter(friendsRequestAdapter);
+                friendsRecyclerView.setAdapter(friendsAdapter);
+                friendsAdapter.updateList((ArrayList<User>) list);
             }
-
+        } else {
+            if (friendsRequestAdapter == null) {
+                friendsRequestAdapter = new FriendsRequestAdapter((ArrayList<User>) list, getActivity());
+                friendsRecyclerView.setAdapter(friendsRequestAdapter);
+            } else {
+                friendsRecyclerView.setAdapter(friendsRequestAdapter);
+                friendsRequestAdapter.updateList((ArrayList<User>) list);
+            }
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        updateUI();
+        updateUI(currentFriendsType, latestList);
+    }
+
+
+    private void searchFriends(){
+        UserModel.getInstance().getCurrentUserFriends((success, users) -> {
+            if (success)
+                updateUI(FriendsType.FRIEND, new ArrayList<>(Arrays.asList(users)));
+        });
+    }
+    private void searchFriendRequests(){
+        UserModel.getInstance().getFriendRequests((success, users) -> {
+            if (success)
+                updateUI(FriendsType.FRIEND_REQUEST, new ArrayList<>(Arrays.asList(users)));
+        });
     }
 }

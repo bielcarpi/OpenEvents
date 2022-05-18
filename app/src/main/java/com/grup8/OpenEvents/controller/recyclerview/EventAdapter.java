@@ -1,5 +1,6 @@
 package com.grup8.OpenEvents.controller.recyclerview;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.grup8.OpenEvents.model.entities.Event;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
-    private List<Event> events;
+    private ArrayList<Event> events;
     private Activity activity;
 
-    public EventAdapter(List<Event> events, Activity activity) {
+    public EventAdapter(ArrayList<Event> events, Activity activity) {
         this.events = events;
         this.activity = activity;
     }
@@ -35,6 +36,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
     @Override
     public int getItemCount() {
         return events.size();
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateList(ArrayList<Event> newList){
+        events.clear();
+        events.addAll(newList);
+        notifyDataSetChanged();
     }
 
 }
