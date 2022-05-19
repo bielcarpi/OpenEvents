@@ -64,6 +64,7 @@
     <string name="event_location">Location</string>
     <string name="event_date">Date</string>
     <string name="description">Description</string>
+    <string name="score_emoji">⭐</string>
     <string name="time_emoji">⌛</string>
     <string name="location_emoji">🗺️</string>
     <string name="description_emoji">📋</string>

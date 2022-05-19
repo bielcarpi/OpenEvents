@@ -21,6 +21,7 @@ import com.grup8.OpenEvents.controller.activities.AssistantsActivity;
 import com.grup8.OpenEvents.controller.activities.CommentActivity;
 import com.grup8.OpenEvents.model.AssistanceModel;
 import com.grup8.OpenEvents.model.UserModel;
+import com.grup8.OpenEvents.model.entities.Assistance;
 import com.grup8.OpenEvents.model.entities.Event;
 import com.grup8.OpenEvents.model.entities.User;
 import com.grup8.OpenEvents.model.utils.ImageHelper;
@@ -49,6 +50,7 @@ public class DescriptionEventFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_description_event, container, false);
 
         TextView txtTitle = v.findViewById(R.id.description_event_title);
+        TextView txtScore = v.findViewById(R.id.description_event_score);
         TextView txtStartDate = v.findViewById(R.id.description_event_start_date);
         TextView txtEndDate = v.findViewById(R.id.description_event_end_date);
         TextView txtLocation = v.findViewById(R.id.description_event_location);
@@ -106,6 +108,7 @@ public class DescriptionEventFragment extends Fragment {
         AssistanceModel.getInstance().getAssistancesFromEvent(event, (success, eventAssistances) -> {
             if(success && eventAssistances != null && eventAssistances.length > 0){
                 txtAssistants.setText(Integer.toString(eventAssistances.length));
+                txtScore.setText(Assistance.getAveragePunctuation(eventAssistances));
 
                 assistancesLayout.setOnClickListener(view -> {
                     Intent i = new Intent(getActivity(), AssistantsActivity.class);

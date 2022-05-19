@@ -20,6 +20,20 @@ public class Assistance implements Serializable {
         });
     }
 
+    public static String getAveragePunctuation(Assistance[] eventAssistances) {
+        int totalPunctuation = 0;
+        int assistantsThatGavePunctuation = 0;
+        for(Assistance a: eventAssistances){
+            if(a.punctuation >= 0){
+                totalPunctuation += a.punctuation;
+                assistantsThatGavePunctuation++;
+            }
+        }
+
+        if(assistantsThatGavePunctuation == 0) return "-";
+        return Integer.toString(totalPunctuation/assistantsThatGavePunctuation);
+    }
+
 
     public int getEventId() {
         return eventId;
