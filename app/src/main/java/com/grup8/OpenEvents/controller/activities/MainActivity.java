@@ -61,4 +61,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.main_fragment, f);
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        //TODO: Not working :( -> We would need to reuse the fragments, so as that its reference is not being lost
+        fm.popBackStackImmediate();
+    }
 }

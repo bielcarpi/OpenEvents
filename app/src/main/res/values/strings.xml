@@ -70,6 +70,7 @@
     <string name="type_emoji">💣</string>
     <string name="slug_emoji">📝️</string>
     <string name="assistants_emoji">🙍</string>
+    <string name="assistants">Assistants</string>
     <string name="search">Search</string>
     <string name="back">Back</string>
     <string name="assist">Assist</string>

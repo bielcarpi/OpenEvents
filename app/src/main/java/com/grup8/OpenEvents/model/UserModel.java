@@ -241,6 +241,10 @@ public class UserModel {
         getUsers(SEARCH_USER_URL + search, callback);
     }
 
+    public void getUserById(int userId, GetUsersCallback callback){
+        getUsers(REGISTER_REQUEST_URL + "/" + userId, callback);
+    }
+
 
     public void updateCurrentUser(User newUser, SuccessCallback callback){
         final String bodyString = "{\"name\":\"" + newUser.getName() + "\",\"last_name\":\"" + newUser.getLastName() + "\",\"email\":\"" + newUser.getEmail() + "\",\"password\":\"" + newUser.getPassword() + "\",\"image\":\"" + newUser.getImage() + "\"}";

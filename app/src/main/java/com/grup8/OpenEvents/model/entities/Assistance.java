@@ -2,7 +2,9 @@ package com.grup8.OpenEvents.model.entities;
 
 import com.grup8.OpenEvents.model.UserModel;
 
-public class Assistance {
+import java.io.Serializable;
+
+public class Assistance implements Serializable {
     private final int eventId;
     private User assistant;
     private final float punctuation;

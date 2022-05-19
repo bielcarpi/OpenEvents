@@ -13,6 +13,8 @@
         <entry key="app/src/main/res/drawable/ic_person.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable/person_background.xml" value="0.165" />
         <entry key="app/src/main/res/drawable/splash_background.xml" value="0.174" />
+        <entry key="app/src/main/res/layout/activity_assistants.xml" value="0.2515625" />
+        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/activity_comment.xml" value="0.21200408935546877" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3704710144927536" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2758152173913043" />

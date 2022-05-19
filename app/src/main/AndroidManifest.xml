@@ -15,11 +15,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OpenEvents">
         <activity
+            android:name=".controller.activities.AssistantsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".controller.activities.CommentActivity"
-            android:exported="false" />
+            android:screenOrientation="portrait"
+            android:exported="false"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".controller.activities.ChatActivity"
-            android:exported="false" />
+            android:screenOrientation="portrait"
+            android:exported="false"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".controller.activities.SplashScreenActivity"
             android:configChanges="orientation"
