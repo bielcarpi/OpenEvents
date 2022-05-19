@@ -47,4 +47,9 @@ public class LoginActivity extends AppCompatActivity {
 
         txtRegister.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, RegisterActivity.class)));
     }
+
+
+    @Override
+    public void onBackPressed() {
+    }
 }

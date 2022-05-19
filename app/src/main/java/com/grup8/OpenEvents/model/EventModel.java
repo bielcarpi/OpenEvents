@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class EventModel {
@@ -69,6 +70,7 @@ public class EventModel {
 
 
     public void createEvent(Event event, SuccessCallback callback){
+
         final String bodyString = "{\"name\":\"" + event.getName() + "\",\"image\":\"" + event.getImage() + "\",\"location\":\"" + event.getLocation()
                 + "\",\"description\":\"" + event.getDescription()  + "\",\"eventStart_date\":\"" + event.getStartDate()
                 + "\",\"eventEnd_date\":\"" + event.getEndDate()  + "\",\"n_participators\":\"" + event.getParticipators() + "\",\"type\":\"" + event.getType() + "\"}";
@@ -160,6 +162,7 @@ public class EventModel {
                     Event[] events = new Event[array.length()];
                     for(int i = 0; i < array.length(); i++){
                         JSONObject o = array.getJSONObject(i);
+
 
                         events[i] = new Event(o.getInt("id"), o.getString("name"), o.getInt("owner_id"),
                                 CalendarHelper.getCalendar(o.getString("date")), o.getString("image"),

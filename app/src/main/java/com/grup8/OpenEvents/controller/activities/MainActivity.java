@@ -12,6 +12,7 @@ import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.fragments.AddPostFragment;
 import com.grup8.OpenEvents.controller.fragments.HomeFragment;
 import com.grup8.OpenEvents.controller.fragments.FriendsFragment;
+import com.grup8.OpenEvents.controller.fragments.MyEventsFragment;
 import com.grup8.OpenEvents.controller.fragments.ProfileFragment;
 import com.grup8.OpenEvents.controller.fragments.SearchFragment;
 import com.grup8.OpenEvents.model.UserModel;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         homeBtn.setOnClickListener(view -> replaceFragment(new HomeFragment()));
         searchBtn.setOnClickListener(view -> replaceFragment(new SearchFragment()));
-        friendsBtn.setOnClickListener(view -> replaceFragment(new FriendsFragment()));
+        friendsBtn.setOnClickListener(view -> replaceFragment(new MyEventsFragment()));
         addBtn.setOnClickListener(view -> replaceFragment(new AddPostFragment()));
         profileBtn.setOnClickListener(view -> {
             User user  = UserModel.getInstance().getLoggedInUser();
@@ -59,5 +60,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.main_fragment, f);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //TODO: Not working :( -> We would need to reuse the fragments, so as that its reference is not being lost
+        fm.popBackStackImmediate();
     }
 }

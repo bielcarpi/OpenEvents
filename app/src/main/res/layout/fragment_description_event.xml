@@ -50,19 +50,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/description_event_image"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="-60dp"
-            android:text="@string/assist"
-            android:layout_centerHorizontal="true"/>
+            android:text="@string/assist" />
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/description_event_user_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:gravity="center"
         android:layout_marginTop="5dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="15dp">
 
         <com.mikhaellopez.circularimageview.CircularImageView
@@ -85,7 +85,7 @@
                 android:id="@+id/description_event_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 />
 
             <TextView
@@ -94,10 +94,67 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 />
-
         </LinearLayout>
-
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/score_emoji"
+            android:layout_marginEnd="5sp"/>
+        <TextView
+            android:id="@+id/description_event_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="-"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/description_event_assistances_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/assistants_emoji"
+            android:layout_marginEnd="5sp"/>
+        <TextView
+            android:id="@+id/description_event_assistants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="-"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="/"/>
+        <TextView
+            android:id="@+id/description_event_max_assistants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="-"/>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -191,12 +248,13 @@
             android:textSize="15sp"
             android:text="@string/type_emoji"
             android:layout_marginEnd="5sp"/>
+
         <TextView
             android:id="@+id/description_event_type"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="@string/description"/>
+            android:layout_height="match_parent"
+            android:text="-"
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -218,43 +276,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="@string/description"/>
+            android:text="-"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="@string/assistants_emoji"
-            android:layout_marginEnd="5sp"/>
-        <TextView
-            android:id="@+id/description_event_assistants"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text=""/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:text="/"/>
-        <TextView
-            android:id="@+id/description_event_max_assistants"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text=""/>
-    </LinearLayout>
 
     <TextView
         android:id="@+id/description_event_comments"
@@ -262,6 +286,6 @@
         android:layout_height="wrap_content"
         android:text="@string/see_comments"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="15dp"/>
 
 </LinearLayout>

@@ -33,8 +33,8 @@ public class Event implements Serializable {
         this.type = type;
     }
 
-    public Event(String name, Calendar startDate, Calendar endDate, String location, int participators, String type,  String description) {
-        this.id = 0;
+    public Event(int id, String name, Calendar startDate, Calendar endDate, String location, int participators, String type,  String description) {
+        this.id = id;
         this.name = name;
         this.ownerId = 0;
         this.creationDate = null;

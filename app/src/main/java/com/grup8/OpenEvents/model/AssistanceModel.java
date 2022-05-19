@@ -38,7 +38,7 @@ public class AssistanceModel {
 
 
     public void getAssistancesFromEvent(Event event, GetAssistancesCallback callback){
-        ApiCommunicator.makeRequest("/users/" + event.getOwnerId() + "/" + event.getId(), RequestMethod.GET, null, true, new ResponseCallback() {
+        ApiCommunicator.makeRequest("/events/" + event.getId() + "/assistances", RequestMethod.GET, null, true, new ResponseCallback() {
             @Override
             public void OnResponse(String response) {
                 try {
@@ -53,7 +53,7 @@ public class AssistanceModel {
                                 o.getString("comentary").equals("null")? null: o.getString("comentary"));
                     }
 
-                    callback.onResponse(true, null);
+                    callback.onResponse(true, assistances);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     callback.onResponse(false, null);

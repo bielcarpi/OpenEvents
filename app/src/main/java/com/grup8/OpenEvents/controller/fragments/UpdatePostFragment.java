@@ -1,5 +1,6 @@
 package com.grup8.OpenEvents.controller.fragments;
 
+
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,15 +24,25 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 
-public class AddPostFragment extends Fragment {
+public class UpdatePostFragment extends Fragment {
 
     private String startDate, endDate;
+
+    private Event event;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
         View v =  inflater.inflate(R.layout.fragment_add_post, container, false);
+
+        // TODO Quan li donis al boto de update pasa el event, mersi
+
+        Bundle args = getArguments();
+        event = (Event) args.getSerializable("event");
 
         EditText etName = v.findViewById(R.id.add_event_name);
         EditText etStartDate = v.findViewById(R.id.add_event_start);
@@ -41,8 +52,20 @@ public class AddPostFragment extends Fragment {
         EditText etType = v.findViewById(R.id.add_event_type);
         EditText etDescription = v.findViewById(R.id.add_event_description);
 
-        Button btnPost = v.findViewById(R.id.post_btn);
+        Button btnUpdate = v.findViewById(R.id.post_btn);
+        btnUpdate.setText(R.string.update);
         Button btnCancel = v.findViewById(R.id.cancel_btn);
+
+        // TODO he pensat que estaria be mostrar les dades que hi han abans d'actualitzar
+        //  a cada camp
+        etName.setText(event.getName());
+        etStartDate.setText(event.getStartDate().getTime().toString());
+        etEndDate.setText(event.getEndDate().getTime().toString());
+        etLocation.setText(event.getLocation());
+        etParticipants.setText(event.getParticipators());
+        etType.setText(event.getType());
+        etDescription.setText(event.getDescription());
+
 
 
 
@@ -50,6 +73,8 @@ public class AddPostFragment extends Fragment {
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+
 
 
 
@@ -88,7 +113,7 @@ public class AddPostFragment extends Fragment {
 
 
 
-        btnPost.setOnClickListener(new View.OnClickListener() {
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -97,14 +122,11 @@ public class AddPostFragment extends Fragment {
                     //  a l'hora de pasar el event en el EventModel la funcio de create on
                     //  fas el getStartDate i getEndDate has de pasar-ho a
                     //  format YYYY-MM-DDThh:mm:ss.000Z
-                    //  A més crec que fa falta fer una recycle views como dius perque sino
-                    //  pot arribar a quedar una mica extrany
 
 
-                    // We don't need to know the id
-                    int id = 0;
 
-                    Event event = new Event( id,
+
+                    Event e = new Event(event.getId(),
                             etName.getText().toString(),
                             CalendarHelper.getCalendar(startDate),
                             CalendarHelper.getCalendar(endDate),
@@ -113,8 +135,8 @@ public class AddPostFragment extends Fragment {
                             etType.getText().toString(),
                             etDescription.getText().toString());
 
-                    EventModel.getInstance().createEvent(event, ((success, errorMessage) -> {
-                        if (success) {
+                    EventModel.getInstance().updateEvent(e, ((success, errorMessage) -> {
+                        if(success) {
                             System.out.println(success);
                             replaceFragment(v);
                         }
@@ -144,5 +166,6 @@ public class AddPostFragment extends Fragment {
 
 
 
-    }
+}
+
 

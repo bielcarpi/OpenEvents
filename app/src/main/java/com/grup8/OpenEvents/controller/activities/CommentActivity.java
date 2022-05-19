@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.recyclerview.CommentAdapter;
+import com.grup8.OpenEvents.model.UserModel;
+import com.grup8.OpenEvents.model.utils.ImageHelper;
 
 public class CommentActivity extends AppCompatActivity {
 
@@ -27,6 +29,7 @@ public class CommentActivity extends AppCompatActivity {
         EditText etComment = findViewById(R.id.add_comment);
         TextView txtPost = findViewById(R.id.post);
         ImageView imgUser = findViewById(R.id.profile_image);
+        ImageHelper.bindImageToUser(UserModel.getInstance().getLoggedInUser().getImage(), imgUser);
 
         commentRecycleView = findViewById(R.id.comments_recyclerview);
         commentRecycleView.setLayoutManager(new LinearLayoutManager(this));
@@ -38,12 +41,8 @@ public class CommentActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(view -> finish());
 
 
-        txtPost.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                String comment = etComment.getText().toString();
-            }
+        txtPost.setOnClickListener(view -> {
+            String comment = etComment.getText().toString();
         });
 
     }

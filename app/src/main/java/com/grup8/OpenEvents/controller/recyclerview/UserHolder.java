@@ -48,12 +48,12 @@ public class UserHolder extends RecyclerView.ViewHolder implements View.OnClickL
         args.putSerializable("user", user);
         profileFragment.setArguments(args);
 
-        FragmentManager fm = ((MainActivity)view.getContext()).getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.main_fragment, profileFragment).commit();
-
-
-
-
+        try{
+            FragmentManager fm = ((MainActivity)view.getContext()).getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.main_fragment, profileFragment).commit();
+        }catch (ClassCastException e){
+            //If we're not inside the MainActivity, an exception will be thrown. In this case, do nothing
+        }
     }
 
 

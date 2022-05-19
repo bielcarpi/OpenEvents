@@ -64,12 +64,14 @@
     <string name="event_location">Location</string>
     <string name="event_date">Date</string>
     <string name="description">Description</string>
+    <string name="score_emoji">⭐</string>
     <string name="time_emoji">⌛</string>
     <string name="location_emoji">🗺️</string>
     <string name="description_emoji">📋</string>
     <string name="type_emoji">💣</string>
     <string name="slug_emoji">📝️</string>
     <string name="assistants_emoji">🙍</string>
+    <string name="assistants">Assistants</string>
     <string name="search">Search</string>
     <string name="back">Back</string>
     <string name="assist">Assist</string>
@@ -96,5 +98,6 @@
 
     <string name="add_comment">Add a comment...</string>
     <string name="post">POST</string>
-
+    <string name="update">UPDATE</string>
+    <string name="my_events">My Events</string>
 </resources>
