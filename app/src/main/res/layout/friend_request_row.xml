@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:gravity="center"
-    android:weightSum="22"
-    android:background="#59000000"
-    android:layout_marginBottom="15dp">
+    android:weightSum="24"
+    android:layout_marginTop="15dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
+    >
 
 
     <com.mikhaellopez.circularimageview.CircularImageView
@@ -24,7 +26,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="6"
+        android:layout_weight="12"
         android:orientation="vertical"
         android:gravity="center_vertical"
         >
@@ -45,37 +47,31 @@
             android:textSize="12sp"
             android:text=""
             />
-
     </LinearLayout>
 
     <LinearLayout
+        android:layout_height="wrap_content"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="12"
-        android:orientation="horizontal"
-        android:weightSum="31"
-        android:gravity="center">
+        android:layout_weight="8"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
 
         <Button
             android:id="@+id/button_accept"
-            android:layout_width="0dp"
-            android:layout_weight="15"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/accept"
+            android:textSize="12sp"
              />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
         <Button
             android:id="@+id/button_decline"
-            android:layout_width="0dp"
-            android:layout_weight="15"
-            android:layout_height="40dp"
-            android:layout_marginRight="10dp"
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/decline"
+            android:backgroundTint="@color/primary_red"
+            android:textSize="12sp"
             />
     </LinearLayout>
 

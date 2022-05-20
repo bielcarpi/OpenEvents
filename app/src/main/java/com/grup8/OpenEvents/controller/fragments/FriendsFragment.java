@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
-import com.grup8.OpenEvents.controller.recyclerview.FriendsRequestAdapter;
+import com.grup8.OpenEvents.controller.recyclerview.FriendRequestAdapter;
 import com.grup8.OpenEvents.controller.recyclerview.UserAdapter;
 import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.User;
@@ -24,7 +24,7 @@ public class FriendsFragment extends Fragment {
 
     private RecyclerView friendsRecyclerView;
     private UserAdapter friendsAdapter;
-    private FriendsRequestAdapter friendsRequestAdapter;
+    private FriendRequestAdapter friendRequestAdapter;
 
     private enum FriendsType{
         FRIEND,
@@ -58,6 +58,8 @@ public class FriendsFragment extends Fragment {
             searchFriendRequests();
         });
 
+        //Lastly, search for friends and display them
+        searchFriends();
         return v;
     }
 
@@ -76,12 +78,12 @@ public class FriendsFragment extends Fragment {
                 friendsAdapter.updateList((ArrayList<User>) list);
             }
         } else {
-            if (friendsRequestAdapter == null) {
-                friendsRequestAdapter = new FriendsRequestAdapter((ArrayList<User>) list, getActivity());
-                friendsRecyclerView.setAdapter(friendsRequestAdapter);
+            if (friendRequestAdapter == null) {
+                friendRequestAdapter = new FriendRequestAdapter((ArrayList<User>) list, getActivity());
+                friendsRecyclerView.setAdapter(friendRequestAdapter);
             } else {
-                friendsRecyclerView.setAdapter(friendsRequestAdapter);
-                friendsRequestAdapter.updateList((ArrayList<User>) list);
+                friendsRecyclerView.setAdapter(friendRequestAdapter);
+                friendRequestAdapter.updateList((ArrayList<User>) list);
             }
         }
     }

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,17 +19,16 @@ import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.User;
 import com.grup8.OpenEvents.model.utils.ImageHelper;
 
-import java.util.Arrays;
-
-public class FriendsRequestHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class FriendRequestHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public User user;
     private final TextView txtName, txtEmail;
     private final ImageView imgUser;
     private final Button btnAdd, btnDecline;
+    private final FriendRequestAdapter adapter;
 
-    public FriendsRequestHolder(LayoutInflater inflater, ViewGroup parent) {
-        super(inflater.inflate(R.layout.friends_request_row, parent, false));
-
+    public FriendRequestHolder(LayoutInflater inflater, ViewGroup parent, FriendRequestAdapter adapter) {
+        super(inflater.inflate(R.layout.friend_request_row, parent, false));
+        this.adapter = adapter;
         txtName = itemView.findViewById(R.id.user_row_name);
         txtEmail = itemView.findViewById(R.id.user_row_email);
         imgUser = itemView.findViewById(R.id.user_row_image);
@@ -36,21 +36,34 @@ public class FriendsRequestHolder extends RecyclerView.ViewHolder implements Vie
         btnDecline = itemView.findViewById(R.id.button_decline);
 
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UserModel.getInstance().acceptFriendRequest(user, (success, users) -> {
-                    System.out.println("Hola! User -> " + success);
-
-
-                });
-            }
+        btnAdd.setOnClickListener(view -> {
+            btnAdd.setEnabled(false);
+            btnDecline.setEnabled(false);
+            UserModel.getInstance().acceptFriendRequest(user, (success, users) -> {
+                if(success){
+                    adapter.removeRequest(getAdapterPosition());
+                    Toast.makeText(parent.getContext(), R.string.new_friend, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    btnAdd.setEnabled(true);
+                    btnDecline.setEnabled(true);
+                }
+            });
         });
 
-        btnDecline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
+        btnDecline.setOnClickListener(view -> {
+            btnAdd.setEnabled(false);
+            btnDecline.setEnabled(false);
+            UserModel.getInstance().deleteFriend(user, ((success, errorMessage) -> {
+                if(success){
+                    adapter.removeRequest(getAdapterPosition());
+                    Toast.makeText(parent.getContext(), R.string.declined_request, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    btnAdd.setEnabled(true);
+                    btnDecline.setEnabled(true);
+                }
+            }));
         });
 
         itemView.setOnClickListener(this);
