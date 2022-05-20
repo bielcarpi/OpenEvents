@@ -62,7 +62,54 @@ public class ProfileFragment extends Fragment {
         TextView txtFutureEvents = v.findViewById(R.id.profile_future_events);
         TextView txtCurrentEvents = v.findViewById(R.id.profile_current_events);
         TextView txtEndedEvents = v.findViewById(R.id.profile_ended_events);
+        Button btnAddFriend = v.findViewById(R.id.add_friend);
         Button btnMessage = v.findViewById(R.id.message);
+        Button btnEditProfile = v.findViewById(R.id.edit_profile);
+
+        //Fill some views
+        String username = user.getName() + " " + user.getLastName();
+        txtName.setText(username);
+        ImageHelper.bindImageToUser(user.getImage(), imgUser);
+
+
+        //If we're showing our profile, enable the edit profile button
+        if(user.getId() == UserModel.getInstance().getLoggedInUser().getId()){
+            btnEditProfile.setVisibility(View.VISIBLE);
+            btnEditProfile.setOnClickListener(view -> {
+            });
+        }
+        else{
+            //If not, enable the send message button and the Friend button
+            btnMessage.setVisibility(View.VISIBLE);
+            btnMessage.setOnClickListener(view -> {
+                Intent i = new Intent(getContext(), UserChatActivity.class);
+                i.putExtra("user", user);
+                startActivity(i);
+            });
+
+            //Retrieve from the server our user friends so as to check if this user is friend or not yet
+            UserModel.getInstance().getCurrentUserFriends((success, users) -> {
+                User loggedInUser = UserModel.getInstance().getLoggedInUser();
+                boolean friends = false;
+                for(User u: users){
+                    if (u.equals(loggedInUser)) {
+                        friends = true;
+                        break;
+                    }
+                }
+
+                btnAddFriend.setVisibility(View.VISIBLE);
+                if(friends){
+                    btnAddFriend.setText(R.string.remove_friend);
+                    btnAddFriend.setBackgroundTintList(getResources().getColorStateList(R.color.primary_red));
+                }
+                else{
+                    btnAddFriend.setText(R.string.add_friend);
+                    btnAddFriend.setBackgroundTintList(getResources().getColorStateList(R.color.primary_blue));
+                }
+            });
+
+        }
 
         //Get the user stats from the server. Once we have them, update the view
         UserModel.getInstance().getUserStats(user, (success, u) -> {
@@ -94,18 +141,6 @@ public class ProfileFragment extends Fragment {
             showEndedUserEvents();
         });
 
-
-        String username = user.getName() + " " + user.getLastName();
-        txtName.setText(username);
-        ImageHelper.bindImageToUser(user.getImage(), imgUser);
-
-
-        btnMessage.setOnClickListener(view -> {
-            Intent i = new Intent(getContext(), UserChatActivity.class);
-            i.putExtra("user", user);
-            startActivity(i);
-        });
-        // Tindrem que mirar a quin perfil estem
 
         //Setup recycler view
         eventRecyclerView = v.findViewById(R.id.home_event_recyclerview);

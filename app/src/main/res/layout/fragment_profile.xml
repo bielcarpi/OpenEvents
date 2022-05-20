@@ -142,7 +142,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/add_friend"
-            tools:ignore="ButtonStyle" />
+            tools:ignore="ButtonStyle"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/message"
@@ -151,6 +152,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/message"
+            tools:ignore="ButtonStyle"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/edit_profile"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/edit_profile"
+            android:visibility="gone"
             tools:ignore="ButtonStyle" />
     </LinearLayout>
 
