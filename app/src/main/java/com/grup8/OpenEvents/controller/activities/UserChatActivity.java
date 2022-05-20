@@ -22,12 +22,14 @@ import com.grup8.OpenEvents.model.utils.ImageHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class UserChatActivity extends AppCompatActivity {
 
     private RecyclerView messagesRecyclerView;
+    private LinearLayoutManager layoutManager;
     private MessageAdapter messageAdapter;
     private User u;
 
@@ -54,15 +56,24 @@ public class UserChatActivity extends AppCompatActivity {
         EditText etWrite = findViewById(R.id.user_chat_write);
 
         ImageHelper.bindImageToUser(UserModel.getInstance().getLoggedInUser().getImage(), imgUser);
-        txtSend.setOnClickListener(view ->
-            MessageModel.getInstance().sendMessage(etWrite.getText().toString(), u, (success, errorMessage) -> {
+        txtSend.setOnClickListener(view -> {
+            String textWritten = etWrite.getText().toString();
+            if(textWritten.trim().equals("")) return;
+
+            txtSend.setEnabled(false);
+            etWrite.setText("");
+
+            MessageModel.getInstance().sendMessage(textWritten, u, (success, errorMessage) -> {
                 if (success)
                     updateMessages();
-            })
-        );
+
+                txtSend.setEnabled(true);
+            });
+        });
 
         messagesRecyclerView = findViewById(R.id.user_chat_recyclerview);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
+        layoutManager.setSmoothScrollbarEnabled(true);
         layoutManager.setStackFromEnd(true);
         messagesRecyclerView.setLayoutManager(layoutManager);
 
@@ -98,6 +109,8 @@ public class UserChatActivity extends AppCompatActivity {
         } else {
             messageAdapter.updateList(list);
         }
+
+        layoutManager.scrollToPositionWithOffset(list.size() - 1, 0);
     }
 
 
