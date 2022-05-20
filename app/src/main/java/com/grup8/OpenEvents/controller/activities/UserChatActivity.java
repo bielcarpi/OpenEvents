@@ -7,37 +7,41 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.grup8.OpenEvents.*;
+import com.grup8.OpenEvents.R;
+import com.grup8.OpenEvents.controller.recyclerview.MessageAdapter;
 import com.grup8.OpenEvents.controller.recyclerview.UserAdapter;
 import com.grup8.OpenEvents.model.MessageModel;
+import com.grup8.OpenEvents.model.entities.Message;
 import com.grup8.OpenEvents.model.entities.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ChatActivity extends AppCompatActivity {
+public class UserChatActivity extends AppCompatActivity {
 
     private RecyclerView userRecyclerView;
-    private UserAdapter userAdapter;
+    private MessageAdapter messageAdapter;
 
-    private ArrayList<User> chatsList;
+    private ArrayList<Message> messagesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        messagesList = new ArrayList<>();
 
-        chatsList = new ArrayList<>();
+        User u = (User) getIntent().getSerializableExtra("user");
+        String userName = u.getName() + u.getLastName();
 
-        Toolbar toolbar = findViewById(R.id.chat_toolbar);
-        toolbar.setTitle(R.string.chats);
+        Toolbar toolbar = findViewById(R.id.user_chat_toolbar);
+        toolbar.setTitle(userName);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(view -> finish());
 
-        MessageModel.getInstance().getUsersMessaging((success, users) -> {
+        MessageModel.getInstance().getMessages(u, (success, messages) -> {
             if (success)
-                updateUI(new ArrayList<>(Arrays.asList(users)));
+                updateUI(new ArrayList<>(Arrays.asList(messages)));
         });
 
         userRecyclerView = findViewById(R.id.chat_recyclerview);
@@ -45,14 +49,13 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    private void updateUI( ArrayList<User> list) {
-        this.chatsList = list;
-        if (userAdapter == null) {
-            userAdapter = new UserAdapter(list, this);
-            userRecyclerView.setAdapter(userAdapter);
+    private void updateUI(ArrayList<Message> list) {
+        this.messagesList = list;
+        if (messageAdapter == null) {
+            messageAdapter = new MessageAdapter(list, this);
+            userRecyclerView.setAdapter(messageAdapter);
         } else {
-            userRecyclerView.setAdapter(userAdapter);
-            userAdapter.updateList( list);
+            messageAdapter.updateList(list);
         }
     }
 
@@ -60,6 +63,6 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        updateUI(chatsList);
+        updateUI(messagesList);
     }
 }

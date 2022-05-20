@@ -1,6 +1,7 @@
 package com.grup8.OpenEvents.controller.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
+import com.grup8.OpenEvents.controller.activities.UserChatActivity;
 import com.grup8.OpenEvents.controller.recyclerview.EventAdapter;
 import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.UserModel;
@@ -59,6 +62,7 @@ public class ProfileFragment extends Fragment {
         TextView txtFutureEvents = v.findViewById(R.id.profile_future_events);
         TextView txtCurrentEvents = v.findViewById(R.id.profile_current_events);
         TextView txtEndedEvents = v.findViewById(R.id.profile_ended_events);
+        Button btnMessage = v.findViewById(R.id.message);
 
         //Get the user stats from the server. Once we have them, update the view
         UserModel.getInstance().getUserStats(user, (success, u) -> {
@@ -95,13 +99,13 @@ public class ProfileFragment extends Fragment {
         txtName.setText(username);
         ImageHelper.bindImageToUser(user.getImage(), imgUser);
 
-        /*
-        bButton = v.findViewById(R.id.message);
+
+        btnMessage.setOnClickListener(view -> {
+            Intent i = new Intent(getContext(), UserChatActivity.class);
+            i.putExtra("user", user);
+            startActivity(i);
+        });
         // Tindrem que mirar a quin perfil estem
-        bButton.setText("Edit profile");
-        bButton = v.findViewById(R.id.settings_btn);
-        bButton.setOnClickListener((View.OnClickListener) view -> replaceFragment(view));
-         */
 
         //Setup recycler view
         eventRecyclerView = v.findViewById(R.id.home_event_recyclerview);

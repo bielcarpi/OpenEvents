@@ -95,13 +95,15 @@
 
     <string name="users_search">Users</string>
     <string name="events_search">Events</string>
-    <string name="friends_rquest">Friends Resquest</string>
+    <string name="friend_requests">Friend Requests</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
 
 
-    <string name="add_comment">Add a comment...</string>
+    <string name="add_comment">Add a comment…</string>
     <string name="post">POST</string>
     <string name="update">UPDATE</string>
     <string name="my_assistances">My Assistances</string>
+
+    <string name="chats">Chats</string>
 </resources>

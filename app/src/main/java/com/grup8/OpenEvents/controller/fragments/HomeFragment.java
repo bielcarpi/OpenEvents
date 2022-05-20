@@ -59,9 +59,7 @@ public class HomeFragment extends Fragment {
             fragmentTransaction.replace(R.id.main_fragment, new FriendsFragment());
             fragmentTransaction.commit();
         });
-        imgMessages.setOnClickListener(view -> {
-            startActivity(new Intent(getActivity(), ChatActivity.class));
-        });
+        imgMessages.setOnClickListener(view -> startActivity(new Intent(getActivity(), ChatActivity.class)));
 
 
         //Set Up Recycle View

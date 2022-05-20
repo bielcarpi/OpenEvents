@@ -1,5 +1,6 @@
 package com.grup8.OpenEvents.controller.recyclerview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.grup8.OpenEvents.R;
+import com.grup8.OpenEvents.controller.activities.ChatActivity;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
+import com.grup8.OpenEvents.controller.activities.UserChatActivity;
 import com.grup8.OpenEvents.controller.fragments.ProfileFragment;
 import com.grup8.OpenEvents.model.entities.User;
 import com.grup8.OpenEvents.model.utils.ImageHelper;
@@ -42,17 +45,19 @@ public class UserHolder extends RecyclerView.ViewHolder implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        ProfileFragment profileFragment = new ProfileFragment();
-
-        Bundle args = new Bundle();
-        args.putSerializable("user", user);
-        profileFragment.setArguments(args);
-
-        try{
+        //Depending on the Class of the view, perform some action
+        if(view.getContext() instanceof MainActivity){
+            ProfileFragment profileFragment = new ProfileFragment();
+            Bundle args = new Bundle();
+            args.putSerializable("user", user);
+            profileFragment.setArguments(args);
             FragmentManager fm = ((MainActivity)view.getContext()).getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.main_fragment, profileFragment).commit();
-        }catch (ClassCastException e){
-            //If we're not inside the MainActivity, an exception will be thrown. In this case, do nothing
+        }
+        else if(view.getContext() instanceof ChatActivity) {
+            Intent i = new Intent(view.getContext(), UserChatActivity.class);
+            i.putExtra("user", user);
+            view.getContext().startActivity(i);
         }
     }
 

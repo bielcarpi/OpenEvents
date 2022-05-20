@@ -41,7 +41,7 @@ public class FriendsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_friends, container, false);
         latestList = new ArrayList<>();
 
-        friendsRecyclerView = v.findViewById(R.id.friends_recycleview);
+        friendsRecyclerView = v.findViewById(R.id.friends_recyclerview);
         friendsRecyclerView.setLayoutManager (new LinearLayoutManager(getActivity()));
 
         TextView txtFriends = v.findViewById(R.id.friends);
