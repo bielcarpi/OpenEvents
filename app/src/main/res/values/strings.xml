@@ -101,6 +101,8 @@
     <string name="friend_requests">Friend Requests</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
+    <string name="no_longer_friends">Success! This user is no longer friend of yours.</string>
+    <string name="friend_request_sent">The Friend request has been sent!</string>
 
 
     <string name="add_comment">Add a comment…</string>

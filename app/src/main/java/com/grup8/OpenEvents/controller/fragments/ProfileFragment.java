@@ -16,10 +16,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.LoginActivity;
-import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.controller.activities.UserChatActivity;
 import com.grup8.OpenEvents.controller.recyclerview.EventAdapter;
 import com.grup8.OpenEvents.model.EventModel;
@@ -30,6 +30,7 @@ import com.grup8.OpenEvents.model.utils.ImageHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ProfileFragment extends Fragment {
 
@@ -43,13 +44,14 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
+    @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables", "UseCompatLoadingForColorStateLists"})
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //A Bundle with User must have been provided
         if(getArguments() == null) return null;
         user = (User) getArguments().getSerializable("user");
+        AtomicBoolean friends = new AtomicBoolean(false);
         latestEvents = new ArrayList<>();
 
         //Inflate the layout for this fragment
@@ -100,17 +102,17 @@ public class ProfileFragment extends Fragment {
 
             //Retrieve from the server our user friends so as to check if this user is friend or not yet
             UserModel.getInstance().getCurrentUserFriends((success, users) -> {
-                User loggedInUser = UserModel.getInstance().getLoggedInUser();
-                boolean friends = false;
+                if(!success) return;
+
+                friends.set(false);
                 for(User u: users){
-                    if (u.equals(loggedInUser)) {
-                        friends = true;
+                    if (u.equals(user)) {
+                        friends.set(true);
                         break;
                     }
                 }
 
-                btnAddFriend.setVisibility(View.VISIBLE);
-                if(friends){
+                if(friends.get()){
                     btnAddFriend.setText(R.string.remove_friend);
                     btnAddFriend.setBackgroundTintList(getResources().getColorStateList(R.color.primary_red));
                 }
@@ -118,8 +120,29 @@ public class ProfileFragment extends Fragment {
                     btnAddFriend.setText(R.string.add_friend);
                     btnAddFriend.setBackgroundTintList(getResources().getColorStateList(R.color.primary_blue));
                 }
-            });
 
+                btnAddFriend.setVisibility(View.VISIBLE);
+            });
+            btnAddFriend.setOnClickListener(view -> {
+                btnAddFriend.setEnabled(false);
+                if(friends.get()){
+                    UserModel.getInstance().deleteFriend(user, (success, errorMessage) -> {
+                        Toast.makeText(getContext(), R.string.no_longer_friends, Toast.LENGTH_SHORT).show();
+                        friends.set(false);
+                        btnAddFriend.setText(R.string.add_friend);
+                        btnAddFriend.setBackgroundTintList(getResources().getColorStateList(R.color.primary_blue));
+                        btnAddFriend.setEnabled(true);
+                    });
+                }
+                else{
+                    UserModel.getInstance().makeFriendRequest(user, ((success, errorMessage) -> {
+                        Toast.makeText(getContext(), R.string.friend_request_sent, Toast.LENGTH_SHORT).show();
+                        btnAddFriend.setEnabled(true);
+                    }));
+                }
+
+                btnAddFriend.setEnabled(true);
+            });
         }
 
         //Get the user stats from the server. Once we have them, update the view
