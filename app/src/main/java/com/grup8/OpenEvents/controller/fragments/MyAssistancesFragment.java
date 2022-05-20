@@ -1,36 +1,29 @@
 package com.grup8.OpenEvents.controller.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
-import com.grup8.OpenEvents.controller.activities.ChatActivity;
 import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.controller.recyclerview.EventAdapter;
 import com.grup8.OpenEvents.model.AssistanceModel;
-import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.entities.Event;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MyEventsFragment extends Fragment {
+public class MyAssistancesFragment extends Fragment {
 
     private RecyclerView eventRecyclerView;
     private EventAdapter eventAdapter;
@@ -41,7 +34,7 @@ public class MyEventsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_my_events, container, false);
+        View v = inflater.inflate(R.layout.fragment_my_assistances, container, false);
         latestEvents = new ArrayList<>();
 
 
@@ -59,13 +52,6 @@ public class MyEventsFragment extends Fragment {
             showPastEvents();
         });
 
-        Toolbar toolbar = (Toolbar) v.findViewById(R.id.myevents_toolbar);
-
-        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.my_events);
-
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(view -> replaceFragment(v));
 
         //Set Up Recycle View
         eventRecyclerView = v.findViewById(R.id.user_events_recycleview);
@@ -109,12 +95,5 @@ public class MyEventsFragment extends Fragment {
             if(success)
                 updateUI(new ArrayList<>(Arrays.asList(events)));
         });
-    }
-
-
-
-    private void replaceFragment(View view) {
-        FragmentManager fm = ((MainActivity)view.getContext()).getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.main_fragment, new HomeFragment()).commit();
     }
 }

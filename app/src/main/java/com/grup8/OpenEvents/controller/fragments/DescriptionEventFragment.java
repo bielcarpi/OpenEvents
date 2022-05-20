@@ -43,10 +43,10 @@ public class DescriptionEventFragment extends Fragment {
     }
     private AssistButtonState assistButtonState = AssistButtonState.ASSIST;
 
-    private TextView txtTitle, txtScore, txtStartDate, txtEndDate, txtLocation, txtDescription,
+    private TextView txtTitle, txtScore, txtStartDate, txtEndDate, txtLocation, txtDescription, txtParticipants,
             txtType, txtSlug, txtAssistants, txtMaxAssistants, txtComments, txtUserName, txtUserEmail;
     private ImageView imgUser, imgEvent;
-    private LinearLayout userLayout, assistancesLayout;
+    private LinearLayout userLayout;
     private ImageButton btnBack;
     private Button btnAssist, btnEdit, btnDelete;
 
@@ -73,12 +73,12 @@ public class DescriptionEventFragment extends Fragment {
         txtAssistants = v.findViewById(R.id.description_event_assistants);
         txtMaxAssistants = v.findViewById(R.id.description_event_max_assistants);
         txtComments = v.findViewById(R.id.description_event_comments);
+        txtParticipants = v.findViewById(R.id.description_event_participants);
         txtUserName = v.findViewById(R.id.description_event_user_name);
         txtUserEmail = v.findViewById(R.id.description_event_user_email);
         imgUser = v.findViewById(R.id.description_event_user_image);
         imgEvent = v.findViewById(R.id.description_event_image);
         userLayout = v.findViewById(R.id.description_event_user_layout);
-        assistancesLayout = v.findViewById(R.id.description_event_assistances_layout);
         btnBack = v.findViewById(R.id.description_event_back);
         btnAssist = v.findViewById(R.id.description_event_assist_btn);
         btnEdit = v.findViewById(R.id.description_event_edit_btn);
@@ -161,7 +161,7 @@ public class DescriptionEventFragment extends Fragment {
                 txtAssistants.setText(Integer.toString(eventAssistances.length));
                 txtScore.setText(Assistance.getAveragePunctuation(eventAssistances));
 
-                assistancesLayout.setOnClickListener(view -> {
+                txtParticipants.setOnClickListener(view -> {
                     Intent i = new Intent(getActivity(), AssistantsActivity.class);
                     i.putExtra("assistances", eventAssistances);
                     startActivity(i);
@@ -191,6 +191,7 @@ public class DescriptionEventFragment extends Fragment {
                 }
             }
             else{
+                btnAssist.setEnabled(true);
                 txtAssistants.setText("0");
             }
         });

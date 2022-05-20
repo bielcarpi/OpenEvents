@@ -11,8 +11,7 @@ import android.widget.ImageButton;
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.fragments.AddPostFragment;
 import com.grup8.OpenEvents.controller.fragments.HomeFragment;
-import com.grup8.OpenEvents.controller.fragments.FriendsFragment;
-import com.grup8.OpenEvents.controller.fragments.MyEventsFragment;
+import com.grup8.OpenEvents.controller.fragments.MyAssistancesFragment;
 import com.grup8.OpenEvents.controller.fragments.ProfileFragment;
 import com.grup8.OpenEvents.controller.fragments.SearchFragment;
 import com.grup8.OpenEvents.model.UserModel;
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         homeBtn.setOnClickListener(view -> replaceFragment(new HomeFragment()));
         searchBtn.setOnClickListener(view -> replaceFragment(new SearchFragment()));
-        friendsBtn.setOnClickListener(view -> replaceFragment(new MyEventsFragment()));
+        friendsBtn.setOnClickListener(view -> replaceFragment(new MyAssistancesFragment()));
         addBtn.setOnClickListener(view -> replaceFragment(new AddPostFragment()));
         profileBtn.setOnClickListener(view -> {
             User user  = UserModel.getInstance().getLoggedInUser();
