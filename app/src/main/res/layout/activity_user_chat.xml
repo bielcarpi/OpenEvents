@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.activities.ChatActivity"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".controller.activities.UserChatActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/user_chat_toolbar"
@@ -16,5 +16,44 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_chat_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:padding="4dp"
+        android:layout_alignParentBottom="true">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/user_chat_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_person"
+            android:contentDescription="@string/user_image"
+            app:civ_circle_color="@color/light_grey" />
+
+        <EditText
+            android:id="@+id/user_chat_write"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/user_chat_send"
+            android:layout_toEndOf="@id/user_chat_image"
+            android:autofillHints=""
+            android:hint="@string/write_message"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/user_chat_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:text="@string/send"
+            android:textColor="@color/primary_blue" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 
 public class EventHolder  extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    public Event event;
+    private Event event;
 
     private final TextView txtTitle, txtStartDate, txtEndDate, txtLocation, txtDescription;
     private final ImageView imgEvent;

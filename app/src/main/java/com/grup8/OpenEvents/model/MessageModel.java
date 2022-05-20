@@ -35,7 +35,7 @@ public class MessageModel {
                 UserModel.getInstance().getLoggedInUser().getId() + "\",\"user_id_recived\":\"" + receiver.getId() + "\"}";
         try{
             JSONObject body = new JSONObject(bodyString);
-            ApiCommunicator.makeRequest(POST_MESSAGE_URL, RequestMethod.POST, body, new ResponseCallback() {
+            ApiCommunicator.makeRequest(POST_MESSAGE_URL, RequestMethod.POST, body, true, new ResponseCallback() {
                 @Override
                 public void OnResponse(String strResponse) {
                     JSONObject response = null;

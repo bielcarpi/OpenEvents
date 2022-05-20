@@ -106,4 +106,6 @@
     <string name="my_assistances">My Assistances</string>
 
     <string name="chats">Chats</string>
+    <string name="write_message">Write a message</string>
+    <string name="send">Send</string>
 </resources>

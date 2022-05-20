@@ -25,6 +25,11 @@
             android:exported="false"
             tools:ignore="LockedOrientationActivity" />
         <activity
+            android:name=".controller.activities.UserChatActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".controller.activities.ChatActivity"
             android:screenOrientation="portrait"
             android:exported="false"
