@@ -75,6 +75,9 @@
     <string name="search">Search</string>
     <string name="back">Back</string>
     <string name="assist">Assist</string>
+    <string name="remove_assistance">Remove Assistance</string>
+    <string name="new_assistance">Congratulations! You\'re now an Assistant of this Event</string>
+    <string name="removed_assistance">Your assistance for this Event has been removed successfully</string>
 
     <string name="edit">EDIT</string>
     <string name="delete">DELETE</string>

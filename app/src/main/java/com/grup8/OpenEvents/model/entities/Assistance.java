@@ -10,12 +10,13 @@ public class Assistance implements Serializable {
     private final float punctuation;
     private final String commentary;
 
-    public Assistance(int eventId, String userEmail, float puntuation, String commentary) {
+    public Assistance(int eventId, int userId, float puntuation, String commentary) {
         this.eventId = eventId;
         this.punctuation = puntuation;
         this.commentary = commentary;
+        assistant = new User(userId, "", "", "", "");
 
-        UserModel.getInstance().searchUser(userEmail, (success, users) -> {
+        UserModel.getInstance().getUserById(userId, (success, users) -> {
             if(success) setAssistant(users[0]);
         });
     }

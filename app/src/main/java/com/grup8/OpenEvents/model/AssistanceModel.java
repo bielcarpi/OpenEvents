@@ -48,7 +48,7 @@ public class AssistanceModel {
                         JSONObject o = array.getJSONObject(i);
 
                         //Once the assistance is created, it will internally load the User, given the email
-                        assistances[i] = new Assistance(event.getId(), o.getString("email"),
+                        assistances[i] = new Assistance(event.getId(), o.getInt("id"),
                                 o.getString("puntuation").equals("null")? -1: o.getInt("puntuation"),
                                 o.getString("comentary").equals("null")? null: o.getString("comentary"));
                     }
@@ -68,7 +68,7 @@ public class AssistanceModel {
 
 
     public void newAssistance(Event event, SuccessCallback callback){
-        ApiCommunicator.makeRequest("/events/" + event.getId(), RequestMethod.POST, null, new ResponseCallback() {
+        ApiCommunicator.makeRequest("/events/" + event.getId() + "/assistances", RequestMethod.POST, null, true, new ResponseCallback() {
             @Override
             public void OnResponse(String strResponse) {
                 try {
@@ -91,7 +91,7 @@ public class AssistanceModel {
 
 
     public void removeAssistance(Event event, SuccessCallback callback){
-        ApiCommunicator.makeRequest("/events/" + event.getId() + "/assistances", RequestMethod.DELETE, null, new ResponseCallback() {
+        ApiCommunicator.makeRequest("/events/" + event.getId() + "/assistances", RequestMethod.DELETE, null, true, new ResponseCallback() {
             @Override
             public void OnResponse(String strResponse) {
                 try {
@@ -116,7 +116,7 @@ public class AssistanceModel {
         final String bodyString = "{\"puntuation\":\"" + newPunctuation + "\",\"comentary\":\"" + newCommentary + "\"}";
         try{
             JSONObject body = new JSONObject(bodyString);
-            ApiCommunicator.makeRequest("/events/" + event.getId() + "/assistances", RequestMethod.PUT, body, new ResponseCallback() {
+            ApiCommunicator.makeRequest("/events/" + event.getId() + "/assistances", RequestMethod.PUT, body, true, new ResponseCallback() {
                 @Override
                 public void OnResponse(String strResponse) {
                     try {

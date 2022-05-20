@@ -58,6 +58,7 @@ public class ApiCommunicator {
 
             @Override
             public byte[] getBody() {
+                if(requestBody == null) return null;
                 return requestBody.toString().getBytes();
             }
 

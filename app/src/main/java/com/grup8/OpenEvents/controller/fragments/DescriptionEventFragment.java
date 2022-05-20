@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -36,38 +37,52 @@ import java.util.Arrays;
 public class DescriptionEventFragment extends Fragment {
 
     private Event event;
+    private enum AssistButtonState{
+        ASSIST,
+        REMOVE_ASSIST
+    }
+    private AssistButtonState assistButtonState = AssistButtonState.ASSIST;
+
+    private TextView txtTitle, txtScore, txtStartDate, txtEndDate, txtLocation, txtDescription,
+            txtType, txtSlug, txtAssistants, txtMaxAssistants, txtComments, txtUserName, txtUserEmail;
+    private ImageView imgUser, imgEvent;
+    private LinearLayout userLayout, assistancesLayout;
+    private ImageButton btnBack;
+    private Button btnAssist, btnEdit, btnDelete;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
+    @SuppressLint({"SimpleDateFormat", "SetTextI18n", "UseCompatLoadingForColorStateLists"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_description_event, container, false);
 
-        TextView txtTitle = v.findViewById(R.id.description_event_title);
-        TextView txtScore = v.findViewById(R.id.description_event_score);
-        TextView txtStartDate = v.findViewById(R.id.description_event_start_date);
-        TextView txtEndDate = v.findViewById(R.id.description_event_end_date);
-        TextView txtLocation = v.findViewById(R.id.description_event_location);
-        TextView txtDescription = v.findViewById(R.id.description_event_description);
-        TextView txtType = v.findViewById(R.id.description_event_type);
-        TextView txtSlug = v.findViewById(R.id.description_event_slug);
-        TextView txtAssistants = v.findViewById(R.id.description_event_assistants);
-        TextView txtMaxAssistants = v.findViewById(R.id.description_event_max_assistants);
-        TextView txtComments = v.findViewById(R.id.description_event_comments);
-        TextView txtUserName = v.findViewById(R.id.description_event_user_name);
-        TextView txtUserEmail = v.findViewById(R.id.description_event_user_email);
-        ImageView imgUser = v.findViewById(R.id.description_event_user_image);
-        ImageView imgEvent = v.findViewById(R.id.description_event_image);
-        LinearLayout userLayout = v.findViewById(R.id.description_event_user_layout);
-        LinearLayout assistancesLayout = v.findViewById(R.id.description_event_assistances_layout);
-        ImageButton btnBack = v.findViewById(R.id.description_event_back);
-        Button btnAssist = v.findViewById(R.id.description_event_assist_btn);
+        txtTitle = v.findViewById(R.id.description_event_title);
+        txtScore = v.findViewById(R.id.description_event_score);
+        txtStartDate = v.findViewById(R.id.description_event_start_date);
+        txtEndDate = v.findViewById(R.id.description_event_end_date);
+        txtLocation = v.findViewById(R.id.description_event_location);
+        txtDescription = v.findViewById(R.id.description_event_description);
+        txtType = v.findViewById(R.id.description_event_type);
+        txtSlug = v.findViewById(R.id.description_event_slug);
+        txtAssistants = v.findViewById(R.id.description_event_assistants);
+        txtMaxAssistants = v.findViewById(R.id.description_event_max_assistants);
+        txtComments = v.findViewById(R.id.description_event_comments);
+        txtUserName = v.findViewById(R.id.description_event_user_name);
+        txtUserEmail = v.findViewById(R.id.description_event_user_email);
+        imgUser = v.findViewById(R.id.description_event_user_image);
+        imgEvent = v.findViewById(R.id.description_event_image);
+        userLayout = v.findViewById(R.id.description_event_user_layout);
+        assistancesLayout = v.findViewById(R.id.description_event_assistances_layout);
+        btnBack = v.findViewById(R.id.description_event_back);
+        btnAssist = v.findViewById(R.id.description_event_assist_btn);
+        btnEdit = v.findViewById(R.id.description_event_edit_btn);
+        btnDelete = v.findViewById(R.id.description_event_delete_btn);
 
         if(getArguments() == null) return null;
         event = (Event) getArguments().getSerializable("event");
@@ -104,6 +119,42 @@ public class DescriptionEventFragment extends Fragment {
             }
         });
 
+
+        //Get Assistances and Update the View
+        getAssistances();
+
+
+        //SetUp Assist button functionality
+        setUpAssistBtn();
+
+
+        //If this is an event that the user logged in created, show edit and delete buttons
+        if(event.getOwnerId() == UserModel.getInstance().getLoggedInUser().getId()){
+            btnEdit.setVisibility(View.VISIBLE);
+            btnDelete.setVisibility(View.VISIBLE);
+
+            //SetUp Assist button functionality
+            btnEdit.setOnClickListener(view -> {
+
+            });
+
+            //SetUp Assist button functionality
+            btnDelete.setOnClickListener(view -> {
+
+            });
+        }
+
+
+        //SetUp Back Button functionality
+        btnBack.setOnClickListener(view -> {
+            //TODO: Not working :(
+            getParentFragmentManager().popBackStackImmediate();
+        });
+        return v;
+    }
+
+
+    private void getAssistances(){
         //Request Assistance info and, once we have them, populate the views
         AssistanceModel.getInstance().getAssistancesFromEvent(event, (success, eventAssistances) -> {
             if(success && eventAssistances != null && eventAssistances.length > 0){
@@ -121,18 +172,61 @@ public class DescriptionEventFragment extends Fragment {
                     i.putExtra("assistances", eventAssistances);
                     startActivity(i);
                 });
+
+                //Check if we're assisting this event
+                int currentUserId = UserModel.getInstance().getLoggedInUser().getId();
+                boolean assisting = false;
+                for (Assistance eventAssistance: eventAssistances) {
+                    if (eventAssistance.getAssistant().getId() == currentUserId) {
+                        assisting = true;
+                        break;
+                    }
+                }
+
+                btnAssist.setEnabled(true);
+                if(assisting){
+                    assistButtonState = AssistButtonState.REMOVE_ASSIST;
+                    btnAssist.setText(R.string.remove_assistance);
+                    btnAssist.setBackgroundTintList(getResources().getColorStateList(R.color.primary_red));
+                }
             }
             else{
                 txtAssistants.setText("0");
             }
         });
+    }
 
 
+    private void setUpAssistBtn(){
+        btnAssist.setOnClickListener(view -> {
+            btnAssist.setEnabled(false);
+            if(assistButtonState == AssistButtonState.ASSIST){
+                AssistanceModel.getInstance().newAssistance(event, (success, errorMessage) -> {
+                    if(success){
+                        getAssistances();
+                        assistButtonState = AssistButtonState.REMOVE_ASSIST;
+                        btnAssist.setText(R.string.remove_assistance);
+                        btnAssist.setBackgroundTintList(getResources().getColorStateList(R.color.primary_red));
+                        Toast.makeText(this.getContext(), R.string.new_assistance, Toast.LENGTH_SHORT).show();
+                    }
 
-        btnBack.setOnClickListener(view -> {
-            //TODO: Not working :(
-            getParentFragmentManager().popBackStackImmediate();
+                    btnAssist.setEnabled(true);
+                });
+            }
+            else if(assistButtonState == AssistButtonState.REMOVE_ASSIST){
+                AssistanceModel.getInstance().removeAssistance(event, (success, errorMessage) -> {
+                    if(success){
+                        getAssistances();
+                        assistButtonState = AssistButtonState.ASSIST;
+                        btnAssist.setText(R.string.assist);
+                        btnAssist.setBackgroundTintList(getResources().getColorStateList(R.color.primary_blue));
+                        Toast.makeText(this.getContext(), R.string.removed_assistance, Toast.LENGTH_SHORT).show();
+                    }
+
+                    btnAssist.setEnabled(true);
+                });
+
+            }
         });
-        return v;
     }
 }
