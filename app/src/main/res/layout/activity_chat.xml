@@ -18,14 +18,16 @@
         android:gravity="center"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="15dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="15sp">
 
         <ImageView
             android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/ic_search_light"
-            android:contentDescription="@string/events_search" />
+            android:contentDescription="@string/events_search"
+            />
 
         <EditText
             android:id="@+id/search_bar"

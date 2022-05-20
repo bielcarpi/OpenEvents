@@ -12,18 +12,23 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_chat_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/user_chat_message_layout"
+        android:layout_below="@id/user_chat_toolbar"
+        />
 
     <RelativeLayout
+        android:id="@+id/user_chat_message_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#fff"
         android:padding="4dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"
+        android:layout_marginTop="25dp">
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/user_chat_image"
@@ -42,9 +47,10 @@
             android:layout_marginEnd="10dp"
             android:layout_toStartOf="@id/user_chat_send"
             android:layout_toEndOf="@id/user_chat_image"
-            android:autofillHints=""
             android:hint="@string/write_message"
-            android:inputType="text" />
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/user_chat_send"
@@ -52,7 +58,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="5dp"
             android:text="@string/send"
             android:textColor="@color/primary_blue" />
     </RelativeLayout>

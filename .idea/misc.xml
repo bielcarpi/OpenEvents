@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable/app_logo_foreground.xml" value="0.174" />
         <entry key="app/src/main/res/drawable/bg_bottom_selected.xml" value="0.206" />
         <entry key="app/src/main/res/drawable/bg_gradient.xml" value="0.174" />
+        <entry key="app/src/main/res/drawable/bg_gradient_round.xml" value="0.1165" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.174" />
         <entry key="app/src/main/res/drawable/ic_person.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable/person_background.xml" value="0.165" />
@@ -34,6 +35,7 @@
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/layout/friends_adapter.xml" value="0.2930253623188406" />
         <entry key="app/src/main/res/layout/list_adapter.xml" value="0.2758152173913043" />
+        <entry key="app/src/main/res/layout/message_row.xml" value="0.25251922607421873" />
         <entry key="app/src/main/res/layout/user_row.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/app_logo.xml" value="0.1985" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/app_logo_round.xml" value="0.1605" />

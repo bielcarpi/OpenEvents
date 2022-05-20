@@ -62,7 +62,9 @@ public class UserChatActivity extends AppCompatActivity {
         );
 
         messagesRecyclerView = findViewById(R.id.user_chat_recyclerview);
-        messagesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setStackFromEnd(true);
+        messagesRecyclerView.setLayoutManager(layoutManager);
 
         //Let's update the messages
         updateMessages();
