@@ -164,6 +164,17 @@
             android:text="@string/edit_profile"
             android:visibility="gone"
             tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/log_out"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/log_out"
+            android:visibility="gone"
+            tools:ignore="ButtonStyle"
+            android:backgroundTint="@color/primary_red"/>
     </LinearLayout>
 
     <LinearLayout

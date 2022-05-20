@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
+import com.grup8.OpenEvents.controller.activities.LoginActivity;
+import com.grup8.OpenEvents.controller.activities.MainActivity;
 import com.grup8.OpenEvents.controller.activities.UserChatActivity;
 import com.grup8.OpenEvents.controller.recyclerview.EventAdapter;
 import com.grup8.OpenEvents.model.EventModel;
@@ -65,6 +68,7 @@ public class ProfileFragment extends Fragment {
         Button btnAddFriend = v.findViewById(R.id.add_friend);
         Button btnMessage = v.findViewById(R.id.message);
         Button btnEditProfile = v.findViewById(R.id.edit_profile);
+        Button btnLogOut = v.findViewById(R.id.log_out);
 
         //Fill some views
         String username = user.getName() + " " + user.getLastName();
@@ -76,6 +80,13 @@ public class ProfileFragment extends Fragment {
         if(user.getId() == UserModel.getInstance().getLoggedInUser().getId()){
             btnEditProfile.setVisibility(View.VISIBLE);
             btnEditProfile.setOnClickListener(view -> {
+                FragmentManager fm = getParentFragmentManager();
+                fm.beginTransaction().replace(R.id.main_fragment, new EditProfileFragment()).commit();
+            });
+            btnLogOut.setVisibility(View.VISIBLE);
+            btnLogOut.setOnClickListener(view -> {
+                UserModel.getInstance().logOut();
+                startActivity(new Intent(this.getContext(), LoginActivity.class));
             });
         }
         else{

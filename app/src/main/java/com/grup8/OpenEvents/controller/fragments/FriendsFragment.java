@@ -47,8 +47,16 @@ public class FriendsFragment extends Fragment {
         TextView txtFriends = v.findViewById(R.id.friends);
         TextView txtFriendsRequest = v.findViewById(R.id.friends_request);
 
-        txtFriends.setOnClickListener(view -> searchFriends());
-        txtFriendsRequest.setOnClickListener(view -> searchFriendRequests());
+        txtFriends.setOnClickListener(view -> {
+            txtFriendsRequest.setBackground(null);
+            txtFriends.setBackground(requireContext().getDrawable(R.drawable.bg_bottom_selected));
+            searchFriends();
+        });
+        txtFriendsRequest.setOnClickListener(view -> {
+            txtFriends.setBackground(null);
+            txtFriendsRequest.setBackground(requireContext().getDrawable(R.drawable.bg_bottom_selected));
+            searchFriendRequests();
+        });
 
         return v;
     }
