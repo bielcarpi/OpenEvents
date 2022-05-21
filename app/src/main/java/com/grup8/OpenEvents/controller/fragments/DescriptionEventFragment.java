@@ -231,4 +231,11 @@ public class DescriptionEventFragment extends Fragment {
             }
         });
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getAssistances();
+    }
 }
