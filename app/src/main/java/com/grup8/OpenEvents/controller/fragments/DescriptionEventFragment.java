@@ -150,6 +150,7 @@ public class DescriptionEventFragment extends Fragment {
 
                 EventModel.getInstance().deleteEvent(event, (success, errorMessage) -> {
                     if (success) {
+                        Toast.makeText(getContext(), R.string.successful_event_deletion, Toast.LENGTH_SHORT).show();
                         HomeFragment f = new HomeFragment();
                         getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, f).commit();
                     }

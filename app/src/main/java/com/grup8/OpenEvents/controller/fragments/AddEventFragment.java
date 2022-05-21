@@ -55,9 +55,7 @@ public class AddEventFragment extends Fragment {
         Button btnPost = v.findViewById(R.id.add_event_btn);
 
         //Every time the user writes to the image edittext, try to load it
-        etImage.setOnFocusChangeListener((view, b) -> {
-            ImageHelper.bindImageToEvent(etImage.getText().toString(), imgEvent);
-        });
+        etImage.setOnFocusChangeListener((view, b) -> ImageHelper.bindImageToEvent(etImage.getText().toString(), imgEvent));
 
 
         Calendar startDate = Calendar.getInstance();

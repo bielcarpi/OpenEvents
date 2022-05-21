@@ -18,58 +18,69 @@
             android:id="@+id/profile_image"
             android:layout_width="150dp"
             android:layout_height="150sp"
-            android:src="@drawable/ic_person"
             android:contentDescription="@string/user_image"
+            android:src="@drawable/ic_person"
             app:civ_circle_color="@color/light_grey" />
 
         <EditText
             android:id="@+id/name_edit_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/name"
-            android:background="@drawable/bg_edittext"
             android:layout_marginTop="32dp"
-            android:padding="12dp"
             android:autofillHints=""
-            android:inputType="textPersonName" />
+            android:background="@drawable/bg_edittext"
+            android:hint="@string/name"
+            android:inputType="textPersonName"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/surname_edit_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autofillHints=""
             android:background="@drawable/bg_edittext"
             android:hint="@string/surname"
-            android:padding="12dp"
-            android:layout_marginTop="16dp"
             android:inputType="textPersonName"
-            android:autofillHints="" />
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/image_edit_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autofillHints=""
+            android:background="@drawable/bg_edittext"
+            android:hint="@string/add_event_image"
+            android:inputType="textPersonName"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/email_edit_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autofillHints=""
             android:background="@drawable/bg_edittext"
             android:hint="@string/email"
-            android:padding="12dp"
-            android:layout_marginTop="16dp"
             android:inputType="textEmailAddress"
-            android:autofillHints="" />
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/password_edit_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autofillHints=""
             android:background="@drawable/bg_edittext"
             android:hint="@string/password"
-            android:padding="12dp"
-            android:layout_marginTop="16dp"
             android:inputType="textPassword"
-            android:autofillHints="" />
+            android:padding="12dp" />
 
         <LinearLayout
-            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -78,25 +89,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/update"
-                android:textSize="20dp" />
+                android:textSize="17sp"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/cancel_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="CANCEL"
-                android:textSize="20dp" />
+                android:text="@string/cancel"
+                android:textSize="17sp"
+                tools:ignore="ButtonStyle" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/update_profile_error"
-            android:textColor="#FF0000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textColor="#FF0000" />
     </LinearLayout>
 
 

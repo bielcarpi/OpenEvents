@@ -44,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
             String password = etPassword.getText().toString();
             String confirmPassword = etConfirmPassword.getText().toString();
             if (password.equals(confirmPassword)){
-                User newUser = new User(etName.getText().toString(), etSurname.getText().toString(), etEmail.getText().toString(), password, "http://google.com");
+                User newUser = new User(etName.getText().toString(), etSurname.getText().toString(), etEmail.getText().toString(), password, "https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg");
                 UserModel.getInstance().register(newUser, (success, errorMessage) -> {
                     if(success){
                         Toast.makeText(RegisterActivity.this, R.string.successful_register, Toast.LENGTH_LONG).show();

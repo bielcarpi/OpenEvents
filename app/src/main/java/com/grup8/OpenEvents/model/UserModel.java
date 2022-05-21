@@ -247,11 +247,16 @@ public class UserModel {
 
 
     public void updateCurrentUser(User newUser, SuccessCallback callback){
-        final String bodyString = "{\"name\":\"" + newUser.getName() + "\",\"last_name\":\"" + newUser.getLastName() + "\",\"email\":\"" + newUser.getEmail() + "\",\"password\":\"" + newUser.getPassword() + "\",\"image\":\"" + newUser.getImage() + "\"}";
+        String bodyString;
+        if(newUser.getPassword().equals("")){
+            bodyString = "{\"name\":\"" + newUser.getName() + "\",\"last_name\":\"" + newUser.getLastName() + "\",\"email\":\"" + newUser.getEmail() + "\",\"image\":\"" + newUser.getImage() + "\"}";
+        }
+        else{
+            bodyString = "{\"name\":\"" + newUser.getName() + "\",\"last_name\":\"" + newUser.getLastName() + "\",\"email\":\"" + newUser.getEmail() + "\",\"password\":\"" + newUser.getPassword() + "\",\"image\":\"" + newUser.getImage() + "\"}";
+        }
+
         try {
-
             JSONObject body = new JSONObject(bodyString);
-
             ApiCommunicator.makeRequest(UPDATE_USER_URL, RequestMethod.PUT, body, true, new ResponseCallback() {
                 @Override
                 public void OnResponse(String response) {

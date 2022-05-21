@@ -101,6 +101,9 @@
     <string name="event_error">Error. Please, fill al the fields correctly</string>
     <string name="successful_event_creation">The event has been created successfully!</string>
     <string name="successful_event_update">The event has been updated successfully!</string>
+    <string name="successful_event_deletion">The event has been deleted successfully!</string>
+    <string name="successful_profile_update">Your profile has been updated successfully!</string>
+    <string name="cancel">Cancel</string>
 
 
     <string name="users_search">Users</string>
