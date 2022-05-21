@@ -18,7 +18,7 @@
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/activity_comment.xml" value="0.4143264770507812" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3704710144927536" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2758152173913043" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.31549835205078125" />
         <entry key="app/src/main/res/layout/activity_modify_event.xml" value="0.3359375" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.1765625" />
@@ -28,7 +28,10 @@
         <entry key="app/src/main/res/layout/event_row.xml" value="0.42409638554216866" />
         <entry key="app/src/main/res/layout/fragment_1.xml" value="0.2758655713952105" />
         <entry key="app/src/main/res/layout/fragment_2.xml" value="0.2758152173913043" />
+        <entry key="app/src/main/res/layout/fragment_add_event.xml" value="0.2889450073242188" />
+        <entry key="app/src/main/res/layout/fragment_add_post.xml" value="0.33967391304347827" />
         <entry key="app/src/main/res/layout/fragment_description_event.xml" value="0.31383666992187503" />
+        <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.19803229061553987" />
         <entry key="app/src/main/res/layout/fragment_friends.xml" value="0.28958333333333336" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1840240478515625" />
         <entry key="app/src/main/res/layout/fragment_my_events.xml" value="0.23143115942028986" />

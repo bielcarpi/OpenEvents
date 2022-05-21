@@ -19,4 +19,9 @@ public class CalendarHelper {
         date.setTime(Objects.requireNonNull(sdf.parse(datetime)));
         return date;
     }
+
+    public static String getString(Calendar calendar){
+        if(calendar == null) return null;
+        return sdf.format(calendar.getTime());
+    }
 }

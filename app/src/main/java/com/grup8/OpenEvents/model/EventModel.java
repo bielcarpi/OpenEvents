@@ -72,19 +72,24 @@ public class EventModel {
     public void createEvent(Event event, SuccessCallback callback){
 
         final String bodyString = "{\"name\":\"" + event.getName() + "\",\"image\":\"" + event.getImage() + "\",\"location\":\"" + event.getLocation()
-                + "\",\"description\":\"" + event.getDescription()  + "\",\"eventStart_date\":\"" + event.getStartDate()
-                + "\",\"eventEnd_date\":\"" + event.getEndDate()  + "\",\"n_participators\":\"" + event.getParticipators() + "\",\"type\":\"" + event.getType() + "\"}";
+                + "\",\"description\":\"" + event.getDescription()  + "\",\"eventStart_date\":\"" + CalendarHelper.getString(event.getStartDate())
+                + "\",\"eventEnd_date\":\"" + CalendarHelper.getString(event.getEndDate())  + "\",\"n_participators\":\"" + event.getParticipators() + "\",\"type\":\"" + event.getType() + "\"}";
         try{
+            System.out.println(bodyString);
             JSONObject body = new JSONObject(bodyString);
-            ApiCommunicator.makeRequest(ALL_EVENTS_REQUEST_URL, RequestMethod.POST, body, new ResponseCallback() {
+            ApiCommunicator.makeRequest(ALL_EVENTS_REQUEST_URL, RequestMethod.POST, body, true, new ResponseCallback() {
                 @Override
                 public void OnResponse(String strResponse) {
                     try {
-                        JSONObject response = new JSONObject(strResponse);
-                        if(response.has("affectedRows") && response.has("serverStatus"))
+                        if(strResponse.equals(""))
                             callback.onResponse(true, R.string.no_error);
-                        else
-                            callback.onResponse(false, R.string.bad_response);
+                        else{
+                            JSONObject response = new JSONObject(strResponse);
+                            if(response.has("affectedRows") && response.has("serverStatus"))
+                                callback.onResponse(true, R.string.no_error);
+                            else
+                                callback.onResponse(false, R.string.bad_response);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                         callback.onResponse(false, R.string.bad_response);
@@ -101,7 +106,7 @@ public class EventModel {
     }
 
     public void deleteEvent(Event event, SuccessCallback callback){
-        ApiCommunicator.makeRequest("/events/" + event.getId(), RequestMethod.DELETE, null, new ResponseCallback() {
+        ApiCommunicator.makeRequest("/events/" + event.getId(), RequestMethod.DELETE, null, true, new ResponseCallback() {
             @Override
             public void OnResponse(String strResponse) {
                 try {
@@ -128,7 +133,7 @@ public class EventModel {
                 + "\",\"eventEnd_date\":\"" + event.getEndDate()  + "\",\"n_participators\":\"" + event.getParticipators() + "\",\"type\":\"" + event.getType() + "\"}";
         try{
             JSONObject body = new JSONObject(bodyString);
-            ApiCommunicator.makeRequest("/events/" + event.getId(), RequestMethod.PUT, body, new ResponseCallback() {
+            ApiCommunicator.makeRequest("/events/" + event.getId(), RequestMethod.PUT, body, true, new ResponseCallback() {
                 @Override
                 public void OnResponse(String strResponse) {
                     try {

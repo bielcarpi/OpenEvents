@@ -87,13 +87,19 @@
     <string name="delete">DELETE</string>
     <string name="event_num">EVENT#1</string>
 
-    <string name="add_event_name">ADD EVENT NAME</string>
-    <string name="add_event_start">EVENT START</string>
-    <string name="add_event_end">EVENT END</string>
-    <string name="add_event_location">ADD EVENT LOCATION</string>
-    <string name="add_event_participants">PARTICIPANTS</string>
-    <string name="add_event_type">TYPE</string>
-    <string name="add_event_description">DESCRIPTION</string>
+    <string name="add_event_name">Name</string>
+    <string name="add_event_image">Image URL</string>
+    <string name="add_event_start">Start Date</string>
+    <string name="add_event_end">End Date</string>
+    <string name="add_event_location">Location</string>
+    <string name="add_event_participants">Max. Participants</string>
+    <string name="add_event_description">Description</string>
+    <string name="add_event_type">Type</string>
+    <string name="add_event_slug">Slug</string>
+    <string name="new_event">New Event</string>
+    <string name="update_event">Update Event</string>
+    <string name="event_error">Error. Please, fill al the fields correctly</string>
+    <string name="successful_event_creation">The event has been created successfully!</string>
 
 
     <string name="users_search">Users</string>
@@ -108,6 +114,7 @@
 
 
     <string name="add_comment">Add a comment…</string>
+    <string name="add">Add</string>
     <string name="post">POST</string>
     <string name="update">UPDATE</string>
     <string name="my_assistances">My Assistances</string>

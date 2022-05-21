@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 
 import com.grup8.OpenEvents.R;
-import com.grup8.OpenEvents.controller.fragments.AddPostFragment;
+import com.grup8.OpenEvents.controller.fragments.AddEventFragment;
 import com.grup8.OpenEvents.controller.fragments.HomeFragment;
 import com.grup8.OpenEvents.controller.fragments.MyAssistancesFragment;
 import com.grup8.OpenEvents.controller.fragments.ProfileFragment;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         homeBtn.setOnClickListener(view -> replaceFragment(new HomeFragment()));
         searchBtn.setOnClickListener(view -> replaceFragment(new SearchFragment()));
         friendsBtn.setOnClickListener(view -> replaceFragment(new MyAssistancesFragment()));
-        addBtn.setOnClickListener(view -> replaceFragment(new AddPostFragment()));
+        addBtn.setOnClickListener(view -> replaceFragment(new AddEventFragment()));
         profileBtn.setOnClickListener(view -> {
             User user  = UserModel.getInstance().getLoggedInUser();
 
