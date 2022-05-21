@@ -30,12 +30,10 @@ public class CommentHolder  extends RecyclerView.ViewHolder implements View.OnCl
         ImageHelper.bindImageToUser(assistance.getAssistant().getImage(), imgUser);
 
         String punctuation = assistance.getPunctuation() == -1? "-": Float.toString(assistance.getPunctuation());
-        String comment = txtComment.getContext().getString(R.string.score_emoji) + punctuation +
-                " <b>" + assistance.getAssistant().getName() + " " + assistance.getAssistant().getLastName() + "</b> " +
-                assistance.getCommentary();
+        String comment = assistance.getAssistant().getName() + " " + assistance.getAssistant().getLastName() +
+                ": " + txtComment.getContext().getString(R.string.score_emoji) + punctuation + " " +
+                txtComment.getContext().getString(R.string.description_emoji) + assistance.getCommentary();
 
-        System.out.println("Setting comment!");
-        System.out.println(txtComment);
         txtComment.setText(Html.fromHtml(comment));
     }
 

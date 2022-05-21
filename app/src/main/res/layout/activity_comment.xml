@@ -19,14 +19,17 @@
         android:layout_below="@id/comments_toolbar" />
 
     <RelativeLayout
+        android:id="@+id/user_chat_message_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#fff"
         android:padding="4dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"
+        android:layout_marginTop="25dp">
 
         <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/profile_image"
+            android:id="@+id/comment_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_person"
@@ -34,26 +37,38 @@
             app:civ_circle_color="@color/light_grey" />
 
         <EditText
-            android:id="@+id/add_comment"
+            android:id="@+id/comment_write_score"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:hint="@string/score"
+            android:layout_toEndOf="@id/comment_image"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/comment_write_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/profile_image"
-            android:hint="@string/add_comment"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@id/post"
-            android:autofillHints=""
-            android:inputType="text" />
+            android:layout_toStartOf="@id/comment_post"
+            android:layout_toEndOf="@id/comment_write_score"
+            android:hint="@string/write_message"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/post"
+            android:id="@+id/comment_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="5dp"
-            android:text="@string/post"
-            android:textColor="@color/primary_blue" />
+            android:text="@string/send"
+            android:textColor="@color/primary_gray" />
     </RelativeLayout>
 </RelativeLayout>

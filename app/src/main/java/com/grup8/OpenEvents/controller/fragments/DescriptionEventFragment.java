@@ -170,6 +170,7 @@ public class DescriptionEventFragment extends Fragment {
                 txtComments.setOnClickListener(view -> {
                     Intent i = new Intent(getActivity(), CommentActivity.class);
                     i.putExtra("assistances", eventAssistances);
+                    i.putExtra("event", event);
                     startActivity(i);
                 });
 

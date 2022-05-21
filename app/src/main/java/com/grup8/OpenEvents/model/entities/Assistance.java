@@ -23,6 +23,13 @@ public class Assistance implements Serializable {
         });
     }
 
+    public Assistance(int eventId, User user, float puntuation, String commentary) {
+        this.eventId = eventId;
+        this.punctuation = puntuation;
+        this.commentary = commentary;
+        assistant = user;
+    }
+
     public static String getAveragePunctuation(Assistance[] eventAssistances) {
         int totalPunctuation = 0;
         int assistantsThatGavePunctuation = 0;

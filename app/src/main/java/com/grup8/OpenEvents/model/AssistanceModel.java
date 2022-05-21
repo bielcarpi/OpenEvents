@@ -120,11 +120,15 @@ public class AssistanceModel {
                 @Override
                 public void OnResponse(String strResponse) {
                     try {
-                        JSONObject response = new JSONObject(strResponse);
-                        if(response.has("affectedRows") && response.has("serverStatus"))
+                        if(strResponse.equals(""))
                             callback.onResponse(true, R.string.no_error);
-                        else
-                            callback.onResponse(false, R.string.bad_response);
+                        else{
+                            JSONObject response = new JSONObject(strResponse);
+                            if(response.has("affectedRows") && response.has("serverStatus"))
+                                callback.onResponse(true, R.string.no_error);
+                            else
+                                callback.onResponse(false, R.string.bad_response);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                         callback.onResponse(false, R.string.bad_response);
