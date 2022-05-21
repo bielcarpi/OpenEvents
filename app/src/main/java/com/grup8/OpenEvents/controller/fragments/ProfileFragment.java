@@ -82,8 +82,12 @@ public class ProfileFragment extends Fragment {
         if(user.getId() == UserModel.getInstance().getLoggedInUser().getId()){
             btnEditProfile.setVisibility(View.VISIBLE);
             btnEditProfile.setOnClickListener(view -> {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("user", user);
+                EditProfileFragment editProfileFragment = new EditProfileFragment();
+                editProfileFragment.setArguments(bundle);
                 FragmentManager fm = getParentFragmentManager();
-                fm.beginTransaction().replace(R.id.main_fragment, new EditProfileFragment()).commit();
+                fm.beginTransaction().replace(R.id.main_fragment, editProfileFragment).commit();
             });
             btnLogOut.setVisibility(View.VISIBLE);
             btnLogOut.setOnClickListener(view -> {
