@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.recyclerview.CommentAdapter;
+import com.grup8.OpenEvents.model.AssistanceModel;
 import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.utils.ImageHelper;
 
@@ -43,6 +44,7 @@ public class CommentActivity extends AppCompatActivity {
 
         txtPost.setOnClickListener(view -> {
             String comment = etComment.getText().toString();
+
         });
 
     }
