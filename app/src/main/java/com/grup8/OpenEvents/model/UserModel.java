@@ -248,27 +248,34 @@ public class UserModel {
 
     public void updateCurrentUser(User newUser, SuccessCallback callback){
         final String bodyString = "{\"name\":\"" + newUser.getName() + "\",\"last_name\":\"" + newUser.getLastName() + "\",\"email\":\"" + newUser.getEmail() + "\",\"password\":\"" + newUser.getPassword() + "\",\"image\":\"" + newUser.getImage() + "\"}";
-        ApiCommunicator.makeRequest(UPDATE_USER_URL, RequestMethod.PUT, null, true, new ResponseCallback() {
-            @Override
-            public void OnResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    if(jsonResponse.has("email")){ //Success
-                        loggedInUser.updateInfo(newUser.getName(), newUser.getLastName(), newUser.getEmail(), newUser.getPassword(), newUser.getImage());
-                        callback.onResponse(true, -1);
+        try {
+
+            JSONObject body = new JSONObject(bodyString);
+
+            ApiCommunicator.makeRequest(UPDATE_USER_URL, RequestMethod.PUT, body, true, new ResponseCallback() {
+                @Override
+                public void OnResponse(String response) {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        if (jsonResponse.has("email")) { //Success
+                            loggedInUser.updateInfo(newUser.getName(), newUser.getLastName(), newUser.getEmail(), newUser.getPassword(), newUser.getImage());
+                            callback.onResponse(true, -1);
+                        } else {
+                            callback.onResponse(true, R.string.bad_response);
+                        }
+                    } catch (JSONException e) {
+                        callback.onResponse(false, R.string.bad_response);
                     }
-                    else{
-                        callback.onResponse(true, R.string.bad_response);
-                    }
-                } catch (JSONException e) {
-                    callback.onResponse(false, R.string.bad_response);
                 }
-            }
-            @Override
-            public void OnErrorResponse(String error) {
-                callback.onResponse(false, R.string.internal_app_error);
-            }
-        });
+
+                @Override
+                public void OnErrorResponse(String error) {
+                    callback.onResponse(false, R.string.internal_app_error);
+                }
+            });
+        }catch(JSONException e){
+            callback.onResponse(false, R.string.internal_app_error);
+        }
     }
 
 
