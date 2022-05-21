@@ -111,7 +111,7 @@ public class EventModel {
             public void OnResponse(String strResponse) {
                 try {
                     JSONObject response = new JSONObject(strResponse);
-                    if(response.has("affectedRows") && response.has("serverStatus"))
+                    if (response.has("Mensaje"))
                         callback.onResponse(true, R.string.no_error);
                     else
                         callback.onResponse(false, R.string.bad_response);
@@ -129,8 +129,8 @@ public class EventModel {
 
     public void updateEvent(Event event, SuccessCallback callback){
         final String bodyString = "{\"name\":\"" + event.getName() + "\",\"image\":\"" + event.getImage() + "\",\"location\":\"" + event.getLocation()
-                + "\",\"description\":\"" + event.getDescription()  + "\",\"eventStart_date\":\"" + event.getStartDate()
-                + "\",\"eventEnd_date\":\"" + event.getEndDate()  + "\",\"n_participators\":\"" + event.getParticipators() + "\",\"type\":\"" + event.getType() + "\"}";
+                + "\",\"description\":\"" + event.getDescription()  + "\",\"eventStart_date\":\"" + CalendarHelper.getString(event.getStartDate())
+                + "\",\"eventEnd_date\":\"" + CalendarHelper.getString(event.getEndDate())  + "\",\"n_participators\":\"" + event.getParticipators() + "\",\"type\":\"" + event.getType() + "\"}";
         try{
             JSONObject body = new JSONObject(bodyString);
             ApiCommunicator.makeRequest("/events/" + event.getId(), RequestMethod.PUT, body, true, new ResponseCallback() {
@@ -138,7 +138,7 @@ public class EventModel {
                 public void OnResponse(String strResponse) {
                     try {
                         JSONObject response = new JSONObject(strResponse);
-                        if(response.has("affectedRows") && response.has("serverStatus"))
+                        if (response.has("name") && response.has("image"))
                             callback.onResponse(true, R.string.no_error);
                         else
                             callback.onResponse(false, R.string.bad_response);
@@ -153,6 +153,7 @@ public class EventModel {
                 }
             });
         }catch(JSONException e){
+            e.printStackTrace();
             callback.onResponse(false, R.string.internal_app_error);
         }
     }

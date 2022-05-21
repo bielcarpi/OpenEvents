@@ -21,6 +21,7 @@ import com.grup8.OpenEvents.R;
 import com.grup8.OpenEvents.controller.activities.AssistantsActivity;
 import com.grup8.OpenEvents.controller.activities.CommentActivity;
 import com.grup8.OpenEvents.model.AssistanceModel;
+import com.grup8.OpenEvents.model.EventModel;
 import com.grup8.OpenEvents.model.UserModel;
 import com.grup8.OpenEvents.model.entities.Assistance;
 import com.grup8.OpenEvents.model.entities.Event;
@@ -135,12 +136,27 @@ public class DescriptionEventFragment extends Fragment {
 
             //SetUp Assist button functionality
             btnEdit.setOnClickListener(view -> {
-
+                AddEventFragment f = new AddEventFragment();
+                Bundle b = new Bundle();
+                b.putBoolean("update", true);
+                b.putSerializable("event", event);
+                f.setArguments(b);
+                getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, f).commit();
             });
 
             //SetUp Assist button functionality
             btnDelete.setOnClickListener(view -> {
+                btnDelete.setEnabled(false);
 
+                EventModel.getInstance().deleteEvent(event, (success, errorMessage) -> {
+                    if (success) {
+                        HomeFragment f = new HomeFragment();
+                        getParentFragmentManager().beginTransaction().replace(R.id.main_fragment, f).commit();
+                    }
+                    else{
+                        btnDelete.setEnabled(false);
+                    }
+                });
             });
         }
 

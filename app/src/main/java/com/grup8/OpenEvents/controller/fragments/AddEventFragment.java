@@ -1,5 +1,6 @@
 package com.grup8.OpenEvents.controller.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -32,6 +33,7 @@ import java.util.Locale;
 public class AddEventFragment extends Fragment {
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -91,6 +93,29 @@ public class AddEventFragment extends Fragment {
         });
 
 
+        boolean update = false;
+        Event updateEvent = null;
+        //Do we want to update or not?
+        if(getArguments() != null){
+            update = getArguments().getBoolean("update", false);
+            if(update){
+                txtAdd.setText(R.string.update_event);
+                updateEvent = (Event) getArguments().getSerializable("event");
+                ImageHelper.bindImageToEvent(updateEvent.getImage(), imgEvent);
+                etName.setText(updateEvent.getName());
+                etImage.setText(updateEvent.getImage());
+                etLocation.setText(updateEvent.getLocation());
+                etParticipants.setText(Integer.toString(updateEvent.getParticipators()));
+                etDescription.setText(updateEvent.getDescription());
+                etType.setText(updateEvent.getType());
+                etSlug.setText(updateEvent.getSlug());
+                btnPost.setText(R.string.update);
+            }
+        }
+
+
+        boolean finalUpdate = update;
+        Event finalUpdateEvent = updateEvent;
         btnPost.setOnClickListener(view -> {
             btnPost.setEnabled(false);
 
@@ -110,19 +135,33 @@ public class AddEventFragment extends Fragment {
             }
 
             //If everything is correct, we proceed to create the event
-            Event event = new Event(-1, name, imageUrl, startDate, endDate, location, Integer.parseInt(maxParticipants),
+            Event event = new Event(!finalUpdate ? -1: finalUpdateEvent.getId(), name, imageUrl, startDate, endDate, location, Integer.parseInt(maxParticipants),
                     type, description, slug);
 
-            EventModel.getInstance().createEvent(event, ((success, errorMessage) -> {
-                if (success){
-                    Toast.makeText(this.getContext(), R.string.successful_event_creation, Toast.LENGTH_SHORT).show();
-                    goToProfile(v);
-                }
-                else{
-                    txtError.setText(R.string.internal_app_error);
-                    btnPost.setEnabled(true);
-                }
-            }));
+            if(finalUpdate){
+                EventModel.getInstance().updateEvent(event, (success, errorMessage) -> {
+                    if (success){
+                        Toast.makeText(this.getContext(), R.string.successful_event_update, Toast.LENGTH_SHORT).show();
+                        goToProfile(v);
+                    }
+                    else{
+                        txtError.setText(R.string.internal_app_error);
+                        btnPost.setEnabled(true);
+                    }
+                });
+            }
+            else{
+                EventModel.getInstance().createEvent(event, ((success, errorMessage) -> {
+                    if (success){
+                        Toast.makeText(this.getContext(), R.string.successful_event_creation, Toast.LENGTH_SHORT).show();
+                        goToProfile(v);
+                    }
+                    else{
+                        txtError.setText(R.string.internal_app_error);
+                        btnPost.setEnabled(true);
+                    }
+                }));
+            }
         });
 
 
