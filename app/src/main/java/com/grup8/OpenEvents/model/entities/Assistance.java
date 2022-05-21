@@ -1,5 +1,7 @@
 package com.grup8.OpenEvents.model.entities;
 
+import androidx.annotation.NonNull;
+
 import com.grup8.OpenEvents.model.UserModel;
 
 import java.io.Serializable;
@@ -51,5 +53,16 @@ public class Assistance implements Serializable {
 
     protected void setAssistant(User assistant){
         this.assistant = assistant;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Assistance{" +
+                "eventId=" + eventId +
+                ", assistant=" + assistant +
+                ", punctuation=" + punctuation +
+                ", commentary='" + commentary + '\'' +
+                '}';
     }
 }
