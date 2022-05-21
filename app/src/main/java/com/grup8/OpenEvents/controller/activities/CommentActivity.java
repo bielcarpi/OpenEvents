@@ -41,8 +41,13 @@ public class CommentActivity extends AppCompatActivity {
 
         Assistance[] assistances = (Assistance[]) getIntent().getSerializableExtra("assistances");
         Event event = (Event) getIntent().getSerializableExtra("event");
-        commentsList = new ArrayList<>(Arrays.asList(assistances));
-        commentsList.removeIf(a -> a.getCommentary() == null && a.getPunctuation() == -1);
+        if(assistances != null){
+            commentsList = new ArrayList<>(Arrays.asList(assistances));
+            commentsList.removeIf(a -> a.getCommentary() == null && a.getPunctuation() == -1);
+        }
+        else{
+            commentsList = new ArrayList<>();
+        }
 
         EditText etComment = findViewById(R.id.comment_write_comment);
         EditText etScore = findViewById(R.id.comment_write_score);
@@ -62,10 +67,12 @@ public class CommentActivity extends AppCompatActivity {
 
         //Check if the user is a participant too, and thus, it can comment
         boolean userIsAssistant = false;
-        for(Assistance a: assistances){
-            if (a.getAssistant().getId() == UserModel.getInstance().getLoggedInUser().getId()) {
-                userIsAssistant = true;
-                break;
+        if(assistances != null){
+            for(Assistance a: assistances){
+                if (a.getAssistant().getId() == UserModel.getInstance().getLoggedInUser().getId()) {
+                    userIsAssistant = true;
+                    break;
+                }
             }
         }
         if(userIsAssistant){
@@ -111,8 +118,6 @@ public class CommentActivity extends AppCompatActivity {
                 });
             });
         }
-
-
 
         updateUI(commentsList);
     }
