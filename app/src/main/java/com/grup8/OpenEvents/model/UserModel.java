@@ -51,6 +51,8 @@ public class UserModel {
         if(loggedInUserString != null) loggedInUser = new Gson().fromJson(loggedInUserString, User.class);
 
         ApiCommunicator.setToken(token);
+        System.out.println();
+        System.out.println(token);
     }
 
 
